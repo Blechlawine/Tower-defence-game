@@ -6,6 +6,7 @@ public class Tile {
 
     private int xPos, yPos;
     private int size;
+    private int textureIndex;
     private TileType type;
 
     private float[] color;
@@ -35,8 +36,13 @@ public class Tile {
         }
     }
 
+    public void setTextureIndex(int index) {
+        this.textureIndex = index;
+    }
+
     public void render() {
-        GLUtils.drawRect(this.xPos, this.yPos, this.size, this.size, this.color);
+        if (this.textureIndex != 0)
+            GLUtils.drawRect(this.xPos, this.yPos, this.size, this.size, this.color);
     }
 
     public enum TileType {

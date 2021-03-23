@@ -1,6 +1,7 @@
 package de.marc.towerDefenceGame;
 
-import de.marc.towerDefenceGame.mapstuff.Map;
+import de.marc.towerDefenceGame.mapstuff.Level;
+import de.marc.towerDefenceGame.utils.FileUtils;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -13,7 +14,7 @@ public class TowerDefenceGame {
     private int windowWidth = 800;
     private int windowHeight = 600;
 
-    private Map testMap;
+    private Level testLevel;
 
     private void start() {
         init();
@@ -43,7 +44,7 @@ public class TowerDefenceGame {
         glOrtho(0, this.windowWidth, this.windowHeight,0, 1, -1);
         glMatrixMode(GL_MODELVIEW);
 
-        this.testMap = new Map();
+        this.testLevel = Level.generateLevelFromJsonFile("assets/Testmap.json");
     }
 
     private void loop() {
@@ -52,7 +53,7 @@ public class TowerDefenceGame {
             glClear(GL_COLOR_BUFFER_BIT);
 
             // Rendern hier
-            this.testMap.render();
+            this.testLevel.render();
 
             glfwSwapBuffers(window);
             glfwPollEvents();
