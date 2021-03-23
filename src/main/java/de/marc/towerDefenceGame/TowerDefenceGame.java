@@ -1,18 +1,24 @@
 package de.marc.towerDefenceGame;
 
+import de.marc.towerDefenceGame.mapstuff.Map;
 import org.lwjgl.opengl.GL;
-import static org.lwjgl.opengl.GL11.*;
+
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL20.*;
 
 
 public class TowerDefenceGame {
 
     private long window;
+    private int windowWidth = 800;
+    private int windowHeight = 600;
+
+    private Map testMap;
 
     private void start() {
         init();
         loop();
-        glfwDestroyWindow(window);
+        glfwDestroyWindow(this.window);
         glfwTerminate();
         glfwSetErrorCallback(null);
     }
@@ -24,19 +30,30 @@ public class TowerDefenceGame {
 
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 
-        window = glfwCreateWindow(300, 300, "test", 0, 0);
-        if(window == 0) {
+        this.window = glfwCreateWindow(this.windowWidth, this.windowHeight, "test", 0, 0);
+        if(this.window == 0) {
             throw new RuntimeException("Failed to create GLFW Window");
         }
 
-        glfwMakeContextCurrent(window);
+        glfwMakeContextCurrent(this.window);
+        GL.createCapabilities();
+
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, this.windowWidth, this.windowHeight,0, 1, -1);
+        glMatrixMode(GL_MODELVIEW);
+
+        this.testMap = new Map();
     }
 
     private void loop() {
-        GL.createCapabilities();
         glClearColor(0, 0, 0, 0);
         while (!glfwWindowShouldClose(window)) {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            glClear(GL_COLOR_BUFFER_BIT);
+
+            // Rendern hier
+            this.testMap.render();
+
             glfwSwapBuffers(window);
             glfwPollEvents();
         }
