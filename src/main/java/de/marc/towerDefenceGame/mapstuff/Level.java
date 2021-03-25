@@ -1,5 +1,6 @@
 package de.marc.towerDefenceGame.mapstuff;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -16,9 +17,11 @@ public class Level {
     }
 
     public void render() {
+        TowerDefenceGame.theGame.getTextureHandler().bindTexture();
         for (Chunk chunk : this.chunks) {
             chunk.render();
         }
+        TowerDefenceGame.theGame.getTextureHandler().unbindTexture();
     }
 
     public static Level generateLevelFromJsonFile(String fileName) {

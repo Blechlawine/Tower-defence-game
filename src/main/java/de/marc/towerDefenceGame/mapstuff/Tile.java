@@ -1,5 +1,6 @@
 package de.marc.towerDefenceGame.mapstuff;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.GLUtils;
 
 public class Tile {
@@ -40,9 +41,24 @@ public class Tile {
         this.textureIndex = index;
     }
 
+    public double[] getUVforTextureIndex() {
+        int rowLength = TowerDefenceGame.theGame.getTextureHandler().getTileSetRowLength();
+        double[] uvTileSize = TowerDefenceGame.theGame.getTextureHandler().getTileUVSize();
+        double u = (this.textureIndex % rowLength - 1) * uvTileSize[0];
+        double v = (this.textureIndex / rowLength) * uvTileSize[1];
+//        TowerDefenceGame.theGame.getLogger().info("TextureIndex: " + this.textureIndex + ", u: " + u + ", v: " + v + ", Rowlength: " + rowLength);
+        return new double[] { u, v };
+    }
+
     public void render() {
-        if (this.textureIndex != 0)
-            GLUtils.drawRect(this.xPos, this.yPos, this.size, this.size, this.color);
+        if (this.textureIndex != 0) {
+            double[] uv = this.getUVforTextureIndex();
+            double[] uvTileSize = TowerDefenceGame.theGame.getTextureHandler().getTileUVSize();
+//            TowerDefenceGame.theGame.getLogger().debug(this.xPos, this.yPos, this.size, uv[0], uv[1], uvTileSize[0], uvTileSize[1]);
+            GLUtils.drawTexturedRect(this.xPos, this.yPos, this.size, this.size, uv[0], uv[1], uvTileSize[0], uvTileSize[1]);
+        }
+//            GLUtils.drawRect(this.xPos, this.yPos, this.size, this.size, this.color);
+
     }
 
     public enum TileType {

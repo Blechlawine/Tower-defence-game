@@ -1,12 +1,11 @@
 package de.marc.towerDefenceGame.utils;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import org.lwjgl.BufferUtils;
 
-import org.lwjgl.opengl.GL;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL20.*;
 
-import java.awt.*;
 import java.nio.DoubleBuffer;
 
 public class GLUtils {
@@ -22,12 +21,41 @@ public class GLUtils {
         glPushMatrix();
         glColor3f(color[0], color[1], color[2]);
         glBegin(GL_QUADS);
-        glLineWidth(10F);
+//        glLineWidth(10F);
         glVertex2d(left, top);
         glVertex2d(left + width, top);
         glVertex2d(left + width, top + height);
         glVertex2d(left, top + height);
         glEnd();
+        glPopMatrix();
+    }
+
+    public static void drawTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight) {
+//        int[] textureSize = TowerDefenceGame.theGame.getTextureHandler().getTileTextureSize();
+        glPushMatrix();
+        glEnable(GL_TEXTURE_2D);
+        TowerDefenceGame.theGame.getTextureHandler().bindTexture();
+        glBegin(GL_QUADS);
+
+        glTexCoord2d(u, v);
+        glVertex2d(left, top);
+
+        glTexCoord2d(u + uvWidth, v);
+        glVertex2d(left + width, top);
+
+        glTexCoord2d(u + uvWidth, v + uvHeight);
+        glVertex2d(left + width, top + height);
+
+        glTexCoord2d(u, v + uvHeight);
+        glVertex2d(left, top + height);
+
+//        Das nochmal?
+//        glTexCoord2d(u, v);
+//        glVertex2d(left, top);
+
+        glEnd();
+
+        TowerDefenceGame.theGame.getTextureHandler().unbindTexture();
         glPopMatrix();
     }
 

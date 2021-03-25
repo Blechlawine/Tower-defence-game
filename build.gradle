@@ -30,4 +30,5 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-opengl:$lwjglVersion:$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb:$lwjglVersion:$lwjglNatives"
     implementation "org.json:json:20210307"
+    implementation group: 'org.l33tlabs.twl', name: 'pngdecoder', version: '1.0'
 }
