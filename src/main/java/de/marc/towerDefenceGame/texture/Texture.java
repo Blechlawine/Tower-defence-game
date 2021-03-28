@@ -1,4 +1,4 @@
-package de.marc.towerDefenceGame.texturestuff;
+package de.marc.towerDefenceGame.texture;
 
 public class Texture {
 

@@ -1,6 +1,4 @@
-package de.marc.towerDefenceGame.mapstuff.pathstuff;
-
-import de.marc.towerDefenceGame.mapstuff.pathstuff.PathNode;
+package de.marc.towerDefenceGame.level.path;
 
 public class Path {
 

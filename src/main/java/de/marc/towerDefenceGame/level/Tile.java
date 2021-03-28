@@ -1,9 +1,10 @@
-package de.marc.towerDefenceGame.mapstuff;
+package de.marc.towerDefenceGame.level;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.GLUtils;
+import de.marc.towerDefenceGame.utils.Renderable;
 
-public class Tile {
+public class Tile implements Renderable {
 
     private int xPos, yPos;
     private int size;
@@ -57,8 +58,6 @@ public class Tile {
 //            TowerDefenceGame.theGame.getLogger().debug(this.xPos, this.yPos, this.size, uv[0], uv[1], uvTileSize[0], uvTileSize[1]);
             GLUtils.drawTexturedRect(this.xPos, this.yPos, this.size, this.size, uv[0], uv[1], uvTileSize[0], uvTileSize[1]);
         }
-//            GLUtils.drawRect(this.xPos, this.yPos, this.size, this.size, this.color);
-
     }
 
     public enum TileType {

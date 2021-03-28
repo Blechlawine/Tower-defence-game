@@ -1,4 +1,4 @@
-package de.marc.towerDefenceGame.texturestuff;
+package de.marc.towerDefenceGame.texture;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.FileUtils;

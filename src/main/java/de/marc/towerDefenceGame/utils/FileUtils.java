@@ -1,24 +1,19 @@
 package de.marc.towerDefenceGame.utils;
 
-import de.marc.towerDefenceGame.texturestuff.Texture;
+import de.marc.towerDefenceGame.texture.Texture;
 import de.matthiasmann.twl.utils.PNGDecoder;
-import jdk.nashorn.internal.parser.JSONParser;
 import org.json.JSONObject;
-import org.json.JSONPointer;
-import org.json.JSONString;
 import org.json.JSONTokener;
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import javax.xml.crypto.dsig.XMLObject;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 
 public class FileUtils {
 

@@ -2,7 +2,6 @@ package de.marc.towerDefenceGame.utils;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Logger {
@@ -28,6 +27,6 @@ public class Logger {
             messages.add(String.valueOf(prop));
         }
         String message = String.join(", ", messages);
-        this.info(message.toString());
+        this.info(message);
     }
 }

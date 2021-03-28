@@ -1,13 +1,14 @@
 package de.marc.towerDefenceGame;
 
 import de.marc.towerDefenceGame.event.EventManager;
-import de.marc.towerDefenceGame.event.events.KeyEvent;
-import de.marc.towerDefenceGame.mapstuff.Level;
-import de.marc.towerDefenceGame.utils.FileUtils;
+import de.marc.towerDefenceGame.event.events.*;
+import de.marc.towerDefenceGame.level.Level;
+import de.marc.towerDefenceGame.player.Player;
+import de.marc.towerDefenceGame.render.RenderLayer;
+import de.marc.towerDefenceGame.render.Renderer;
 import de.marc.towerDefenceGame.utils.Logger;
-import de.marc.towerDefenceGame.texturestuff.TileTextureHandler;
+import de.marc.towerDefenceGame.texture.TileTextureHandler;
 import org.lwjgl.opengl.GL;
-import org.w3c.dom.Element;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL20.*;
@@ -23,9 +24,11 @@ public class TowerDefenceGame {
     private int windowHeight = 600;
 
     private Level testLevel;
+    private Player thePlayer;
 
     private EventManager eventManager;
     private TileTextureHandler tileTextureHandler;
+    private Renderer renderer;
 
     private Logger logger;
 
@@ -48,11 +51,28 @@ public class TowerDefenceGame {
         this.initializeWindow();
 
         this.tileTextureHandler = new TileTextureHandler();
+        this.renderer = new Renderer();
         this.eventManager = new EventManager();
         this.eventManager.setup();
 
+
+        this.thePlayer = new Player();
+        this.renderer.addLayer(new RenderLayer("level", this.thePlayer), this.renderer.top);
+
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            this.eventManager.hook(new KeyEvent(key, action));
+            this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action));
+        });
+
+        glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
+            this.eventManager.hook(new MouseButtonEvent(button, action));
+        });
+
+        glfwSetScrollCallback(window, (window, xOffset, yOffset) -> {
+            this.eventManager.hook(new MouseScrollEvent(xOffset, yOffset));
+        });
+
+        glfwSetCursorPosCallback(window, (window, xpos, ypos) -> {
+            this.eventManager.hook(new MouseMoveEvent(xpos, ypos));
         });
 
         glfwMakeContextCurrent(this.window);
@@ -60,10 +80,11 @@ public class TowerDefenceGame {
 
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
-        glOrtho(0, this.windowWidth, this.windowHeight,0, 1, -1);
+        glOrtho(0, this.windowWidth, this.windowHeight,0, 1, -1); // l is left offset, t is top offset
         glMatrixMode(GL_MODELVIEW);
 
         this.testLevel = Level.generateLevelFromJsonFile("assets/Test2.json");
+        this.renderer.getLayerByName("level").addElement(this.testLevel);
     }
 
     private void loop() {
@@ -71,8 +92,13 @@ public class TowerDefenceGame {
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT);
 
+            // Update hier
+            long ms = System.nanoTime() / 1000;
+            this.eventManager.hook(new UpdateEvent(ms));
+            UpdateEvent.lastMS = ms;
+
             // Rendern hier
-            this.testLevel.render();
+            this.renderer.renderLayers();
 
             glfwSwapBuffers(window);
             glfwPollEvents();
@@ -98,8 +124,12 @@ public class TowerDefenceGame {
     public TileTextureHandler getTextureHandler() {
         return this.tileTextureHandler;
     }
+    public EventManager getEventManager() {
+        return this.eventManager;
+    }
 
     public static void main(String[] args) {
         new TowerDefenceGame();
     }
+
 }

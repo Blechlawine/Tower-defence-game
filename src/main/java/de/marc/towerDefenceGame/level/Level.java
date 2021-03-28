@@ -1,14 +1,15 @@
-package de.marc.towerDefenceGame.mapstuff;
+package de.marc.towerDefenceGame.level;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.FileUtils;
+import de.marc.towerDefenceGame.utils.Renderable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level {
+public class Level implements Renderable {
 
     private List<Chunk> chunks = new ArrayList<>();
 

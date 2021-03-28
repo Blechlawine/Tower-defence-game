@@ -1,9 +1,11 @@
-package de.marc.towerDefenceGame.mapstuff;
+package de.marc.towerDefenceGame.level;
+
+import de.marc.towerDefenceGame.utils.Renderable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chunk {
+public class Chunk implements Renderable {
 
     private int x, y, width, height;
 
