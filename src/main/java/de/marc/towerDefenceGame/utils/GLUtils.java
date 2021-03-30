@@ -61,7 +61,7 @@ public class GLUtils {
         glTexCoord2d(u, v + uvHeight);
         glVertex2d(left, top + height);
 
-//        Das nochmal?
+//        Das nochmal? - Nein, anscheinend nicht
 //        glTexCoord2d(u, v);
 //        glVertex2d(left, top);
 
