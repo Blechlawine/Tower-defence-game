@@ -31,20 +31,24 @@ public class Level implements Renderable {
         JSONObject layer = layers.getJSONObject(0);
         JSONArray chunks = layer.getJSONArray("chunks");
         Level level = new Level();
-        int tileSize = json.getInt("tilewidth");
+        int tileSizeInPixel = json.getInt("tilewidth");
         for(int i = 0; i < chunks.length(); i++) {
             JSONObject jsonChunk = chunks.getJSONObject(i);
-            int chunkXPos = jsonChunk.getInt("x");
-            int chunkYPos = jsonChunk.getInt("y");
-            int chunkWidth = jsonChunk.getInt("width");
-            int chunkHeight = jsonChunk.getInt("height");
-            Chunk tempChunk = new Chunk(chunkXPos, chunkYPos, chunkWidth, chunkHeight);
+            int chunkXPosInTiles = jsonChunk.getInt("x");
+            int chunkYPosInTiles = jsonChunk.getInt("y");
+            int chunkWidthInTiles = jsonChunk.getInt("width");
+            int chunkHeightInTiles = jsonChunk.getInt("height");
+            double chunkXPosInPixels = chunkXPosInTiles * tileSizeInPixel;
+            double chunkYPosInPixels = chunkYPosInTiles * tileSizeInPixel;
+            double chunkWidthInPixels = chunkWidthInTiles * tileSizeInPixel;
+            double chunkHeightInPixels = chunkHeightInTiles * tileSizeInPixel;
+            Chunk tempChunk = new Chunk(chunkXPosInPixels, chunkYPosInPixels, chunkWidthInPixels, chunkHeightInPixels, chunkWidthInTiles, chunkHeightInTiles);
             JSONArray chunkData = jsonChunk.getJSONArray("data");
             List<Tile> chunkTiles = new ArrayList<Tile>();
             for(int d = 0; d < chunkData.length(); d++) {
-                int tileXPos = chunkXPos + (d % chunkWidth) * tileSize;
-                int tileYPos = chunkYPos + (d / chunkWidth) * tileSize;
-                Tile tile = new Tile(tileXPos, tileYPos, tileSize, Tile.TileType.PLATFORM, chunkData.getInt(d));
+                double tileXPos = chunkXPosInTiles * tileSizeInPixel + (d % chunkWidthInTiles) * tileSizeInPixel;
+                double tileYPos = chunkYPosInTiles * tileSizeInPixel + (d / chunkWidthInTiles) * tileSizeInPixel;
+                Tile tile = new Tile(tileXPos, tileYPos, tileSizeInPixel, chunkData.getInt(d));
 //                tile.setTextureIndex(chunkData.getInt(d));
                 chunkTiles.add(tile);
             }

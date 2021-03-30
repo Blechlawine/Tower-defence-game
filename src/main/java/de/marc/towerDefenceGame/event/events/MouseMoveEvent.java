@@ -1,10 +1,12 @@
 package de.marc.towerDefenceGame.event.events;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
+import de.marc.towerDefenceGame.utils.Vector2;
 
 public class MouseMoveEvent extends Event {
 
-    private static double absoluteX = 0, absoluteY = 0;
+    private static double absoluteX = 0, absoluteY = 0, mapPosX, mapPosY;
     private final double prevX, prevY;
     private final double dX, dY;
 
@@ -15,6 +17,11 @@ public class MouseMoveEvent extends Event {
         absoluteY = y;
         this.dX = absoluteX - this.prevX;
         this.dY = absoluteY - this.prevY;
+        Vector2 camPos = TowerDefenceGame.theGame.getRenderer().getLayerByName("level").getCameraPos();
+        Vector2 camOrigin = TowerDefenceGame.theGame.getRenderer().getLayerByName("level").getCameraOrigin();
+        double camScale = TowerDefenceGame.theGame.getRenderer().getLayerByName("level").getCameraScale();
+        mapPosX = (absoluteX - camOrigin.getX()) / camScale - camPos.getX();
+        mapPosY = (absoluteY - camOrigin.getY()) / camScale - camPos.getY();
     }
 
     /***
@@ -49,4 +56,12 @@ public class MouseMoveEvent extends Event {
         return absoluteX;
     }
 
+
+    public static double getMapPosX() {
+        return mapPosX;
+    }
+
+    public static double getMapPosY() {
+        return mapPosY;
+    }
 }

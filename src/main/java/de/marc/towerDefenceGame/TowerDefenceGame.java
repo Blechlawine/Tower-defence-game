@@ -130,6 +130,9 @@ public class TowerDefenceGame {
     public EventManager getEventManager() {
         return this.eventManager;
     }
+    public Renderer getRenderer() {
+        return this.renderer;
+    }
 
     public double[] getWindowSize() {
         return new double[] { this.windowWidth, this.windowHeight };

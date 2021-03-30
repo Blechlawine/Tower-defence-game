@@ -1,6 +1,7 @@
 package de.marc.towerDefenceGame.render;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
 import de.marc.towerDefenceGame.utils.Vector2;
@@ -45,4 +46,20 @@ public class RenderLayer {
         this.elements.add(go);
     }
 
+    public Vector2 getCameraPos() {
+        return this.camera.getPos();
+    }
+    public Vector2 getCameraOrigin() {
+        return this.camera.getOrigin();
+    }
+
+    public double getCameraScale() {
+        return this.camera.scale;
+    }
+
+    public Vector2 getCursorPosRelativeToLayer() {
+        return new Vector2(
+                (MouseMoveEvent.getAbsoluteX() - this.getCameraOrigin().getX()) / this.getCameraScale() - this.getCameraPos().getX(),
+                (MouseMoveEvent.getAbsoluteY() - this.getCameraOrigin().getY()) / this.getCameraScale() - this.getCameraPos().getY());
+    }
 }

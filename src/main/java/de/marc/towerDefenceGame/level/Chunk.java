@@ -9,18 +9,22 @@ import java.util.List;
 
 public class Chunk implements Renderable {
 
-    private double xPos, yPos, width, height;
+    private double xPosPixel, yPosPixel, widthPixel, heightPixel;
+    private int widthTiles, heightTiles;
     private double[] uvTileSize;
 
     private List<Tile> tiles = new ArrayList<>();
 
-    public Chunk(int xPos, int yPos, int width, int height) {
+    public Chunk(double xPosPixel, double yPosPixel, double widthPixel, double heightPixel, int widthTiles, int heightTiles) {
         this.uvTileSize = TowerDefenceGame.theGame.getTextureHandler().getTileUVSize();
-        this.width = width - (width * this.uvTileSize[0]);
-        this.height = height - (height * this.uvTileSize[1]);
-        this.xPos = xPos * this.width;
-        this.yPos = yPos * this.height;
-//        TowerDefenceGame.theGame.getLogger().debug(this.xPos, this.yPos);
+        this.widthPixel = widthPixel;
+        this.heightPixel = heightPixel;
+        this.widthTiles = widthTiles;
+        this.heightTiles = heightTiles;
+        this.xPosPixel = xPosPixel;
+        this.yPosPixel = yPosPixel;
+
+//        TowerDefenceGame.theGame.getLogger().debug(this.xPosPixel, this.yPosPixel);
     }
 
     public void setTiles(List<Tile> tilesIn) {
@@ -29,7 +33,7 @@ public class Chunk implements Renderable {
 
     public void render() {
         GL11.glPushMatrix();
-        GL11.glTranslated(this.xPos, this.yPos, 0);
+//        GL11.glTranslated(this.xPosPixel, this.yPosPixel, 0);
         for (Tile tile : this.tiles) {
             tile.render();
         }
