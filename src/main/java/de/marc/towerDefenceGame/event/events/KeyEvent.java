@@ -69,7 +69,8 @@ public class KeyEvent extends Event {
         Z(GLFW.GLFW_KEY_Z),
         L_SHIFT(GLFW.GLFW_KEY_LEFT_SHIFT),
         L_CTRL(GLFW.GLFW_KEY_LEFT_CONTROL),
-        SPACE(GLFW.GLFW_KEY_SPACE);
+        SPACE(GLFW.GLFW_KEY_SPACE),
+        NONE(9999);
 
 
         private final int glfwKey;
@@ -88,7 +89,7 @@ public class KeyEvent extends Event {
                 if (key.glfwKey == glfwKey)
                     return key;
             }
-            return null;
+            return NONE;
         }
     }
 

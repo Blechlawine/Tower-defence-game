@@ -7,17 +7,19 @@ import de.marc.towerDefenceGame.utils.Renderable;
 public class Tile implements Renderable {
 
     private int xPos, yPos;
+    private double[] uv, uvTileSize;
     private int size;
     private int textureIndex;
     private TileType type;
 
     private float[] color;
 
-    public Tile(int xPos, int yPos, int size, TileType type) {
+    public Tile(int xPos, int yPos, int size, TileType type, int textureIndex) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.size = size;
         this.type = type;
+        this.textureIndex = textureIndex;
 
         switch(this.type) {
             case END:
@@ -36,10 +38,10 @@ public class Tile implements Renderable {
                 this.color = new float[] { 1f, 1f, 1f };
                 break;
         }
-    }
+        if(this.textureIndex != 0)
+            this.uv = this.getUVforTextureIndex();
 
-    public void setTextureIndex(int index) {
-        this.textureIndex = index;
+        this.uvTileSize = TowerDefenceGame.theGame.getTextureHandler().getTileUVSize();
     }
 
     public double[] getUVforTextureIndex() {
@@ -53,10 +55,9 @@ public class Tile implements Renderable {
 
     public void render() {
         if (this.textureIndex != 0) {
-            double[] uv = this.getUVforTextureIndex();
-            double[] uvTileSize = TowerDefenceGame.theGame.getTextureHandler().getTileUVSize();
+//            double[] uv = this.getUVforTextureIndex();
 //            TowerDefenceGame.theGame.getLogger().debug(this.xPos, this.yPos, this.size, uv[0], uv[1], uvTileSize[0], uvTileSize[1]);
-            GLUtils.drawTexturedRect(this.xPos, this.yPos, this.size, this.size, uv[0], uv[1], uvTileSize[0], uvTileSize[1]);
+            GLUtils.drawTexturedRect(this.xPos, this.yPos, this.size, this.size, this.uv[0], this.uv[1], this.uvTileSize[0], this.uvTileSize[1]);
         }
     }
 

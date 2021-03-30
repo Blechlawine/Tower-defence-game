@@ -8,6 +8,7 @@ import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
 import de.marc.towerDefenceGame.utils.Logger;
 import de.marc.towerDefenceGame.texture.TileTextureHandler;
+import de.marc.towerDefenceGame.utils.Vector2;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -76,6 +77,7 @@ public class TowerDefenceGame {
         });
 
         glfwMakeContextCurrent(this.window);
+        glfwSwapInterval(1);
         GL.createCapabilities();
 
         glMatrixMode(GL_PROJECTION);
@@ -83,7 +85,8 @@ public class TowerDefenceGame {
         glOrtho(0, this.windowWidth, this.windowHeight,0, 1, -1); // l is left offset, t is top offset
         glMatrixMode(GL_MODELVIEW);
 
-        this.testLevel = Level.generateLevelFromJsonFile("assets/Test2.json");
+        this.testLevel = Level.generateLevelFromJsonFile("assets/TestBig.json");
+        this.getTextureHandler().loadTexture("assets/TilesFuturistic.png");
         this.renderer.getLayerByName("level").addElement(this.testLevel);
     }
 
@@ -126,6 +129,10 @@ public class TowerDefenceGame {
     }
     public EventManager getEventManager() {
         return this.eventManager;
+    }
+
+    public double[] getWindowSize() {
+        return new double[] { this.windowWidth, this.windowHeight };
     }
 
     public static void main(String[] args) {

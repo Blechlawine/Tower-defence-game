@@ -44,8 +44,8 @@ public class Level implements Renderable {
             for(int d = 0; d < chunkData.length(); d++) {
                 int tileXPos = chunkXPos + (d % chunkWidth) * tileSize;
                 int tileYPos = chunkYPos + (d / chunkWidth) * tileSize;
-                Tile tile = new Tile(tileXPos, tileYPos, tileSize, Tile.TileType.PLATFORM);
-                tile.setTextureIndex(chunkData.getInt(d));
+                Tile tile = new Tile(tileXPos, tileYPos, tileSize, Tile.TileType.PLATFORM, chunkData.getInt(d));
+//                tile.setTextureIndex(chunkData.getInt(d));
                 chunkTiles.add(tile);
             }
             tempChunk.setTiles(chunkTiles);

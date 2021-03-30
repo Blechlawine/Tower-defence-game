@@ -30,6 +30,16 @@ public class GLUtils {
         glPopMatrix();
     }
 
+    public static void drawLine(double startX, double startY, double endX, double endY, float[] color) {
+        glPushMatrix();
+        glColor3f(color[0], color[1], color[2]);
+        glBegin(GL_LINE_LOOP);
+        glVertex2d(startX, startY);
+        glVertex2d(endX, endY);
+        glEnd();
+        glPopMatrix();
+    }
+
     public static void drawTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight) {
 //        int[] textureSize = TowerDefenceGame.theGame.getTextureHandler().getTileTextureSize();
         glPushMatrix();

@@ -25,7 +25,6 @@ public class TileTextureHandler {
     }
 
     public void bindTexture() {
-        this.loadTexture("assets/Tiles.png");
         glActiveTexture(GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.texture.getID());
     }
@@ -43,7 +42,7 @@ public class TileTextureHandler {
     }
 
     private void updateTileSizes() {
-        Element rootElement = FileUtils.readXMLFile("assets/Tiles.tsx");
+        Element rootElement = FileUtils.readXMLFile("assets/TilesFuturistic.tsx");
         if (rootElement == null) {
             TowerDefenceGame.theGame.getLogger().err("Couldn't read Tileset xml");
             return;

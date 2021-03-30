@@ -1,6 +1,9 @@
 package de.marc.towerDefenceGame.render;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
+import de.marc.towerDefenceGame.utils.Vector2;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -20,8 +23,18 @@ public class RenderLayer {
     }
 
     public void render() {
+        double[] windowSize = TowerDefenceGame.theGame.getWindowSize();
+        double scale = this.camera.getScale();
+        double xPos = this.camera.getPos().getX();
+        double yPos = this.camera.getPos().getY();
+        double xOrigin = this.camera.getOrigin().getX();
+        double yOrigin = this.camera.getOrigin().getY();
+
         GL11.glPushMatrix();
-        GL11.glTranslated(this.camera.getOffset().getX(), this.camera.getOffset().getY(),0);
+        GL11.glTranslated(xOrigin, yOrigin, 0);
+        GL11.glScaled(scale, scale, 1);
+        GL11.glTranslated(xPos, yPos, 0);
+
         for (Renderable element : this.elements) {
             element.render();
         }

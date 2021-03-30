@@ -13,6 +13,7 @@ public class Player extends Camera implements Listener {
     private double fastSpeed = 10;
     private double normalSpeed = 5;
     private double currentSpeed = this.normalSpeed;
+    private double zoomSpeed = 1.5;
 
     private boolean leftMouseDown = false;
 
@@ -25,7 +26,7 @@ public class Player extends Camera implements Listener {
     public void update(long partialMS) {
         // TODO: zeitdifferenz in betracht ziehen
         this.pos.add(Vector2.duplicate(this.motion).normalize().multiply(this.currentSpeed));
-        this.setOffset(this.pos);
+        this.setCameraPos(this.pos);
     }
 
     public void onEvent(Event event) {
@@ -111,13 +112,19 @@ public class Player extends Camera implements Listener {
             }
         } else if (event instanceof MouseScrollEvent) {
             MouseScrollEvent e = (MouseScrollEvent) event;
-            // TODO: Zoom in / out
-//            TowerDefenceGame.theGame.getLogger().debug("MouseScrollEvent in player", e.getX(), e.getY());
+            if (e.getY() > 0) {
+                // scroll up / zoom in
+                this.multiplyScale(this.zoomSpeed);
+            } else if (e.getY() < 0) {
+                // scroll down / zoom out
+                this.divideScale(this.zoomSpeed);
+            }
+//            TowerDefenceGame.theGame.getLogger().debug(this.scale);
         } else if (event instanceof MouseMoveEvent) {
             MouseMoveEvent e = (MouseMoveEvent) event;
             if (this.leftMouseDown) {
                 // move player with mouse
-                this.pos.add(new Vector2(e.getDX(), e.getDY()));
+                this.pos.add(new Vector2(e.getDX() / this.scale, e.getDY() / this.scale));
             }
         } else if (event instanceof UpdateEvent) {
             UpdateEvent e = (UpdateEvent) event;
