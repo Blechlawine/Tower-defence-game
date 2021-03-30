@@ -6,8 +6,7 @@ import de.marc.towerDefenceGame.utils.Vector2;
 
 public class Camera {
 
-    private Vector2 pos;
-    private Vector2 origin;
+    private Vector2 pos, origin;
     protected double scale = 1;
     protected double maxScale = 7, minScale = 0.5;
 
@@ -48,5 +47,9 @@ public class Camera {
 
     public Vector2 getOrigin() {
         return this.origin;
+    }
+
+    public void setOrigin(Vector2 origin) {
+        this.origin = origin;
     }
 }

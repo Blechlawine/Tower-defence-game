@@ -62,4 +62,8 @@ public class RenderLayer {
                 (MouseMoveEvent.getAbsoluteX() - this.getCameraOrigin().getX()) / this.getCameraScale() - this.getCameraPos().getX(),
                 (MouseMoveEvent.getAbsoluteY() - this.getCameraOrigin().getY()) / this.getCameraScale() - this.getCameraPos().getY());
     }
+
+    public void updateCameraOrigin() {
+        this.camera.setOrigin(new Vector2(TowerDefenceGame.theGame.getWindowSize()[0] / 2, TowerDefenceGame.theGame.getWindowSize()[1] / 2));
+    }
 }

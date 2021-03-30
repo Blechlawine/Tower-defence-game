@@ -9,6 +9,7 @@ import de.marc.towerDefenceGame.render.Renderer;
 import de.marc.towerDefenceGame.utils.Logger;
 import de.marc.towerDefenceGame.texture.TileTextureHandler;
 import de.marc.towerDefenceGame.utils.Vector2;
+import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -76,14 +77,21 @@ public class TowerDefenceGame {
             this.eventManager.hook(new MouseMoveEvent(xpos, ypos));
         });
 
+        glfwSetWindowSizeCallback(window , (window, width, height) -> {
+            this.windowWidth = width;
+            this.windowHeight = height;
+            glViewport(0, 0, this.windowWidth, this.windowHeight);
+            for (RenderLayer layer : this.renderer.getLayers()) {
+                layer.updateCameraOrigin();
+            }
+            this.initGL();
+        });
+
         glfwMakeContextCurrent(this.window);
         glfwSwapInterval(1);
         GL.createCapabilities();
 
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-        glOrtho(0, this.windowWidth, this.windowHeight,0, 1, -1); // l is left offset, t is top offset
-        glMatrixMode(GL_MODELVIEW);
+        this.initGL();
 
         this.testLevel = Level.generateLevelFromJsonFile("assets/TestBig.json");
         this.getTextureHandler().loadTexture("assets/TilesFuturistic.png");
@@ -119,6 +127,13 @@ public class TowerDefenceGame {
         if(this.window == 0) {
             throw new RuntimeException("Failed to create GLFW Window");
         }
+    }
+
+    private void initGL() {
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+        glOrtho(0, this.windowWidth, this.windowHeight,0, 1, -1); // l is left offset, t is top offset
+        glMatrixMode(GL_MODELVIEW);
     }
 
     public Logger getLogger() {

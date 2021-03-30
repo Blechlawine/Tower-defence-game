@@ -33,4 +33,8 @@ public class Renderer {
         }
         return null;
     }
+
+    public List<RenderLayer> getLayers() {
+        return this.layers;
+    }
 }
