@@ -7,6 +7,10 @@ import de.marc.towerDefenceGame.event.events.MouseButtonEvent;
 import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
+import de.marc.towerDefenceGame.utils.Vector2;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static de.marc.towerDefenceGame.utils.KeyAction.DOWN;
 
@@ -17,17 +21,20 @@ public class Tile implements Renderable, Listener {
     private int size;
     private int textureIndex;
     private TileType type;
+    private Chunk chunk;
 
     private boolean selected;
 
-
-    public Tile(double xPos, double yPos, int size, int textureIndex) {
+    public Tile(double xPos, double yPos, int size, int textureIndex, Chunk chunk) {
         TowerDefenceGame.theGame.getEventManager().addListener(this);
 
         this.xPos = xPos;
         this.yPos = yPos;
         this.size = size;
         this.textureIndex = textureIndex;
+        this.chunk = chunk;
+
+        this.type = updateTileType();
 
         if(this.textureIndex != 0)
             this.uv = this.getUVforTextureIndex();
@@ -45,8 +52,22 @@ public class Tile implements Renderable, Listener {
         return new double[] { u, v };
     }
 
-    public static TileType getTileTypeForTextureIndex(int textureIndex) {
-        return null;
+    public TileType updateTileType() {
+        switch (this.textureIndex) {
+            case 0:
+                return TileType.NONE;
+            case 1:
+//                TowerDefenceGame.theGame.getLogger().debug("Start");
+                this.chunk.getParentLevel().startPortalTile = this;
+                return TileType.START;
+            case 2:
+                this.chunk.getParentLevel().endPortalTile = this;
+                return TileType.END;
+            case 3:
+                return TileType.PLATFORM;
+            default:
+                return TileType.PATH;
+        }
     }
 
     public void onEvent(Event event) {
@@ -75,10 +96,30 @@ public class Tile implements Renderable, Listener {
 
     }
 
+    public List<Tile> getNeighbours() {
+        List<Tile> neighbours = new ArrayList<Tile>();
+        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos - this.size, this.yPos));
+        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos, this.yPos - this.size));
+        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos + this.size, this.yPos));
+        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos, this.yPos + this.size));
+        return neighbours;
+    }
 
+    public TileType getTileType() {
+        TowerDefenceGame.theGame.getLogger().debug(this.type);
+        return this.type;
+    }
+
+    public Vector2 getPosVec() {
+        return new Vector2(this.xPos, this.yPos);
+    }
+
+    public Chunk getParentChunk() {
+        return this.chunk;
+    }
 
     public enum TileType {
-        PATH, START, END, PLATFORM;
+        PATH, START, END, PLATFORM, NONE;
     }
 
 }

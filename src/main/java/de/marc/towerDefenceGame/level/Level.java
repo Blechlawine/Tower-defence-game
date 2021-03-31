@@ -1,6 +1,7 @@
 package de.marc.towerDefenceGame.level;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.level.path.Path;
 import de.marc.towerDefenceGame.utils.FileUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
 import org.json.JSONArray;
@@ -12,6 +13,10 @@ import java.util.List;
 public class Level implements Renderable {
 
     private List<Chunk> chunks = new ArrayList<>();
+
+    public Tile startPortalTile, endPortalTile;
+
+    private Path path;
 
     public Level() {
 
@@ -26,6 +31,7 @@ public class Level implements Renderable {
     }
 
     public static Level generateLevelFromJsonFile(String fileName) {
+        TowerDefenceGame.theGame.getLogger().info("Generating Level: " + fileName);
         JSONObject json = FileUtils.readJSONFile(fileName);
         JSONArray layers = json.getJSONArray("layers");
         JSONObject layer = layers.getJSONObject(0);
@@ -42,24 +48,43 @@ public class Level implements Renderable {
             double chunkYPosInPixels = chunkYPosInTiles * tileSizeInPixel;
             double chunkWidthInPixels = chunkWidthInTiles * tileSizeInPixel;
             double chunkHeightInPixels = chunkHeightInTiles * tileSizeInPixel;
-            Chunk tempChunk = new Chunk(chunkXPosInPixels, chunkYPosInPixels, chunkWidthInPixels, chunkHeightInPixels, chunkWidthInTiles, chunkHeightInTiles);
+            Chunk tempChunk = new Chunk(chunkXPosInPixels, chunkYPosInPixels, chunkWidthInPixels, chunkHeightInPixels, chunkWidthInTiles, chunkHeightInTiles, level);
             JSONArray chunkData = jsonChunk.getJSONArray("data");
             List<Tile> chunkTiles = new ArrayList<Tile>();
             for(int d = 0; d < chunkData.length(); d++) {
                 double tileXPos = chunkXPosInTiles * tileSizeInPixel + (d % chunkWidthInTiles) * tileSizeInPixel;
                 double tileYPos = chunkYPosInTiles * tileSizeInPixel + (d / chunkWidthInTiles) * tileSizeInPixel;
-                Tile tile = new Tile(tileXPos, tileYPos, tileSizeInPixel, chunkData.getInt(d));
+                Tile tile = new Tile(tileXPos, tileYPos, tileSizeInPixel, chunkData.getInt(d), tempChunk);
 //                tile.setTextureIndex(chunkData.getInt(d));
                 chunkTiles.add(tile);
             }
             tempChunk.setTiles(chunkTiles);
             level.addChunk(tempChunk);
         }
+        level.setPath(Path.buildPath(level));
+        TowerDefenceGame.theGame.getLogger().info("Finished Level: " + fileName);
         return level;
+    }
+
+    private void setPath(Path path) {
+        this.path = path;
+    }
+
+    public Path getPath() {
+        return this.path;
     }
 
     private void addChunk(Chunk chunk) {
         this.chunks.add(chunk);
+    }
+
+    public Tile getTileFromCoords(double x, double y) {
+        for (Chunk chunk : this.chunks) {
+            if (chunk.contains(x, y)) {
+                return chunk.getTileFromCoords(x, y);
+            }
+        }
+        return null;
     }
 
 }

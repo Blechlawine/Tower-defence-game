@@ -12,10 +12,11 @@ public class Chunk implements Renderable {
     private double xPosPixel, yPosPixel, widthPixel, heightPixel;
     private int widthTiles, heightTiles;
     private double[] uvTileSize;
+    private Level level;
 
     private List<Tile> tiles = new ArrayList<>();
 
-    public Chunk(double xPosPixel, double yPosPixel, double widthPixel, double heightPixel, int widthTiles, int heightTiles) {
+    public Chunk(double xPosPixel, double yPosPixel, double widthPixel, double heightPixel, int widthTiles, int heightTiles, Level level) {
         this.uvTileSize = TowerDefenceGame.theGame.getTextureHandler().getTileUVSize();
         this.widthPixel = widthPixel;
         this.heightPixel = heightPixel;
@@ -23,6 +24,7 @@ public class Chunk implements Renderable {
         this.heightTiles = heightTiles;
         this.xPosPixel = xPosPixel;
         this.yPosPixel = yPosPixel;
+        this.level = level;
 
 //        TowerDefenceGame.theGame.getLogger().debug(this.xPosPixel, this.yPosPixel);
     }
@@ -40,4 +42,18 @@ public class Chunk implements Renderable {
         GL11.glPopMatrix();
     }
 
+    public boolean contains(double x, double y) {
+        return (x < this.xPosPixel + this.widthPixel && x >= this.xPosPixel) && (y < this.yPosPixel + this.heightPixel && y >= this.yPosPixel);
+    }
+
+    public Tile getTileFromCoords(double x, double y) {
+        for (Tile tile : this.tiles) {
+            if (tile.getPosVec().getX() == x && tile.getPosVec().getY() == y) return tile;
+        }
+        return null;
+    }
+
+    public Level getParentLevel() {
+        return this.level;
+    }
 }

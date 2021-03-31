@@ -8,8 +8,6 @@ import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
 import de.marc.towerDefenceGame.utils.Logger;
 import de.marc.towerDefenceGame.texture.TileTextureHandler;
-import de.marc.towerDefenceGame.utils.Vector2;
-import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -25,7 +23,7 @@ public class TowerDefenceGame {
     private int windowWidth = 800;
     private int windowHeight = 600;
 
-    private Level testLevel;
+    public Level currentLevel;
     private Player thePlayer;
 
     private EventManager eventManager;
@@ -93,9 +91,10 @@ public class TowerDefenceGame {
 
         this.initGL();
 
-        this.testLevel = Level.generateLevelFromJsonFile("assets/TestBig.json");
+        this.currentLevel = Level.generateLevelFromJsonFile("assets/TestBig.json");
         this.getTextureHandler().loadTexture("assets/TilesFuturistic.png");
-        this.renderer.getLayerByName("level").addElement(this.testLevel);
+        this.renderer.getLayerByName("level").addElement(this.currentLevel);
+        this.renderer.getLayerByName("level").addElement(this.currentLevel.getPath());
     }
 
     private void loop() {
