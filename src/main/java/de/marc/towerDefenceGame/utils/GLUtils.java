@@ -29,10 +29,42 @@ public class GLUtils {
         glEnd();
         glPopMatrix();
     }
+    public static void drawRectCentered(double x, double y, double width, double height, float[] color) {
+        drawRect(x - width / 2d, y - height / 2d, width, height, color);
+    }
 
-    public static void drawLine(double startX, double startY, double endX, double endY, float[] color) {
+    public static void drawRectOutline(double left, double top, double width, double height, float lineWidth, float[] color) {
         glPushMatrix();
         glColor3f(color[0], color[1], color[2]);
+        glBegin(GL_LINE_LOOP);
+        glLineWidth(lineWidth);
+        glVertex2d(left, top);
+        glVertex2d(left + width, top);
+        glVertex2d(left + width, top + height);
+        glVertex2d(left, top + height);
+        glEnd();
+        glPopMatrix();
+    }
+
+    public static void drawCircleCentered(double middleX, double middleY, double radius, int pointAmount, float[] color) {
+        glPushMatrix();
+        glTranslated(middleX, middleY, 0);
+        glColor3f(color[0], color[1], color[2]);
+        glBegin(GL_TRIANGLE_FAN);
+        for (int i = 0; i < pointAmount; i++) {
+            float angle = (float) (2F * Math.PI / pointAmount * i);
+            double x = radius * Math.cos(angle);
+            double y = radius * Math.sin(angle);
+            glVertex2d(x, y);
+        }
+        glEnd();
+        glPopMatrix();
+    }
+
+    public static void drawLine(double startX, double startY, double endX, double endY, float lineWidth, float[] color) {
+        glPushMatrix();
+        glColor3f(color[0], color[1], color[2]);
+        glLineWidth(lineWidth);
         glBegin(GL_LINE_LOOP);
         glVertex2d(startX, startY);
         glVertex2d(endX, endY);

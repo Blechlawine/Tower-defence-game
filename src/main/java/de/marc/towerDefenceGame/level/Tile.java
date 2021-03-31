@@ -18,19 +18,18 @@ public class Tile implements Renderable, Listener {
 
     private double xPos, yPos;
     private double[] uv, uvTileSize;
-    private int size;
+    public static int size;
     private int textureIndex;
     private TileType type;
     private Chunk chunk;
 
     private boolean selected;
 
-    public Tile(double xPos, double yPos, int size, int textureIndex, Chunk chunk) {
+    public Tile(double xPos, double yPos, int textureIndex, Chunk chunk) {
         TowerDefenceGame.theGame.getEventManager().addListener(this);
 
         this.xPos = xPos;
         this.yPos = yPos;
-        this.size = size;
         this.textureIndex = textureIndex;
         this.chunk = chunk;
 
@@ -75,7 +74,7 @@ public class Tile implements Renderable, Listener {
             MouseButtonEvent e = (MouseButtonEvent) event;
             double clickXPos = MouseMoveEvent.getMapPosX();
             double clickYPos = MouseMoveEvent.getMapPosY();
-            if (clickXPos >= this.xPos && clickXPos < this.xPos + this.size && clickYPos >= this.yPos && clickYPos < this.yPos + this.size) {
+            if (clickXPos >= this.xPos && clickXPos < this.xPos + size && clickYPos >= this.yPos && clickYPos < this.yPos + size) {
                 if (e.getButton() == 0 && e.getAction() == DOWN) {
                     this.selected = !this.selected;
                 }
@@ -87,9 +86,9 @@ public class Tile implements Renderable, Listener {
         if (this.textureIndex != 0) {
 //            double[] uv = this.getUVforTextureIndex();
 //            TowerDefenceGame.theGame.getLogger().debug(this.xPos, this.yPos, this.size, uv[0], uv[1], uvTileSize[0], uvTileSize[1]);
-            GLUtils.drawTexturedRect(this.xPos, this.yPos, this.size, this.size, this.uv[0], this.uv[1], this.uvTileSize[0], this.uvTileSize[1]);
+            GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, this.uv[0], this.uv[1], this.uvTileSize[0], this.uvTileSize[1]);
             if (this.selected) {
-                GLUtils.drawRect(this.xPos, this.yPos, this.size, this.size, new float[] { 1, 1, 1 });
+                GLUtils.drawRect(this.xPos, this.yPos, size, size, new float[] { 1, 1, 1 });
             }
         }
 //        GLUtils.drawLine(0, 0, MouseMoveEvent.getMapPosX(), MouseMoveEvent.getMapPosY(), new float[] { 0.5F, 0.5F, 0.5F });
@@ -98,10 +97,10 @@ public class Tile implements Renderable, Listener {
 
     public List<Tile> getNeighbours() {
         List<Tile> neighbours = new ArrayList<Tile>();
-        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos - this.size, this.yPos));
-        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos, this.yPos - this.size));
-        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos + this.size, this.yPos));
-        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos, this.yPos + this.size));
+        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos - size, this.yPos));
+        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos, this.yPos - size));
+        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos + size, this.yPos));
+        neighbours.add(this.chunk.getParentLevel().getTileFromCoords(this.xPos, this.yPos + size));
         return neighbours;
     }
 

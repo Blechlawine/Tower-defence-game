@@ -2,6 +2,7 @@ package de.marc.towerDefenceGame.level;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.level.path.Path;
+import de.marc.towerDefenceGame.level.path.PathNode;
 import de.marc.towerDefenceGame.utils.FileUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
 import org.json.JSONArray;
@@ -51,10 +52,12 @@ public class Level implements Renderable {
             Chunk tempChunk = new Chunk(chunkXPosInPixels, chunkYPosInPixels, chunkWidthInPixels, chunkHeightInPixels, chunkWidthInTiles, chunkHeightInTiles, level);
             JSONArray chunkData = jsonChunk.getJSONArray("data");
             List<Tile> chunkTiles = new ArrayList<Tile>();
+            Tile.size = tileSizeInPixel;
+            PathNode.size = tileSizeInPixel;
             for(int d = 0; d < chunkData.length(); d++) {
                 double tileXPos = chunkXPosInTiles * tileSizeInPixel + (d % chunkWidthInTiles) * tileSizeInPixel;
                 double tileYPos = chunkYPosInTiles * tileSizeInPixel + (d / chunkWidthInTiles) * tileSizeInPixel;
-                Tile tile = new Tile(tileXPos, tileYPos, tileSizeInPixel, chunkData.getInt(d), tempChunk);
+                Tile tile = new Tile(tileXPos, tileYPos, chunkData.getInt(d), tempChunk);
 //                tile.setTextureIndex(chunkData.getInt(d));
                 chunkTiles.add(tile);
             }

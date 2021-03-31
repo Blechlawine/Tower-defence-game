@@ -1,14 +1,20 @@
 package de.marc.towerDefenceGame.level.path;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
+
 public class PathNode {
 
-    private double xPos, yPos;
+    private double xPos, yPos, middleX, middleY;
+    public static int size;
     public PathNode next;
 
     public PathNode(double xPos, double yPos, PathNode next) {
         this.next = next;
         this.xPos = xPos;
         this.yPos = yPos;
+
+        this.middleX = xPos + size / 2D;
+        this.middleY = yPos + size / 2D;
     }
 
     public double getX() {
@@ -19,4 +25,11 @@ public class PathNode {
         return this.yPos;
     }
 
+    public double getMiddleX() {
+        return this.middleX;
+    }
+
+    public double getMiddleY() {
+        return this.middleY;
+    }
 }

@@ -64,8 +64,9 @@ public class Path implements Renderable {
     public void render() {
         PathNode node = this.start;
         while (node.next != null) {
-            GLUtils.drawRect(node.getX(), node.getY(), 5, 5, new float[] { 1, 1, 1 });
-            GLUtils.drawLine(node.getX(), node.getY(), node.next.getX(), node.next.getY(), new float[] { 1, 1, 1 });
+            GLUtils.drawCircleCentered(node.getMiddleX(), node.getMiddleY(), 2, 20, new float[] { 1, 1, 1 });
+//            GLUtils.drawRectCentered(node.getMiddleX(), node.getMiddleY(), 5, 5, new float[] { 1, 1, 1 });
+            GLUtils.drawLine(node.getMiddleX(), node.getMiddleY(), node.next.getMiddleX(), node.next.getMiddleY(), 2f, new float[] { 1, 1, 1 });
             node = node.next;
         }
     }

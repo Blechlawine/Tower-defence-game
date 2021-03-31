@@ -121,6 +121,9 @@ public class TowerDefenceGame {
         }
 
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+        // Anti-aliasing
+        glfwWindowHint(GLFW_STENCIL_BITS, 4);
+        glfwWindowHint(GLFW_SAMPLES, 4);
 
         this.window = glfwCreateWindow(this.windowWidth, this.windowHeight, this.name, 0, 0);
         if(this.window == 0) {
