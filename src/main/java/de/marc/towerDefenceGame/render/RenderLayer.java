@@ -1,6 +1,7 @@
 package de.marc.towerDefenceGame.render;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.enemy.Enemy;
 import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
@@ -23,7 +24,7 @@ public class RenderLayer {
         this.elements = new ArrayList<Renderable>();
     }
 
-    public void render() {
+    public void render(boolean renderDebugStuff) {
         double[] windowSize = TowerDefenceGame.theGame.getWindowSize();
         double scale = this.camera.getScale();
         double xPos = this.camera.getPos().getX();
@@ -37,7 +38,7 @@ public class RenderLayer {
         GL11.glTranslated(xPos, yPos, 0);
 
         for (Renderable element : this.elements) {
-            element.render();
+            element.render(renderDebugStuff);
         }
         GL11.glPopMatrix();
     }
@@ -65,5 +66,9 @@ public class RenderLayer {
 
     public void updateCameraOrigin() {
         this.camera.setOrigin(new Vector2(TowerDefenceGame.theGame.getWindowSize()[0] / 2, TowerDefenceGame.theGame.getWindowSize()[1] / 2));
+    }
+
+    public void removeElement(Renderable renderable) {
+        this.elements.remove(renderable);
     }
 }

@@ -1,6 +1,7 @@
 package de.marc.towerDefenceGame.level.path;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.enemy.EnemySpawner;
 import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.utils.GLUtils;
@@ -58,16 +59,19 @@ public class Path implements Renderable {
                 }
             }
         }
-        return new Path(currentNode ,level);
+        level.spawner = new EnemySpawner(currentNode.getMiddleX(), currentNode.getMiddleY(), PathNode.size, level);
+        return new Path(currentNode, level);
     }
 
-    public void render() {
-        PathNode node = this.start;
-        while (node.next != null) {
-            GLUtils.drawCircleCentered(node.getMiddleX(), node.getMiddleY(), 2, 20, new float[] { 1, 1, 1 });
-//            GLUtils.drawRectCentered(node.getMiddleX(), node.getMiddleY(), 5, 5, new float[] { 1, 1, 1 });
-            GLUtils.drawLine(node.getMiddleX(), node.getMiddleY(), node.next.getMiddleX(), node.next.getMiddleY(), 2f, new float[] { 1, 1, 1 });
-            node = node.next;
+    public void render(boolean renderDebugStuff) {
+        if (renderDebugStuff) {
+            PathNode node = this.start;
+            while (node.next != null) {
+                GLUtils.drawCircleCentered(node.getMiddleX(), node.getMiddleY(), 2, 20, new float[] { 1, 1, 1 });
+    //            GLUtils.drawRectCentered(node.getMiddleX(), node.getMiddleY(), 5, 5, new float[] { 1, 1, 1 });
+                GLUtils.drawLine(node.getMiddleX(), node.getMiddleY(), node.next.getMiddleX(), node.next.getMiddleY(), 2f, new float[] { 1, 1, 1 });
+                node = node.next;
+            }
         }
     }
 

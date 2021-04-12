@@ -59,6 +59,7 @@ public class GLUtils {
         }
         glEnd();
         glPopMatrix();
+//        Hier bleibts irgendwie farbig?!?!?!?
     }
 
     public static void drawLine(double startX, double startY, double endX, double endY, float lineWidth, float[] color) {
@@ -75,6 +76,7 @@ public class GLUtils {
     public static void drawTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight) {
 //        int[] textureSize = TowerDefenceGame.theGame.getTextureHandler().getTileTextureSize();
         glPushMatrix();
+        glColor3f(1, 1, 1);
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

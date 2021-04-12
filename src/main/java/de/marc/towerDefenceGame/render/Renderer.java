@@ -11,8 +11,14 @@ public class Renderer {
     private final List<RenderLayer> layers;
     public int top;
 
+    public boolean renderDebugStuff;
+
     public Renderer() {
         this.layers = new ArrayList<RenderLayer>();
+    }
+
+    public void addLayer(RenderLayer layer) {
+        this.addLayer(layer, this.top);
     }
 
     public void addLayer(RenderLayer layer, int index) {
@@ -22,7 +28,7 @@ public class Renderer {
 
     public void renderLayers() {
         for (int i = 0; i < this.top; i++) {
-            this.layers.get(i).render();
+            this.layers.get(i).render(this.renderDebugStuff);
         }
     }
 

@@ -57,7 +57,8 @@ public class TowerDefenceGame {
 
 
         this.thePlayer = new Player();
-        this.renderer.addLayer(new RenderLayer("level", this.thePlayer), this.renderer.top);
+        this.renderer.addLayer(new RenderLayer("level", this.thePlayer));
+        this.renderer.addLayer(new RenderLayer("enemies", this.thePlayer));
 
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action));
@@ -102,8 +103,12 @@ public class TowerDefenceGame {
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT);
 
-            // Update hier
             long ms = System.nanoTime() / 1000;
+
+            this.eventManager.hook(new PreUpdateEvent(ms));
+            PreUpdateEvent.lastMS = ms;
+
+            // Update hier
             this.eventManager.hook(new UpdateEvent(ms));
             UpdateEvent.lastMS = ms;
 

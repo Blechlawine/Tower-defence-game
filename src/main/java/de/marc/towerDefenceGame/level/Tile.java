@@ -24,6 +24,7 @@ public class Tile implements Renderable, Listener {
     private Chunk chunk;
 
     private boolean selected;
+    public static Tile selectedTile;
 
     public Tile(double xPos, double yPos, int textureIndex, Chunk chunk) {
         TowerDefenceGame.theGame.getEventManager().addListener(this);
@@ -70,24 +71,24 @@ public class Tile implements Renderable, Listener {
     }
 
     public void onEvent(Event event) {
-        if (event instanceof MouseButtonEvent) {
-            MouseButtonEvent e = (MouseButtonEvent) event;
-            double clickXPos = MouseMoveEvent.getMapPosX();
-            double clickYPos = MouseMoveEvent.getMapPosY();
-            if (clickXPos >= this.xPos && clickXPos < this.xPos + size && clickYPos >= this.yPos && clickYPos < this.yPos + size) {
-                if (e.getButton() == 0 && e.getAction() == DOWN) {
-                    this.selected = !this.selected;
+        if (this.textureIndex != 0) {
+            if (event instanceof MouseButtonEvent) {
+                MouseButtonEvent e = (MouseButtonEvent) event;
+                double clickXPos = MouseMoveEvent.getMapPosX();
+                double clickYPos = MouseMoveEvent.getMapPosY();
+                if (clickXPos >= this.xPos && clickXPos < this.xPos + size && clickYPos >= this.yPos && clickYPos < this.yPos + size) {
+                    if (e.getButton() == 0 && e.getAction() == DOWN) {
+                        selectedTile = this;
+                    }
                 }
             }
         }
     }
 
-    public void render() {
+    public void render(boolean renderDebugStuff) {
         if (this.textureIndex != 0) {
-//            double[] uv = this.getUVforTextureIndex();
-//            TowerDefenceGame.theGame.getLogger().debug(this.xPos, this.yPos, this.size, uv[0], uv[1], uvTileSize[0], uvTileSize[1]);
             GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, this.uv[0], this.uv[1], this.uvTileSize[0], this.uvTileSize[1]);
-            if (this.selected) {
+            if (selectedTile == this) {
                 GLUtils.drawRect(this.xPos, this.yPos, size, size, new float[] { 1, 1, 1 });
             }
         }
@@ -105,7 +106,7 @@ public class Tile implements Renderable, Listener {
     }
 
     public TileType getTileType() {
-        TowerDefenceGame.theGame.getLogger().debug(this.type);
+//        TowerDefenceGame.theGame.getLogger().debug(this.type);
         return this.type;
     }
 

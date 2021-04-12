@@ -1,6 +1,8 @@
 package de.marc.towerDefenceGame.level;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.enemy.Enemy;
+import de.marc.towerDefenceGame.enemy.EnemySpawner;
 import de.marc.towerDefenceGame.level.path.Path;
 import de.marc.towerDefenceGame.level.path.PathNode;
 import de.marc.towerDefenceGame.utils.FileUtils;
@@ -16,17 +18,19 @@ public class Level implements Renderable {
     private List<Chunk> chunks = new ArrayList<>();
 
     public Tile startPortalTile, endPortalTile;
+    public EnemySpawner spawner;
+    private final ArrayList<Enemy> enemies;
 
     private Path path;
 
     public Level() {
-
+        this.enemies = new ArrayList<>();
     }
 
-    public void render() {
+    public void render(boolean renderDebugStuff) {
         TowerDefenceGame.theGame.getTextureHandler().bindTexture();
         for (Chunk chunk : this.chunks) {
-            chunk.render();
+            chunk.render(renderDebugStuff);
         }
         TowerDefenceGame.theGame.getTextureHandler().unbindTexture();
     }
@@ -75,6 +79,10 @@ public class Level implements Renderable {
 
     public Path getPath() {
         return this.path;
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return this.enemies;
     }
 
     private void addChunk(Chunk chunk) {

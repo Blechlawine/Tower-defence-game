@@ -1,7 +1,5 @@
 package de.marc.towerDefenceGame.level.path;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
-
 public class PathNode {
 
     private double xPos, yPos, middleX, middleY;
