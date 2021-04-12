@@ -1,8 +1,10 @@
 package de.marc.towerDefenceGame.event;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.ListManager;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class EventManager extends ListManager<Listener> {
 
@@ -16,7 +18,9 @@ public class EventManager extends ListManager<Listener> {
 
     public void hook(Event event) {
         if (this.content != null) {
-            for (Listener listener : this.content) {
+            // for (Listener listener : this.content) throws ConcurrentModificationException sometimes...
+            for (int i = 0; i < this.content.size(); i++) {
+                Listener listener = this.content.get(i);
                 listener.onEvent(event);
             }
         }
