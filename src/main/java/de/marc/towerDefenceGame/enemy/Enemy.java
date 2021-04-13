@@ -13,7 +13,9 @@ import de.marc.towerDefenceGame.utils.Vector2;
 public abstract class Enemy implements Listener, Renderable {
 
     private Vector2 pos, motion, pathOffset, gotoPos;
-    protected double speed, health, movementAccuracy = 5;
+    protected double speed, health;
+    private double movementAccuracy = 2;
+    protected int reward, score;
     protected Path path;
     private PathNode positionNode;
 
@@ -69,13 +71,22 @@ public abstract class Enemy implements Listener, Renderable {
                     this.positionNode = this.positionNode.next;
                 } else {
                     // Enemy is at the end of the path
-                    this.die();
+                    this.reachGoal();
                 }
             }
         }
     }
 
-    public void die() {
+    public void onDeath() {
+        this.remove();
+    }
+
+    public void reachGoal() {
+        TowerDefenceGame.theGame.getPlayer().removeHealth(this.score);
+        this.remove();
+    }
+
+    public void remove() {
         TowerDefenceGame.theGame.getRenderer().getLayerByName("enemies").removeElement(this);
         TowerDefenceGame.theGame.getEventManager().removeListener(this);
         TowerDefenceGame.theGame.currentLevel.getEnemies().remove(this);

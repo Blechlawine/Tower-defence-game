@@ -7,7 +7,7 @@ import de.marc.towerDefenceGame.player.Player;
 import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
 import de.marc.towerDefenceGame.utils.Logger;
-import de.marc.towerDefenceGame.texture.TileTextureHandler;
+import de.marc.towerDefenceGame.texture.TextureHandler;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -27,7 +27,7 @@ public class TowerDefenceGame {
     private Player thePlayer;
 
     private EventManager eventManager;
-    private TileTextureHandler tileTextureHandler;
+    private TextureHandler textureHandler;
     private Renderer renderer;
 
     private Logger logger;
@@ -50,7 +50,7 @@ public class TowerDefenceGame {
     private void init() {
         this.initializeWindow();
 
-        this.tileTextureHandler = new TileTextureHandler();
+        this.textureHandler = new TextureHandler();
         this.renderer = new Renderer();
         this.eventManager = new EventManager();
         this.eventManager.setup();
@@ -146,14 +146,17 @@ public class TowerDefenceGame {
     public Logger getLogger() {
         return this.logger;
     }
-    public TileTextureHandler getTextureHandler() {
-        return this.tileTextureHandler;
+    public TextureHandler getTextureHandler() {
+        return this.textureHandler;
     }
     public EventManager getEventManager() {
         return this.eventManager;
     }
     public Renderer getRenderer() {
         return this.renderer;
+    }
+    public Player getPlayer() {
+        return this.thePlayer;
     }
 
     public double[] getWindowSize() {

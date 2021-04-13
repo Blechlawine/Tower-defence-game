@@ -10,12 +10,15 @@ import de.marc.towerDefenceGame.utils.Vector2;
 public class Player extends Camera implements Listener {
 
     private final Vector2 pos, motion;
-    private double fastSpeed = 10;
-    private double normalSpeed = 5;
+    private double fastSpeed = 5;
+    private double normalSpeed = 2;
     private double currentSpeed = this.normalSpeed;
     private double zoomSpeed = 1.5;
 
     private boolean leftMouseDown = false;
+
+    private int wallet = 0;
+    private int health = 20;
 
     public Player() {
         TowerDefenceGame.theGame.getEventManager().addListener(this);
@@ -27,6 +30,21 @@ public class Player extends Camera implements Listener {
         // TODO: zeitdifferenz in betracht ziehen
         this.pos.add(Vector2.duplicate(this.motion).normalize().multiply(this.currentSpeed));
         this.setCameraPos(this.pos);
+    }
+
+    public void addMoney(int amount) {
+        this.wallet += amount;
+    }
+
+    public int getHealth() {
+        return this.health;
+    }
+
+    public void removeHealth(int amount) {
+        this.health -= Math.min(amount, this.health);
+        if (this.getHealth() <= 0) {
+            // Spiel zu ende
+        }
     }
 
     public void onEvent(Event event) {

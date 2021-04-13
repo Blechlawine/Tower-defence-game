@@ -9,14 +9,14 @@ import org.w3c.dom.Node;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
-public class TileTextureHandler {
+public class TextureHandler {
 
     private Texture texture;
 
     private double[] uvTileSize;
     private int tilesInTextureAtlasX;
 
-    public TileTextureHandler() {
+    public TextureHandler() {
         this.updateTileSizes();
     }
 
