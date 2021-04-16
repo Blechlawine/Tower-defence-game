@@ -5,6 +5,8 @@ import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.MouseButtonEvent;
 import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
+import de.marc.towerDefenceGame.tower.Tower;
+import de.marc.towerDefenceGame.tower.towers.BasicTower;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
 import de.marc.towerDefenceGame.utils.Vector2;
@@ -17,13 +19,15 @@ import static de.marc.towerDefenceGame.utils.KeyAction.DOWN;
 public class Tile implements Renderable, Listener {
 
     private double xPos, yPos;
+    private Vector2 middle;
     private double[] uv, uvTileSize;
     public static int size;
     private int textureIndex;
     private TileType type;
     private Chunk chunk;
 
-    private boolean selected;
+    private boolean occupied = false;
+    private Tower myTower;
     public static Tile selectedTile;
 
     public Tile(double xPos, double yPos, int textureIndex, Chunk chunk) {
@@ -31,6 +35,7 @@ public class Tile implements Renderable, Listener {
 
         this.xPos = xPos;
         this.yPos = yPos;
+        this.middle = new Vector2(this.xPos + size / 2, this.yPos + size / 2);
         this.textureIndex = textureIndex;
         this.chunk = chunk;
 
@@ -77,15 +82,25 @@ public class Tile implements Renderable, Listener {
                 double clickXPos = MouseMoveEvent.getMapPosX();
                 double clickYPos = MouseMoveEvent.getMapPosY();
                 if (clickXPos >= this.xPos && clickXPos < this.xPos + size && clickYPos >= this.yPos && clickYPos < this.yPos + size) {
-                    if (e.getButton() == 0 && e.getAction() == DOWN) {
-                        selectedTile = this;
+                    if (e.getAction() == DOWN) {
+                        if (e.getButton() == 0) {
+                            if (!this.occupied) {
+                                this.occupied = true;
+                                this.myTower = new BasicTower(this.middle.getX(), this.middle.getY());
+                                TowerDefenceGame.theGame.getTowerManager().buildTower(this.myTower);
+                            }
+                        } else if (e.getButton() == 1) {
+                            TowerDefenceGame.theGame.getTowerManager().destroyTower(this.myTower);
+                            this.occupied = false;
+                        }
+
                     }
                 }
             }
         }
     }
 
-    public void render(boolean renderDebugStuff) {
+    public void render() {
         if (this.textureIndex != 0) {
             GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, this.uv[0], this.uv[1], this.uvTileSize[0], this.uvTileSize[1]);
             if (selectedTile == this) {

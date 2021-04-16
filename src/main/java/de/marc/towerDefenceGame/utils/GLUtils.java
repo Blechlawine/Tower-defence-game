@@ -2,6 +2,7 @@ package de.marc.towerDefenceGame.utils;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL20.*;
@@ -103,6 +104,23 @@ public class GLUtils {
 
         TowerDefenceGame.theGame.getTextureHandler().unbindTexture();
         glPopMatrix();
+    }
+
+    public static void drawTriangle(Vector2 a, Vector2 b, Vector2 c, float[] color) {
+        glPushMatrix();
+        glColor3f(color[0], color[1], color[2]);
+        glBegin(GL_TRIANGLES);
+        glVertex2d(a.getX(), a.getY());
+        glVertex2d(b.getX(), b.getY());
+        glVertex2d(c.getX(), c.getY());
+        glEnd();
+        glPopMatrix();
+    }
+
+    public static void rotateAroundLocation(double angle, Vector2 loc) {
+        glTranslated(loc.getX(), loc.getY(), 0);
+        glRotated(angle, 0, 0, 1);
+        glTranslated(-loc.getX(), -loc.getY(), 0);
     }
 
 }

@@ -33,11 +33,11 @@ public class Chunk implements Renderable {
         this.tiles = tilesIn;
     }
 
-    public void render(boolean renderDebugStuff) {
+    public void render() {
         GL11.glPushMatrix();
 //        GL11.glTranslated(this.xPosPixel, this.yPosPixel, 0);
         for (Tile tile : this.tiles) {
-            tile.render(renderDebugStuff);
+            tile.render();
         }
         GL11.glPopMatrix();
     }

@@ -9,11 +9,11 @@ import java.util.ConcurrentModificationException;
 public class EventManager extends ListManager<Listener> {
 
     public EventManager() {
+        this.content = new ArrayList<Listener>();
 
     }
 
     public void setup() {
-        this.content = new ArrayList<Listener>();
     }
 
     public void hook(Event event) {

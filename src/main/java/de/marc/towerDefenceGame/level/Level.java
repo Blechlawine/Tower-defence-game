@@ -27,10 +27,10 @@ public class Level implements Renderable {
         this.enemies = new ArrayList<>();
     }
 
-    public void render(boolean renderDebugStuff) {
+    public void render() {
         TowerDefenceGame.theGame.getTextureHandler().bindTexture();
         for (Chunk chunk : this.chunks) {
-            chunk.render(renderDebugStuff);
+            chunk.render();
         }
         TowerDefenceGame.theGame.getTextureHandler().unbindTexture();
     }

@@ -6,6 +6,7 @@ import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.player.Player;
 import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
+import de.marc.towerDefenceGame.tower.TowerManager;
 import de.marc.towerDefenceGame.utils.Logger;
 import de.marc.towerDefenceGame.texture.TextureHandler;
 import org.lwjgl.opengl.GL;
@@ -28,9 +29,11 @@ public class TowerDefenceGame {
 
     private EventManager eventManager;
     private TextureHandler textureHandler;
+    private TowerManager towerManager;
     private Renderer renderer;
-
     private Logger logger;
+
+    private boolean renderDebugStuff = false;
 
     public TowerDefenceGame() {
         theGame = this;
@@ -53,12 +56,14 @@ public class TowerDefenceGame {
         this.textureHandler = new TextureHandler();
         this.renderer = new Renderer();
         this.eventManager = new EventManager();
+        this.towerManager = new TowerManager();
         this.eventManager.setup();
 
 
         this.thePlayer = new Player();
         this.renderer.addLayer(new RenderLayer("level", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("enemies", this.thePlayer));
+        this.renderer.addLayer(new RenderLayer("towers", this.thePlayer));
 
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action));
@@ -157,6 +162,16 @@ public class TowerDefenceGame {
     }
     public Player getPlayer() {
         return this.thePlayer;
+    }
+    public TowerManager getTowerManager() {
+        return this.towerManager;
+    }
+
+    public boolean getRenderDebugStuff() {
+        return this.renderDebugStuff;
+    }
+    public void setRenderDebugStuff(boolean renderDebugStuff) {
+        this.renderDebugStuff = renderDebugStuff;
     }
 
     public double[] getWindowSize() {

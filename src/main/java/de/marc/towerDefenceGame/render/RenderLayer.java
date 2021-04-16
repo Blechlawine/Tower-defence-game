@@ -24,7 +24,7 @@ public class RenderLayer {
         this.elements = new ArrayList<Renderable>();
     }
 
-    public void render(boolean renderDebugStuff) {
+    public void render() {
         double[] windowSize = TowerDefenceGame.theGame.getWindowSize();
         double scale = this.camera.getScale();
         double xPos = this.camera.getPos().getX();
@@ -38,7 +38,7 @@ public class RenderLayer {
         GL11.glTranslated(xPos, yPos, 0);
 
         for (Renderable element : this.elements) {
-            element.render(renderDebugStuff);
+            element.render();
         }
         GL11.glPopMatrix();
     }

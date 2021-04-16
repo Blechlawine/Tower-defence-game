@@ -7,6 +7,10 @@ public abstract class ListManager<T> {
 
     protected ArrayList<T> content;
 
+    public ListManager() {
+        this.content = new ArrayList<T>();
+    }
+
     public final ArrayList<T> getContent() {
         return this.content;
     }

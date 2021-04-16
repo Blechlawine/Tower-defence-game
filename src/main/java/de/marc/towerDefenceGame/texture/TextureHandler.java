@@ -54,7 +54,7 @@ public class TextureHandler {
 //        double imageWidth = Double.parseDouble(imageElement.getAttributes().getNamedItem("width").getNodeValue());
 //        double imageHeight = Double.parseDouble(imageElement.getAttributes().getNamedItem("height").getNodeValue());
         // UV-tilesize ist nicht in Pixel, sondern zwischen 0 und 1, 0 ist ganz links/oben, 1 ist ganz rechts/unten
-        this.uvTileSize = new double[] { 1 / tileWidth, 1 / tileHeight };
+        this.uvTileSize = new double[] { 1D / tileWidth, 1D / tileHeight };
         this.tilesInTextureAtlasX = Integer.parseInt(columns);
     }
 }

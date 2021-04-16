@@ -11,15 +11,12 @@ public class BasicEnemy extends Enemy {
     public BasicEnemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path) {
         super(positionNode, pathOffsetX, pathOffsetY, path);
         this.speed = 0.1;
-        this.health = 100;
+        this.maxHealth = 100;
+        this.health = this.maxHealth;
     }
 
-    public void render(boolean renderDebugStuff) {
-        GLUtils.drawCircleCentered(this.getPos().getX(), this.getPos().getY(), 2, 16, new float[] { 1, 1, 0 });
-    }
-
-    public void onEvent(Event event) {
-
-        super.onEvent(event);
+    public void render() {
+        GLUtils.drawCircleCentered(this.getMiddle().getX(), this.getMiddle().getY(), 2, 16, new float[] { 1, 1, 0 });
+        super.render();
     }
 }
