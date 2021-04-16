@@ -32,3 +32,12 @@ dependencies {
     implementation "org.json:json:20210307"
     implementation group: 'org.l33tlabs.twl', name: 'pngdecoder', version: '1.0'
 }
+
+jar {
+    manifest {
+        attributes(
+            'Class-Path': configurations.compile.collect {it.getName() }.join(" "),
+            'Main-Class': 'de.marc.towerDefenceGame.TowerDefenceGame'
+        )
+    }
+}
