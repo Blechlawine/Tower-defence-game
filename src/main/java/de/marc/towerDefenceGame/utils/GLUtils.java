@@ -75,10 +75,10 @@ public class GLUtils {
         glPopMatrix();
     }
 
-    public static void drawTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight, String textureName) {
+    public static void drawTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight, String textureName, float[] colorOverride) {
 //        int[] textureSize = TowerDefenceGame.theGame.getTextureHandler().getTileTextureSize();
         glPushMatrix();
-        glColor3f(1, 1, 1);
+        glColor3f(colorOverride[0], colorOverride[1], colorOverride[2]);
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

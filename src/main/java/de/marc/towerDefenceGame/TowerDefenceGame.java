@@ -2,6 +2,7 @@ package de.marc.towerDefenceGame;
 
 import de.marc.towerDefenceGame.event.EventManager;
 import de.marc.towerDefenceGame.event.events.*;
+import de.marc.towerDefenceGame.gui.FontRenderer;
 import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.player.Player;
 import de.marc.towerDefenceGame.render.RenderLayer;
@@ -33,6 +34,7 @@ public class TowerDefenceGame {
     private TowerManager towerManager;
     private TextureManager textureManager;
     private Renderer renderer;
+    private FontRenderer fontRenderer;
     private Logger logger;
 
     private boolean renderDebugStuff = false;
@@ -60,6 +62,7 @@ public class TowerDefenceGame {
         this.eventManager = new EventManager();
         this.towerManager = new TowerManager();
         this.textureManager = new TextureManager();
+        this.fontRenderer = new FontRenderer();
 
         this.eventManager.setup();
 
@@ -172,6 +175,9 @@ public class TowerDefenceGame {
     }
     public TextureManager getTextureManager() {
         return this.textureManager;
+    }
+    public FontRenderer getFontRenderer() {
+        return this.fontRenderer;
     }
 
     public boolean getRenderDebugStuff() {
