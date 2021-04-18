@@ -9,7 +9,7 @@ import de.marc.towerDefenceGame.utils.Vector2;
 
 public class Player extends Camera implements Listener {
 
-    private final Vector2 pos, motion;
+    private final Vector2 motion;
     private double fastSpeed = 5;
     private double normalSpeed = 2;
     private double currentSpeed = this.normalSpeed;
@@ -21,8 +21,8 @@ public class Player extends Camera implements Listener {
     private int health = 20;
 
     public Player() {
+        super(new Vector2(0D, 0D));
         TowerDefenceGame.theGame.getEventManager().addListener(this);
-        this.pos = new Vector2(0D, 0D);
         this.motion = new Vector2(0D, 0D);
     }
 

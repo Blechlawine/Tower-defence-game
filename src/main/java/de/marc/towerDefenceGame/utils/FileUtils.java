@@ -65,7 +65,7 @@ public class FileUtils {
             GL11.glTexParameteri(GL11.GL_TEXTURE_2D, GL11.GL_TEXTURE_WRAP_T, 33071);
             GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, GL11.GL_RGBA, decoder.getWidth(), decoder.getHeight(), 0, GL11.GL_RGBA, GL11.GL_UNSIGNED_BYTE, buffer);
 
-            return new Texture(id, name);
+            return new Texture(id, name, decoder.getWidth(), decoder.getHeight());
         } catch (IOException e) {
             e.printStackTrace();
         }

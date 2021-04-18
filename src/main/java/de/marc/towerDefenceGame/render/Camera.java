@@ -6,17 +6,19 @@ import de.marc.towerDefenceGame.utils.Vector2;
 
 public class Camera {
 
-    private Vector2 pos, origin;
+    protected Vector2 pos, origin;
     protected double scale = 1;
     protected double maxScale = 7, minScale = 0.5;
 
-    public Camera() {
+    public Camera(Vector2 pos) {
         double[] windowSize = TowerDefenceGame.theGame.getWindowSize();
         this.origin = new Vector2(windowSize[0] / 2, windowSize[1] / 2);
+        this.pos = pos;
     }
 
-    public Camera(Vector2 pos) {
+    public Camera(Vector2 pos, Vector2 origin) {
         this.pos = pos;
+        this.origin = origin;
     }
 
     protected void setScale(double scale) {

@@ -3,14 +3,17 @@ package de.marc.towerDefenceGame;
 import de.marc.towerDefenceGame.event.EventManager;
 import de.marc.towerDefenceGame.event.events.*;
 import de.marc.towerDefenceGame.gui.FontRenderer;
+import de.marc.towerDefenceGame.gui.GuiManager;
 import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.player.Player;
+import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
 import de.marc.towerDefenceGame.texture.TextureManager;
 import de.marc.towerDefenceGame.tower.TowerManager;
 import de.marc.towerDefenceGame.utils.Logger;
 import de.marc.towerDefenceGame.texture.TextureHandler;
+import de.marc.towerDefenceGame.utils.Vector2;
 import org.lwjgl.opengl.GL;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -33,6 +36,7 @@ public class TowerDefenceGame {
     private TextureHandler textureHandler;
     private TowerManager towerManager;
     private TextureManager textureManager;
+    private GuiManager guiManager;
     private Renderer renderer;
     private FontRenderer fontRenderer;
     private Logger logger;
@@ -62,14 +66,17 @@ public class TowerDefenceGame {
         this.eventManager = new EventManager();
         this.towerManager = new TowerManager();
         this.textureManager = new TextureManager();
-        this.fontRenderer = new FontRenderer();
+        this.guiManager = new GuiManager();
 
         this.eventManager.setup();
+        this.guiManager.setup();
+        this.guiManager.setActiveGui(this.guiManager.getGuiFromName("ingame"));
 
         this.thePlayer = new Player();
         this.renderer.addLayer(new RenderLayer("level", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("enemies", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("towers", this.thePlayer));
+        this.renderer.addLayer(new RenderLayer("gui", new Camera(new Vector2(0, 0), new Vector2(0, 0))));
 
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action));
@@ -105,9 +112,11 @@ public class TowerDefenceGame {
 
         this.currentLevel = Level.generateLevelFromJsonFile("assets/TestBig.json");
         this.textureManager.setup();
+        this.fontRenderer = new FontRenderer();
 //        this.getTextureHandler().loadTexture("assets/TilesFuturistic.png");
         this.renderer.getLayerByName("level").addElement(this.currentLevel);
         this.renderer.getLayerByName("level").addElement(this.currentLevel.getPath());
+        this.renderer.getLayerByName("gui").addElement(this.guiManager.getCurrentGui());
     }
 
     private void loop() {

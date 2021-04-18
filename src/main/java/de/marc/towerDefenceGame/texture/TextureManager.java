@@ -29,6 +29,15 @@ public class TextureManager extends ListManager<Texture> {
         }
     }
 
+    public Texture getTextureFromName(String name) {
+        for (Texture temp : this.content) {
+            if (temp.getName().equalsIgnoreCase(name)) {
+                return temp;
+            }
+        }
+        return null;
+    }
+
     public void unbindTexture() {
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
     }
