@@ -1,6 +1,7 @@
 package de.marc.towerDefenceGame.utils;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.texture.Texture;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -74,14 +75,15 @@ public class GLUtils {
         glPopMatrix();
     }
 
-    public static void drawTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight) {
+    public static void drawTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight, String textureName) {
 //        int[] textureSize = TowerDefenceGame.theGame.getTextureHandler().getTileTextureSize();
         glPushMatrix();
         glColor3f(1, 1, 1);
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        TowerDefenceGame.theGame.getTextureHandler().bindTexture();
+//        TowerDefenceGame.theGame.getTextureHandler().bindTexture();
+        TowerDefenceGame.theGame.getTextureManager().bindTexture(textureName);
         glBegin(GL_QUADS);
 
         glTexCoord2d(u, v);
@@ -102,7 +104,7 @@ public class GLUtils {
 
         glEnd();
 
-        TowerDefenceGame.theGame.getTextureHandler().unbindTexture();
+        TowerDefenceGame.theGame.getTextureManager().unbindTexture();
         glPopMatrix();
     }
 

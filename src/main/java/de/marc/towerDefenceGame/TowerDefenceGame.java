@@ -6,6 +6,7 @@ import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.player.Player;
 import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
+import de.marc.towerDefenceGame.texture.TextureManager;
 import de.marc.towerDefenceGame.tower.TowerManager;
 import de.marc.towerDefenceGame.utils.Logger;
 import de.marc.towerDefenceGame.texture.TextureHandler;
@@ -30,6 +31,7 @@ public class TowerDefenceGame {
     private EventManager eventManager;
     private TextureHandler textureHandler;
     private TowerManager towerManager;
+    private TextureManager textureManager;
     private Renderer renderer;
     private Logger logger;
 
@@ -57,8 +59,9 @@ public class TowerDefenceGame {
         this.renderer = new Renderer();
         this.eventManager = new EventManager();
         this.towerManager = new TowerManager();
-        this.eventManager.setup();
+        this.textureManager = new TextureManager();
 
+        this.eventManager.setup();
 
         this.thePlayer = new Player();
         this.renderer.addLayer(new RenderLayer("level", this.thePlayer));
@@ -98,7 +101,8 @@ public class TowerDefenceGame {
         this.initGL();
 
         this.currentLevel = Level.generateLevelFromJsonFile("assets/TestBig.json");
-        this.getTextureHandler().loadTexture("assets/TilesFuturistic.png");
+        this.textureManager.setup();
+//        this.getTextureHandler().loadTexture("assets/TilesFuturistic.png");
         this.renderer.getLayerByName("level").addElement(this.currentLevel);
         this.renderer.getLayerByName("level").addElement(this.currentLevel.getPath());
     }
@@ -165,6 +169,9 @@ public class TowerDefenceGame {
     }
     public TowerManager getTowerManager() {
         return this.towerManager;
+    }
+    public TextureManager getTextureManager() {
+        return this.textureManager;
     }
 
     public boolean getRenderDebugStuff() {

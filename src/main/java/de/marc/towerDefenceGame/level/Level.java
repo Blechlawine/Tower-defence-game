@@ -28,11 +28,11 @@ public class Level implements Renderable {
     }
 
     public void render() {
-        TowerDefenceGame.theGame.getTextureHandler().bindTexture();
+//        TowerDefenceGame.theGame.getTextureHandler().bindTexture();
         for (Chunk chunk : this.chunks) {
             chunk.render();
         }
-        TowerDefenceGame.theGame.getTextureHandler().unbindTexture();
+//        TowerDefenceGame.theGame.getTextureHandler().unbindTexture();
     }
 
     public static Level generateLevelFromJsonFile(String fileName) {

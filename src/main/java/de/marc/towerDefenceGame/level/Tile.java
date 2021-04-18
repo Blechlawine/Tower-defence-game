@@ -102,7 +102,7 @@ public class Tile implements Renderable, Listener {
 
     public void render() {
         if (this.textureIndex != 0) {
-            GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, this.uv[0], this.uv[1], this.uvTileSize[0], this.uvTileSize[1]);
+            GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, this.uv[0], this.uv[1], this.uvTileSize[0], this.uvTileSize[1], "tiles");
             if (selectedTile == this) {
                 GLUtils.drawRect(this.xPos, this.yPos, size, size, new float[] { 1, 1, 1 });
             }

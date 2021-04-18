@@ -11,8 +11,6 @@ import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 public class TextureHandler {
 
-    private Texture texture;
-
     private double[] uvTileSize;
     private int tilesInTextureAtlasX;
 
@@ -24,18 +22,18 @@ public class TextureHandler {
         return this.uvTileSize;
     }
 
-    public void bindTexture() {
-        glActiveTexture(GL_TEXTURE0);
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, this.texture.getID());
-    }
+//    public static void bindTexture(int id) {
+//        glActiveTexture(GL_TEXTURE0);
+//        GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
+//    }
 
-    public void unbindTexture() {
-        GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-    }
+//    public void unbindTexture() {
+//        GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
+//    }
 
-    public void loadTexture(String path) {
-        this.texture = FileUtils.readTexturePNG(path);
-    }
+//    public Texture loadTexture(String path) {
+//        return FileUtils.readTexturePNG(path);
+//    }
 
     public int getTileSetRowLength() {
         return this.tilesInTextureAtlasX;
