@@ -19,7 +19,7 @@ public class Player extends Camera implements Listener {
 
     private int wallet = 0;
     private int health = 20;
-    private int maxHealth = health;
+    private final int maxHealth = health;
 
     public Player() {
         super(new Vector2(0D, 0D));
