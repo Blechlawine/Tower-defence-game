@@ -19,6 +19,7 @@ public class Player extends Camera implements Listener {
 
     private int wallet = 0;
     private int health = 20;
+    private int maxHealth = health;
 
     public Player() {
         super(new Vector2(0D, 0D));
@@ -34,6 +35,10 @@ public class Player extends Camera implements Listener {
 
     public void addMoney(int amount) {
         this.wallet += amount;
+    }
+
+    public int getWallet() {
+        return this.wallet;
     }
 
     public int getHealth() {
@@ -148,5 +153,13 @@ public class Player extends Camera implements Listener {
             UpdateEvent e = (UpdateEvent) event;
             this.update(e.partialMS);
         }
+    }
+
+    public void updateCameraOrigin() {
+        this.setOrigin(new Vector2(TowerDefenceGame.theGame.getWindowSize()[0] / 2, TowerDefenceGame.theGame.getWindowSize()[1] / 2));
+    }
+
+    public int getMaxHealth() {
+        return this.maxHealth;
     }
 }

@@ -67,12 +67,12 @@ public class TowerDefenceGame {
         this.towerManager = new TowerManager();
         this.textureManager = new TextureManager();
         this.guiManager = new GuiManager();
+        this.thePlayer = new Player();
 
         this.eventManager.setup();
         this.guiManager.setup();
         this.guiManager.setActiveGui(this.guiManager.getGuiFromName("ingame"));
 
-        this.thePlayer = new Player();
         this.renderer.addLayer(new RenderLayer("level", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("enemies", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("towers", this.thePlayer));
@@ -98,9 +98,10 @@ public class TowerDefenceGame {
             this.windowWidth = width;
             this.windowHeight = height;
             glViewport(0, 0, this.windowWidth, this.windowHeight);
-            for (RenderLayer layer : this.renderer.getLayers()) {
-                layer.updateCameraOrigin();
-            }
+//            for (RenderLayer layer : this.renderer.getLayers()) {
+//                layer.updateCameraOrigin();
+//            }
+            this.thePlayer.updateCameraOrigin();
             this.initGL();
         });
 
