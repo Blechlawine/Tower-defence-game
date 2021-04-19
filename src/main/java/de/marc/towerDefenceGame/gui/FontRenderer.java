@@ -43,4 +43,13 @@ public class FontRenderer {
         GL11.glPopMatrix();
     }
 
+    public double getRenderedStringWidth(String text, double sizeMultiplier) {
+        int stringlength = text.toCharArray().length;
+        return (stringlength * this.charWidth + (stringlength - 1) * this.charGap) * sizeMultiplier;
+    }
+
+    public int getCharHeight() {
+        return this.charHeight;
+    }
+
 }
