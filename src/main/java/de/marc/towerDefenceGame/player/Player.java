@@ -28,8 +28,7 @@ public class Player extends Camera implements Listener {
     }
 
     public void update(long partialMS) {
-        // TODO: zeitdifferenz in betracht ziehen
-        this.pos.add(Vector2.duplicate(this.motion).normalize().multiply(this.currentSpeed));
+        this.pos.add(Vector2.duplicate(this.motion).normalize().multiply(this.currentSpeed * (partialMS / 10000d)));
         this.setCameraPos(this.pos);
     }
 

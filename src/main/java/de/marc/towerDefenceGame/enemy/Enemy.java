@@ -42,7 +42,7 @@ public abstract class Enemy implements Listener, Renderable {
     }
     
     public void setMotion(double x, double y) {
-        this.motion = new Vector2(x, y).normalize().multiply(this.speed);
+        this.motion = new Vector2(x, y);
     }
 
     public void render() {
@@ -61,7 +61,7 @@ public abstract class Enemy implements Listener, Renderable {
     }
 
     public void update(long partialMS) {
-        this.middle.add(this.motion);
+        this.middle.add(this.motion.normalize().multiply(this.speed * (partialMS / 10000d)));
         this.travelledDistance += this.motion.getLength();
     }
 
