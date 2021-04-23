@@ -53,7 +53,7 @@ public class Vector2 {
     }
 
     public double getAngleRad() {
-//        TODO: reicht das?
+//        TODO: reicht das? Anscheinend, ja
         return Math.atan2(this.y, this.x);
     }
 

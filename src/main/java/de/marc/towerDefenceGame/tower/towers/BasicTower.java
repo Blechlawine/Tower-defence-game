@@ -9,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 public class BasicTower extends Tower {
 
     public BasicTower(double x, double y) {
-        super("Basic tower", x, y, 200D, 2D, 1D, new RandomRange(2, 5), TargetMode.RANDOM);
+        super("Basic tower", x, y, 200D, 2D, Math.toRadians(1), new RandomRange(2, 5), TargetMode.RANDOM);
     }
 
     public void render() {

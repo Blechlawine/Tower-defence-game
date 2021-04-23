@@ -73,7 +73,8 @@ public abstract class Tower implements Listener, Renderable {
         } else if (event instanceof UpdateEvent) {
             UpdateEvent e = (UpdateEvent) event;
             if (this.target != null) {
-                this.lookAtTarget();
+//                this.lookAtTarget();
+                this.lookAtTargetSmooth(e.partialMS);
                 if (this.attackTimer.hasReached((long) (1000 / this.fireRate))) {
                     this.attackTarget();
                     this.attackTimer.reset();
@@ -111,11 +112,33 @@ public abstract class Tower implements Listener, Renderable {
         } else {
             this.target = null;
         }
+        TowerDefenceGame.theGame.getLogger().debug("new Target");
     }
 
     protected void lookAtTarget() {
         this.lookVec = Vector2.duplicate(this.target.getMiddle()).subtract(this.middle).normalize();
         this.angle = lookVec.getAngleRad();
+    }
+
+    protected boolean lookAtTargetSmooth(long partialMS) {
+        Vector2 targetDirection = Vector2.duplicate(this.target.getMiddle()).subtract(this.middle).normalize();
+        Vector2 toTarget = Vector2.duplicate(targetDirection).subtract(this.lookVec);
+        Vector2 turnVec = Vector2.duplicate(toTarget).normalize().multiply(this.turnSpeed * partialMS / 10000d);
+//        TowerDefenceGame.theGame.getLogger().debug(targetDirection);
+        double toTargetDist = toTarget.getLength();
+        double turnDist = turnVec.getLength();
+//        TowerDefenceGame.theGame.getLogger().debug(toTargetDist, turnDist);
+        if(toTargetDist <= turnDist) {
+            this.lookVec = targetDirection;
+        } else {
+            this.lookVec.add(turnVec);
+        }
+        this.angle = this.lookVec.getAngleRad();
+        if (targetDirection.getX() == this.lookVec.getX() && targetDirection.getY() == this.lookVec.getY()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     protected void attackTarget() {
