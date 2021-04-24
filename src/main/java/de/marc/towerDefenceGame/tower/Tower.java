@@ -7,17 +7,14 @@ import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.PreUpdateEvent;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
-import de.marc.towerDefenceGame.utils.RandomRange;
-import de.marc.towerDefenceGame.utils.Renderable;
-import de.marc.towerDefenceGame.utils.Timer;
-import de.marc.towerDefenceGame.utils.Vector2;
+import de.marc.towerDefenceGame.utils.*;
 
 import java.util.TreeSet;
 
 public abstract class Tower implements Listener, Renderable {
 
     protected String name;
-    protected Vector2 middle, lookVec;
+    protected Vector2 middle, lookVec, pos;
 
     protected double range, fireRate, turnSpeed, angle;
     protected RandomRange damage;
@@ -33,6 +30,7 @@ public abstract class Tower implements Listener, Renderable {
         this.range = range;
         this.damage = damage;
         this.middle = new Vector2(middleX, middleY);
+        this.pos = new Vector2(middleX - 8, middleY - 8);
 
         this.fireRate = fireRate;
         this.attackTimer = new Timer();
@@ -83,6 +81,14 @@ public abstract class Tower implements Listener, Renderable {
         }
     }
     public abstract void render();
+
+    protected void drawBaseTexture(String textureId) {
+        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), 16, 16, 0, 0, 1, 1, textureId, new float[] {0.5f, 0.5f, 0.5f});
+    }
+
+    protected void drawTurretTexture(String textureId) {
+        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), 16, 16, 0, 0, 1, 1, textureId, new float[] {1, 1, 1});
+    }
 
     protected void updateTargets() {
         this.possibleTargets = new TreeSet<Enemy>(new EnemyComparator(this.compareMode));

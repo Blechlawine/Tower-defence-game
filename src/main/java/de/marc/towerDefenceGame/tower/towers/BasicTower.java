@@ -13,12 +13,15 @@ public class BasicTower extends Tower {
     }
 
     public void render() {
+
+        this.drawBaseTexture("basicTowerBase");
         GL11.glPushMatrix();
         GLUtils.rotateAroundLocation(Math.toDegrees(this.angle), this.middle);
-        GLUtils.drawTriangle(Vector2.duplicate(this.middle).add(new Vector2(0, 5)),
-                Vector2.duplicate(this.middle).add(new Vector2(0, -5)),
-                Vector2.duplicate(this.middle).add(new Vector2(10, 0)),
-                new float[] { 0, 1, 1 });
+        this.drawTurretTexture("basicTowerTurret");
+//        GLUtils.drawTriangle(Vector2.duplicate(this.middle).add(new Vector2(0, 5)),
+//                Vector2.duplicate(this.middle).add(new Vector2(0, -5)),
+//                Vector2.duplicate(this.middle).add(new Vector2(10, 0)),
+//                new float[] { 0, 1, 1 });
         GL11.glPopMatrix();
     }
 }

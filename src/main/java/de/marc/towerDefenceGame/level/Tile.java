@@ -3,6 +3,7 @@ package de.marc.towerDefenceGame.level;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
+import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.event.events.MouseButtonEvent;
 import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
 import de.marc.towerDefenceGame.tower.Tower;
@@ -40,6 +41,11 @@ public class Tile implements Renderable, Listener {
         this.chunk = chunk;
 
         this.type = updateTileType();
+        if (this.type == TileType.START) {
+            chunk.getParentLevel().startPortalTile = this;
+        } else if (this.type == TileType.END) {
+            chunk.getParentLevel().endPortalTile = this;
+        }
 
         if(this.textureIndex != 0)
             this.uv = this.getUVforTextureIndex();
@@ -58,21 +64,7 @@ public class Tile implements Renderable, Listener {
     }
 
     public TileType updateTileType() {
-        switch (this.textureIndex) {
-            case 0:
-                return TileType.NONE;
-            case 1:
-//                TowerDefenceGame.theGame.getLogger().debug("Start");
-                this.chunk.getParentLevel().startPortalTile = this;
-                return TileType.START;
-            case 2:
-                this.chunk.getParentLevel().endPortalTile = this;
-                return TileType.END;
-            case 3:
-                return TileType.PLATFORM;
-            default:
-                return TileType.PATH;
-        }
+        return TileType.getTileTypeForId(this.textureIndex);
     }
 
     public void onEvent(Event event) {
@@ -102,7 +94,7 @@ public class Tile implements Renderable, Listener {
 
     public void render() {
         if (this.textureIndex != 0) {
-            GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, this.uv[0], this.uv[1], this.uvTileSize[0], this.uvTileSize[1], "tiles", new float[] { 1, 1, 1 });
+            GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, 0, 0, 1, 1, this.type.getTextureId(), new float[] { 1, 1, 1 });
             if (selectedTile == this) {
                 GLUtils.drawRect(this.xPos, this.yPos, size, size, new float[] { 1, 1, 1 });
             }
@@ -134,7 +126,43 @@ public class Tile implements Renderable, Listener {
     }
 
     public enum TileType {
-        PATH, START, END, PLATFORM, NONE;
+        PATHLR("pathleftright", 17),
+        PATHRL("pathrightleft", 33),
+        PATHTB("pathtopbottom", 18),
+        PATHBT("pathbottomtop", 34),
+        PATHLT("pathlefttop", 36),
+        PATHTL("pathtopleft", 20),
+        PATHTR("pathtopright", 37),
+        PATHRT("pathrighttop", 21),
+        PATHRB("pathrightbottom", 38),
+        PATHBR("pathbottomright", 22),
+        PATHBL("pathbottomleft", 35),
+        PATHLB("pathleftbottom", 19),
+        START("startportal", 1),
+        END("endportal", 2),
+        PLATFORM("platform", 3),
+        NONE("", 0);
+
+        private final String textureId;
+        private final int id;
+
+        TileType(String textureId, int id) {
+            this.textureId = textureId;
+            this.id = id;
+        }
+
+        public String getTextureId() {
+            return this.textureId;
+        }
+
+        public static TileType getTileTypeForId(int id) {
+            for (TileType type : values()) {
+                if (type.id == id)
+                    return type;
+            }
+            return NONE;
+        }
+
     }
 
 }

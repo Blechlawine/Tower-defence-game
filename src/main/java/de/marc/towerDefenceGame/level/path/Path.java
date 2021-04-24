@@ -4,8 +4,12 @@ import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.enemy.EnemySpawner;
 import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.level.Tile;
+import de.marc.towerDefenceGame.level.Tile.TileType;
+import static de.marc.towerDefenceGame.level.Tile.TileType.*;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
+
+import java.util.Arrays;
 
 public class Path implements Renderable {
 
@@ -13,6 +17,8 @@ public class Path implements Renderable {
     private int length = 1;
 
     private Level level;
+
+    private static TileType[] validPathTileTypes = { PATHLT, PATHLR, PATHLB, PATHTL, PATHTR, PATHTB, PATHRL, PATHRT, PATHRB, PATHBL, PATHBT, PATHBR, START };
 
     public Path(PathNode start, Level level) {
         this.start = start;
@@ -49,7 +55,7 @@ public class Path implements Renderable {
                     assert currentTile != null;
                     Tile neighbor = currentTile.getNeighbours().get(i);
                     if (neighbor != prevTile && neighbor != null) {
-                        if (neighbor.getTileType() == Tile.TileType.PATH || neighbor.getTileType() == Tile.TileType.START) {
+                        if (Arrays.asList(validPathTileTypes).contains(neighbor.getTileType())) {
                             prevTile = currentTile;
                             prevNode = currentNode;
                             currentTile = neighbor;

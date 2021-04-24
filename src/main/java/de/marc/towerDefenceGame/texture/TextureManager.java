@@ -12,7 +12,29 @@ public class TextureManager extends ListManager<Texture> {
     @Override
     public void setup() {
         this.loadTexture("assets/TilesFuturistic.png", "tiles");
+        // Tiletextures
+        this.loadTexture("assets/textures/tiles/startportal.png", "startPortal");
+        this.loadTexture("assets/textures/tiles/endportal.png", "endPortal");
+
+        this.loadTexture("assets/textures/tiles/platform.png", "platform");
+
+        this.loadTexture("assets/textures/tiles/left-right.png", "pathLeftRight");
+        this.loadTexture("assets/textures/tiles/right-left.png", "pathRightLeft");
+        this.loadTexture("assets/textures/tiles/top-bottom.png", "pathTopBottom");
+        this.loadTexture("assets/textures/tiles/bottom-top.png", "pathBottomTop");
+        this.loadTexture("assets/textures/tiles/left-top.png", "pathLeftTop");
+        this.loadTexture("assets/textures/tiles/top-left.png", "pathTopLeft");
+        this.loadTexture("assets/textures/tiles/top-right.png", "pathTopRight");
+        this.loadTexture("assets/textures/tiles/right-top.png", "pathRightTop");
+        this.loadTexture("assets/textures/tiles/right-bottom.png", "pathRightBottom");
+        this.loadTexture("assets/textures/tiles/bottom-right.png", "pathBottomRight");
+        this.loadTexture("assets/textures/tiles/bottom-left.png", "pathBottomLeft");
+        this.loadTexture("assets/textures/tiles/left-bottom.png", "pathLeftBottom");
+        // Font
         this.loadTexture("assets/font.png", "font");
+        // Towers
+        this.loadTexture("assets/textures/basic_tower/base.png", "basicTowerBase");
+        this.loadTexture("assets/textures/basic_tower/turret.png", "basicTowerTurret");
     }
 
     public void loadTexture(String path, String name) {
