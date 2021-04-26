@@ -15,18 +15,19 @@ import org.lwjgl.opengl.GL11;
 public abstract class Enemy implements Listener, Renderable {
 
     private Vector2 middle, motion, pathOffset, gotoPos;
-    protected double speed, health, maxHealth, travelledDistance = 0;
+    protected double speed, health, maxHealth, size, travelledDistance = 0;
     private double movementAccuracy = 2;
     protected int reward, score;
     protected Path path;
     private PathNode positionNode;
 
-    public Enemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path) {
+    public Enemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path, double size) {
         TowerDefenceGame.theGame.getRenderer().getLayerByName("enemies").addElement(this);
         TowerDefenceGame.theGame.getEventManager().addListener(this);
         this.positionNode = positionNode;
         this.pathOffset = new Vector2(pathOffsetX, pathOffsetY);
         this.path = path;
+        this.size = size;
 
         this.middle = new Vector2(this.positionNode.getMiddleX() + this.pathOffset.getX(), this.positionNode.getMiddleY() + this.pathOffset.getY());
         this.motion = new Vector2(0, 0);
@@ -93,6 +94,10 @@ public abstract class Enemy implements Listener, Renderable {
         }
     }
 
+    public Vector2 predictPosInTime(long partialMS) {
+        return Vector2.duplicate(this.middle).add(this.motion.normalize().multiply(this.speed * (partialMS / 10000d)));
+    }
+
     public void onDeath() {
         TowerDefenceGame.theGame.getPlayer().addMoney(this.reward);
         this.remove();
@@ -101,6 +106,10 @@ public abstract class Enemy implements Listener, Renderable {
     public void reachGoal() {
         TowerDefenceGame.theGame.getPlayer().removeHealth(this.score);
         this.remove();
+    }
+
+    public double getSize() {
+        return this.size;
     }
 
     public void remove() {

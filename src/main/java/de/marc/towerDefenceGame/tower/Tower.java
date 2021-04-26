@@ -7,6 +7,7 @@ import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.PreUpdateEvent;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
+import de.marc.towerDefenceGame.tower.projectile.projectiles.BasicProjectile;
 import de.marc.towerDefenceGame.utils.*;
 
 import java.util.TreeSet;
@@ -68,16 +69,6 @@ public abstract class Tower implements Listener, Renderable {
             PreUpdateEvent e = (PreUpdateEvent) event;
             this.updateTargets();
             this.updateTarget();
-        } else if (event instanceof UpdateEvent) {
-            UpdateEvent e = (UpdateEvent) event;
-            if (this.target != null) {
-//                this.lookAtTarget();
-                this.lookAtTargetSmooth(e.partialMS);
-                if (this.attackTimer.hasReached((long) (1000 / this.fireRate))) {
-                    this.attackTarget();
-                    this.attackTimer.reset();
-                }
-            }
         }
     }
     public abstract void render();
@@ -118,7 +109,7 @@ public abstract class Tower implements Listener, Renderable {
         } else {
             this.target = null;
         }
-        TowerDefenceGame.theGame.getLogger().debug("new Target");
+//        TowerDefenceGame.theGame.getLogger().debug("new Target");
     }
 
     protected void lookAtTarget() {
@@ -126,8 +117,8 @@ public abstract class Tower implements Listener, Renderable {
         this.angle = lookVec.getAngleRad();
     }
 
-    protected boolean lookAtTargetSmooth(long partialMS) {
-        Vector2 targetDirection = Vector2.duplicate(this.target.getMiddle()).subtract(this.middle).normalize();
+    protected boolean lookAt(Vector2 vecToLookAt, long partialMS) {
+        Vector2 targetDirection = Vector2.duplicate(vecToLookAt).subtract(this.middle).normalize();
         Vector2 toTarget = Vector2.duplicate(targetDirection).subtract(this.lookVec);
         Vector2 turnVec = Vector2.duplicate(toTarget).normalize().multiply(this.turnSpeed * partialMS / 10000d);
 //        TowerDefenceGame.theGame.getLogger().debug(targetDirection);

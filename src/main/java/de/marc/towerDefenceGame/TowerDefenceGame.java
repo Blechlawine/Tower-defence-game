@@ -75,6 +75,7 @@ public class TowerDefenceGame {
 
         this.renderer.addLayer(new RenderLayer("level", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("enemies", this.thePlayer));
+        this.renderer.addLayer(new RenderLayer("projectiles", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("towers", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("gui", new Camera(new Vector2(0, 0), new Vector2(0, 0))));
 
