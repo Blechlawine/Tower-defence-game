@@ -57,6 +57,10 @@ public class Vector2 {
         return Math.atan2(this.y, this.x);
     }
 
+    public double getAngleDeg() {
+        return Math.toDegrees(this.getAngleRad());
+    }
+
     public double getLength() {
         return Math.sqrt(this.x * this.x + this.y * this.y);
     }

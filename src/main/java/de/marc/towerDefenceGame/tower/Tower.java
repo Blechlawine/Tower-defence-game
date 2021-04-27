@@ -124,14 +124,17 @@ public abstract class Tower implements Listener, Renderable {
 //        TowerDefenceGame.theGame.getLogger().debug(targetDirection);
         double toTargetDist = toTarget.getLength();
         double turnDist = turnVec.getLength();
-//        TowerDefenceGame.theGame.getLogger().debug(toTargetDist, turnDist);
         if(toTargetDist <= turnDist) {
             this.lookVec = targetDirection;
         } else {
             this.lookVec.add(turnVec);
         }
         this.angle = this.lookVec.getAngleRad();
-        if (targetDirection.getX() == this.lookVec.getX() && targetDirection.getY() == this.lookVec.getY()) {
+        double tempAngleGoal = targetDirection.getAngleDeg();
+        double tempAngle = this.lookVec.getAngleDeg();
+        double angleThreshold = 2;
+//        TowerDefenceGame.theGame.getLogger().debug();
+        if (tempAngle >= tempAngleGoal - angleThreshold && tempAngle <= tempAngleGoal + angleThreshold) {
             return true;
         } else {
             return false;
