@@ -15,6 +15,9 @@ import java.util.TreeSet;
 public abstract class Tower implements Listener, Renderable {
 
     protected String name;
+
+    protected String turretTexture, baseTexture;
+
     protected Vector2 middle, lookVec, pos;
 
     protected double range, fireRate, turnSpeed, angle;
@@ -26,8 +29,12 @@ public abstract class Tower implements Listener, Renderable {
     protected TreeSet<Enemy> possibleTargets;
     private EnemyComparator.CompareMode compareMode = EnemyComparator.CompareMode.TRAVELLED_DISTANCE;
 
-    public Tower(String name, double middleX, double middleY, double range, double fireRate, double turnSpeed, RandomRange damage, TargetMode initialTargetMode) {
+    public Tower(String name, String turretTexture, String baseTexture, double middleX, double middleY, double range, double fireRate, double turnSpeed, RandomRange damage, TargetMode initialTargetMode) {
         this.name = name;
+
+        this.turretTexture = turretTexture;
+        this.baseTexture = baseTexture;
+
         this.range = range;
         this.damage = damage;
         this.middle = new Vector2(middleX, middleY);
@@ -73,12 +80,12 @@ public abstract class Tower implements Listener, Renderable {
     }
     public abstract void render();
 
-    protected void drawBaseTexture(String textureId) {
-        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), 16, 16, 0, 0, 1, 1, textureId, new float[] {0.5f, 0.5f, 0.5f});
+    protected void drawBaseTexture() {
+        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), 16, 16, 0, 0, 1, 1, this.baseTexture, new float[] {0.5f, 0.5f, 0.5f});
     }
 
-    protected void drawTurretTexture(String textureId) {
-        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), 16, 16, 0, 0, 1, 1, textureId, new float[] {1, 1, 1});
+    protected void drawTurretTexture() {
+        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), 16, 16, 0, 0, 1, 1, this.turretTexture, new float[] {1, 1, 1});
     }
 
     protected void updateTargets() {

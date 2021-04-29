@@ -13,12 +13,11 @@ import org.lwjgl.opengl.GL11;
 public class BasicTower extends Tower {
 
     public BasicTower(double x, double y) {
-        super("Basic tower", x, y, 200D, 2D, Math.toRadians(1), new RandomRange(2, 5), TargetMode.FIRST);
+        super("Basic tower", "basicTowerTurret", "basicTowerBase", x, y, 200D, 2D, Math.toRadians(1), new RandomRange(2, 5), TargetMode.FIRST);
     }
 
     public void render() {
-
-        this.drawBaseTexture("basicTowerBase");
+        this.drawBaseTexture();
         if (TowerDefenceGame.theGame.getRenderDebugStuff()) {
             Vector2 targetDirection = Vector2.duplicate(this.target.getMiddle()).subtract(this.middle);
             long time = Math.round(BasicProjectile.getSpeed() * targetDirection.getLength() * 10000);
@@ -27,7 +26,7 @@ public class BasicTower extends Tower {
         }
         GL11.glPushMatrix();
         GLUtils.rotateAroundLocation(Math.toDegrees(this.angle), this.middle);
-        this.drawTurretTexture("basicTowerTurret");
+        this.drawTurretTexture();
 //        GLUtils.drawTriangle(Vector2.duplicate(this.middle).add(new Vector2(0, 5)),
 //                Vector2.duplicate(this.middle).add(new Vector2(0, -5)),
 //                Vector2.duplicate(this.middle).add(new Vector2(10, 0)),
