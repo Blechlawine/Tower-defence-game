@@ -14,7 +14,7 @@ import org.lwjgl.opengl.GL11;
 
 public abstract class Enemy implements Listener, Renderable {
 
-    private Vector2 middle, motion, pathOffset, gotoPos;
+    protected Vector2 middle, motion, pathOffset, gotoPos;
     protected double speed, health, maxHealth, size, travelledDistance = 0;
     private double movementAccuracy = 2;
     protected int reward, score;
@@ -72,19 +72,19 @@ public abstract class Enemy implements Listener, Renderable {
             this.update(e.partialMS);
         } else if (event instanceof PreUpdateEvent) {
             PreUpdateEvent e = (PreUpdateEvent) event;
+//            TowerDefenceGame.theGame.getLogger().debug(this.positionNode.getMiddleX(), this.positionNode.next.getMiddleX());
+            double newGotoX = this.positionNode.next.getMiddleX() + this.pathOffset.getX();
+            double newGotoY = this.positionNode.next.getMiddleY() + this.pathOffset.getY();
+            this.gotoPos = new Vector2(newGotoX, newGotoY);
+            double motionX = this.gotoPos.getX() - this.middle.getX();
+            double motionY = this.gotoPos.getY() - this.middle.getY();
+//            TowerDefenceGame.theGame.getLogger().debug(motionY, motionX);
+            this.setMotion(motionX, motionY);
             if (this.middle.getX() <= this.gotoPos.getX() + this.movementAccuracy
                     && this.middle.getX() >= this.gotoPos.getX() - this.movementAccuracy
                     && this.middle.getY() <= this.gotoPos.getY() + this.movementAccuracy
                     && this.middle.getY() >= this.gotoPos.getY() - this.movementAccuracy) {
                 if (this.positionNode.next != null) {
-//                    TowerDefenceGame.theGame.getLogger().debug(this.positionNode.getMiddleX(), this.positionNode.next.getMiddleX());
-                    double newGotoX = this.positionNode.next.getMiddleX() + this.pathOffset.getX();
-                    double newGotoY = this.positionNode.next.getMiddleY() + this.pathOffset.getY();
-                    double motionX = newGotoX - this.middle.getX();
-                    double motionY = newGotoY - this.middle.getY();
-                    this.gotoPos = new Vector2(newGotoX, newGotoY);
-//                    TowerDefenceGame.theGame.getLogger().debug(newGotoX, newGotoY, this.pos.getX(), this.pos.getY());
-                    this.setMotion(motionX, motionY);
                     this.positionNode = this.positionNode.next;
                 } else {
                     // Enemy is at the end of the path
