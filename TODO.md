@@ -8,7 +8,7 @@
 - Keybindingmanager for user-settable keybinds
 - map layer-support
   - glowing elements on a seperate layer
-- UI resizing fix
+- UI sizing fix
 - rework tower placing
   - that towers can't be placed on the path
   - Toolbar for selecting towers
