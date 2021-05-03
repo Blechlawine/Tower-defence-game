@@ -135,7 +135,7 @@ public class Player extends Camera implements Listener {
             }
         } else if (event instanceof MouseButtonEvent) {
             MouseButtonEvent e = (MouseButtonEvent) event;
-            if (e.getButton() == 0) { // 0 is the left mouse button
+            if (e.getButton() == 2) { // 0 is the left mouse button
                 switch(e.getAction()) {
                     case DOWN:
                         this.dragMove = true;
