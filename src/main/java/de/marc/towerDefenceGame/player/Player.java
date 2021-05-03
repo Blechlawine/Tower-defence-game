@@ -166,11 +166,6 @@ public class Player extends Camera implements Listener {
         } else if (event instanceof UpdateEvent) {
             UpdateEvent e = (UpdateEvent) event;
             this.update(e.partialMS);
-        } else if (event instanceof TileClickEvent) {
-            TileClickEvent e = (TileClickEvent) event;
-            if (this.activeTool != null) {
-                this.activeTool.use(e.getTarget(), e.getMouseButton());
-            }
         }
     }
 

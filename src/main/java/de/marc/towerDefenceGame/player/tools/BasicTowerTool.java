@@ -8,10 +8,10 @@ import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
 
-public class BasicTowerTool implements Tool, Renderable {
+public class BasicTowerTool extends Tool {
 
     public BasicTowerTool() {
-        TowerDefenceGame.theGame.getRenderer().getLayerByName("towers").addElement(this);
+        super();
     }
 
     @Override
@@ -33,10 +33,5 @@ public class BasicTowerTool implements Tool, Renderable {
             TowerDefenceGame.theGame.getPlayer().addMoney(BasicTower.cost);
             target.deconstruct();
         }
-    }
-
-    @Override
-    public void deactivate() {
-        TowerDefenceGame.theGame.getRenderer().getLayerByName("towers").removeElement(this);
     }
 }
