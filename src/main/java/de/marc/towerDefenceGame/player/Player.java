@@ -8,8 +8,6 @@ import de.marc.towerDefenceGame.player.tools.Tool;
 import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.utils.Vector2;
 
-import java.awt.im.spi.InputMethod;
-
 public class Player extends Camera implements Listener {
 
     private final Vector2 motion;
@@ -18,7 +16,7 @@ public class Player extends Camera implements Listener {
     private double currentSpeed = this.normalSpeed;
     private double zoomSpeed = 1.5;
 
-    private boolean leftMouseDown = false;
+    private boolean dragMove = false;
 
     private Tool activeTool;
 
@@ -140,10 +138,10 @@ public class Player extends Camera implements Listener {
             if (e.getButton() == 0) { // 0 is the left mouse button
                 switch(e.getAction()) {
                     case DOWN:
-                        this.leftMouseDown = true;
+                        this.dragMove = true;
                         break;
                     case UP:
-                        this.leftMouseDown = false;
+                        this.dragMove = false;
                         break;
                 }
             }
@@ -159,7 +157,7 @@ public class Player extends Camera implements Listener {
 //            TowerDefenceGame.theGame.getLogger().debug(this.scale);
         } else if (event instanceof MouseMoveEvent) {
             MouseMoveEvent e = (MouseMoveEvent) event;
-            if (this.leftMouseDown) {
+            if (this.dragMove) {
                 // move player with mouse
                 this.pos.add(new Vector2(e.getDX() / this.scale, e.getDY() / this.scale));
             }
