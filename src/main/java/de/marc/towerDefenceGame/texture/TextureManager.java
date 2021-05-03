@@ -11,7 +11,7 @@ public class TextureManager extends ListManager<Texture> {
 
     @Override
     public void setup() {
-        this.loadTexture("assets/TilesFuturistic.png", "tiles");
+//        this.loadTexture("assets/TilesFuturistic.png", "tiles");
         // Tiletextures
         this.loadTexture("assets/textures/tiles/startportal.png", "startPortal");
         this.loadTexture("assets/textures/tiles/endportal.png", "endPortal");

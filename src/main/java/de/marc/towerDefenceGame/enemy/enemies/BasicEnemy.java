@@ -3,6 +3,7 @@ package de.marc.towerDefenceGame.enemy.enemies;
 import de.marc.towerDefenceGame.enemy.Enemy;
 import de.marc.towerDefenceGame.level.path.Path;
 import de.marc.towerDefenceGame.level.path.PathNode;
+import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 
 public class BasicEnemy extends Enemy {
@@ -17,7 +18,7 @@ public class BasicEnemy extends Enemy {
     }
 
     public void render() {
-        GLUtils.drawCircleCentered(this.getMiddle().getX(), this.getMiddle().getY(), 2, 16, new float[] { 1, 1, 0 });
+        GLUtils.drawCircleCentered(this.getMiddle().getX(), this.getMiddle().getY(), 2, 16, new Color(1, 1, 0 ));
         super.render();
     }
 }

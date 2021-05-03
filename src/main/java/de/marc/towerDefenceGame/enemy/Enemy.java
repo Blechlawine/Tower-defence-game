@@ -7,6 +7,7 @@ import de.marc.towerDefenceGame.event.events.PreUpdateEvent;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.level.path.Path;
 import de.marc.towerDefenceGame.level.path.PathNode;
+import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
 import de.marc.towerDefenceGame.utils.Vector2;
@@ -54,9 +55,9 @@ public abstract class Enemy implements Listener, Renderable {
         GL11.glPushMatrix();
         GL11.glTranslated(healthbarPos.getX(), healthbarPos.getY(), 0);
         // Background
-        GLUtils.drawRect(0, 0, barWidth, barHeight, new float[] { 0, 0, 0 });
+        GLUtils.drawRect(0, 0, barWidth, barHeight, new Color(0, 0, 0 ));
         // Fill
-        GLUtils.drawRect(0, 0, barWidth / this.maxHealth * this.health, barHeight, new float[] { 1, 0, 0 });
+        GLUtils.drawRect(0, 0, barWidth / this.maxHealth * this.health, barHeight, new Color(1, 0, 0 ));
 
         GL11.glPopMatrix();
     }

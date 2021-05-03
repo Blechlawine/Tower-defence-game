@@ -10,7 +10,7 @@ import de.marc.towerDefenceGame.utils.Timer;
 
 public class EnemySpawner implements Listener {
 
-    private int wave;
+    private int currentWave, waveHealth, waveAverageSpeed;
 
     private double xPos, yPos;
     private int size;

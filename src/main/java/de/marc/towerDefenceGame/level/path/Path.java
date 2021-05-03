@@ -6,6 +6,8 @@ import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.level.Tile.TileType;
 import static de.marc.towerDefenceGame.level.Tile.TileType.*;
+
+import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
 
@@ -73,9 +75,9 @@ public class Path implements Renderable {
         if (TowerDefenceGame.theGame.getRenderDebugStuff()) {
             PathNode node = this.start;
             while (node.next != null) {
-                GLUtils.drawCircleCentered(node.getMiddleX(), node.getMiddleY(), 2, 20, new float[] { 1, 1, 1 });
+                GLUtils.drawCircleCentered(node.getMiddleX(), node.getMiddleY(), 2, 20, new Color( 1, 1, 1 ));
     //            GLUtils.drawRectCentered(node.getMiddleX(), node.getMiddleY(), 5, 5, new float[] { 1, 1, 1 });
-                GLUtils.drawLine(node.getMiddleX(), node.getMiddleY(), node.next.getMiddleX(), node.next.getMiddleY(), 2f, new float[] { 1, 1, 1 });
+                GLUtils.drawLine(node.getMiddleX(), node.getMiddleY(), node.next.getMiddleX(), node.next.getMiddleY(), 2f, new Color( 1, 1, 1 ));
                 node = node.next;
             }
         }

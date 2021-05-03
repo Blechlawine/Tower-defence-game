@@ -3,11 +3,11 @@ package de.marc.towerDefenceGame.level;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
-import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.event.events.MouseButtonEvent;
 import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
+import de.marc.towerDefenceGame.event.events.TileClickEvent;
 import de.marc.towerDefenceGame.tower.Tower;
-import de.marc.towerDefenceGame.tower.towers.BasicTower;
+import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
 import de.marc.towerDefenceGame.utils.Vector2;
@@ -75,28 +75,36 @@ public class Tile implements Renderable, Listener {
                 double clickYPos = MouseMoveEvent.getMapPosY();
                 if (clickXPos >= this.xPos && clickXPos < this.xPos + size && clickYPos >= this.yPos && clickYPos < this.yPos + size) {
                     if (e.getAction() == DOWN) {
-                        if (e.getButton() == 0) {
-                            if (!this.occupied) {
-                                this.occupied = true;
-                                this.myTower = new BasicTower(this.middle.getX(), this.middle.getY());
-                                TowerDefenceGame.theGame.getTowerManager().buildTower(this.myTower);
-                            }
-                        } else if (e.getButton() == 1) {
-                            TowerDefenceGame.theGame.getTowerManager().destroyTower(this.myTower);
-                            this.occupied = false;
-                        }
-
+                        TowerDefenceGame.theGame.getEventManager().hook(new TileClickEvent(this, e.getButton()));
+//                        if (e.getButton() == 0) {
+//
+//                        } else if (e.getButton() == 1) {
+//
+//                        }
                     }
                 }
             }
         }
     }
 
+    public void construct(Tower tower) {
+        if (!this.occupied) {
+            this.occupied = true;
+            this.myTower = tower;
+            TowerDefenceGame.theGame.getTowerManager().buildTower(this.myTower);
+        }
+    }
+
+    public void deconstruct() {
+        TowerDefenceGame.theGame.getTowerManager().destroyTower(this.myTower);
+        this.occupied = false;
+    }
+
     public void render() {
         if (this.textureIndex != 0) {
-            GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, 0, 0, 1, 1, this.type.getTextureId(), new float[] { 1, 1, 1 });
+            GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, 0, 0, 1, 1, this.type.getTextureId(), new Color(1, 1, 1 ));
             if (selectedTile == this) {
-                GLUtils.drawRect(this.xPos, this.yPos, size, size, new float[] { 1, 1, 1 });
+                GLUtils.drawRect(this.xPos, this.yPos, size, size, new Color(1, 1, 1 ));
             }
         }
 //        GLUtils.drawLine(0, 0, MouseMoveEvent.getMapPosX(), MouseMoveEvent.getMapPosY(), new float[] { 0.5F, 0.5F, 0.5F });
@@ -115,6 +123,10 @@ public class Tile implements Renderable, Listener {
     public TileType getTileType() {
 //        TowerDefenceGame.theGame.getLogger().debug(this.type);
         return this.type;
+    }
+
+    public Vector2 getMiddle() {
+        return this.middle;
     }
 
     public Vector2 getPosVec() {

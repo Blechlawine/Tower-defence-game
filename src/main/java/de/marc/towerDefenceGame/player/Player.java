@@ -4,8 +4,11 @@ import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.*;
+import de.marc.towerDefenceGame.player.tools.Tool;
 import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.utils.Vector2;
+
+import java.awt.im.spi.InputMethod;
 
 public class Player extends Camera implements Listener {
 
@@ -17,7 +20,10 @@ public class Player extends Camera implements Listener {
 
     private boolean leftMouseDown = false;
 
-    private int wallet = 0;
+    private Tool activeTool;
+
+    // Starting values for the player should depend on the level
+    private int wallet = 50;
     private int health = 20;
     private final int maxHealth = health;
 
@@ -48,6 +54,15 @@ public class Player extends Camera implements Listener {
         this.health -= Math.min(amount, this.health);
         if (this.getHealth() <= 0) {
             // Spiel zu ende
+        }
+    }
+
+    public boolean pay(int amount) {
+        if (amount <= this.wallet) {
+            this.wallet -= amount;
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -151,7 +166,16 @@ public class Player extends Camera implements Listener {
         } else if (event instanceof UpdateEvent) {
             UpdateEvent e = (UpdateEvent) event;
             this.update(e.partialMS);
+        } else if (event instanceof TileClickEvent) {
+            TileClickEvent e = (TileClickEvent) event;
+            if (this.activeTool != null) {
+                this.activeTool.use(e.getTarget(), e.getMouseButton());
+            }
         }
+    }
+
+    public void setActiveTool(Tool tool) {
+        this.activeTool = tool;
     }
 
     public void updateCameraOrigin() {
@@ -160,5 +184,9 @@ public class Player extends Camera implements Listener {
 
     public int getMaxHealth() {
         return this.maxHealth;
+    }
+
+    public Tool getActiveTool() {
+        return this.activeTool;
     }
 }

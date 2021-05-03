@@ -31,6 +31,7 @@ public class TowerDefenceGame {
 
     public Level currentLevel;
     private Player thePlayer;
+    private boolean inGame;
 
     private EventManager eventManager;
     private TextureHandler textureHandler;
@@ -71,7 +72,6 @@ public class TowerDefenceGame {
 
         this.eventManager.setup();
         this.guiManager.setup();
-        this.guiManager.setActiveGui(this.guiManager.getGuiFromName("ingame"));
 
         this.renderer.addLayer(new RenderLayer("level", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("enemies", this.thePlayer));
@@ -118,7 +118,8 @@ public class TowerDefenceGame {
 //        this.getTextureHandler().loadTexture("assets/TilesFuturistic.png");
         this.renderer.getLayerByName("level").addElement(this.currentLevel);
         this.renderer.getLayerByName("level").addElement(this.currentLevel.getPath());
-        this.renderer.getLayerByName("gui").addElement(this.guiManager.getCurrentGui());
+        this.guiManager.setActiveGui(this.guiManager.getGuiFromName("ingame"));
+//        this.renderer.getLayerByName("gui").addElement(this.guiManager.getCurrentGui());
     }
 
     private void loop() {

@@ -81,11 +81,11 @@ public abstract class Tower implements Listener, Renderable {
     public abstract void render();
 
     protected void drawBaseTexture() {
-        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), 16, 16, 0, 0, 1, 1, this.baseTexture, new float[] {0.5f, 0.5f, 0.5f});
+        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), 16, 16, 0, 0, 1, 1, this.baseTexture, new Color(0.5f, 0.5f, 0.5f));
     }
 
     protected void drawTurretTexture() {
-        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), 16, 16, 0, 0, 1, 1, this.turretTexture, new float[] {1, 1, 1});
+        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), 16, 16, 0, 0, 1, 1, this.turretTexture, new Color(1, 1, 1));
     }
 
     protected void updateTargets() {

@@ -19,9 +19,10 @@ public class GLUtils {
         return new double[] { x.get(0), y.get(0) };
     }
 
-    public static void drawRect(double left, double top, double width, double height, float[] color) {
+    public static void drawRect(double left, double top, double width, double height, Color color) {
         glPushMatrix();
-        glColor3f(color[0], color[1], color[2]);
+        float[] colorA = color.getAsArray();
+        glColor3f(colorA[0], colorA[1], colorA[2]);
         glBegin(GL_QUADS);
 //        glLineWidth(10F);
         glVertex2d(left, top);
@@ -31,13 +32,14 @@ public class GLUtils {
         glEnd();
         glPopMatrix();
     }
-    public static void drawRectCentered(double x, double y, double width, double height, float[] color) {
+    public static void drawRectCentered(double x, double y, double width, double height, Color color) {
         drawRect(x - width / 2d, y - height / 2d, width, height, color);
     }
 
-    public static void drawRectOutline(double left, double top, double width, double height, float lineWidth, float[] color) {
+    public static void drawRectOutline(double left, double top, double width, double height, float lineWidth, Color color) {
         glPushMatrix();
-        glColor3f(color[0], color[1], color[2]);
+        float[] colorA = color.getAsArray();
+        glColor3f(colorA[0], colorA[1], colorA[2]);
         glBegin(GL_LINE_LOOP);
         glLineWidth(lineWidth);
         glVertex2d(left, top);
@@ -48,10 +50,11 @@ public class GLUtils {
         glPopMatrix();
     }
 
-    public static void drawCircleCentered(double middleX, double middleY, double radius, int pointAmount, float[] color) {
+    public static void drawCircleCentered(double middleX, double middleY, double radius, int pointAmount, Color color) {
         glPushMatrix();
         glTranslated(middleX, middleY, 0);
-        glColor3f(color[0], color[1], color[2]);
+        float[] colorA = color.getAsArray();
+        glColor3f(colorA[0], colorA[1], colorA[2]);
         glBegin(GL_TRIANGLE_FAN);
         for (int i = 0; i < pointAmount; i++) {
             float angle = (float) (2F * Math.PI / pointAmount * i);
@@ -64,9 +67,10 @@ public class GLUtils {
 //        Hier bleibts irgendwie farbig?!?!?!?
     }
 
-    public static void drawLine(double startX, double startY, double endX, double endY, float lineWidth, float[] color) {
+    public static void drawLine(double startX, double startY, double endX, double endY, float lineWidth, Color color) {
         glPushMatrix();
-        glColor3f(color[0], color[1], color[2]);
+        float[] colorA = color.getAsArray();
+        glColor3f(colorA[0], colorA[1], colorA[2]);
         glLineWidth(lineWidth);
         glBegin(GL_LINE_LOOP);
         glVertex2d(startX, startY);
@@ -75,10 +79,11 @@ public class GLUtils {
         glPopMatrix();
     }
 
-    public static void drawTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight, String textureName, float[] colorOverride) {
+    public static void drawTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight, String textureName, Color colorOverride) {
 //        int[] textureSize = TowerDefenceGame.theGame.getTextureHandler().getTileTextureSize();
         glPushMatrix();
-        glColor3f(colorOverride[0], colorOverride[1], colorOverride[2]);
+        float[] color = colorOverride.getAsArray();
+        glColor3f(color[0], color[1], color[2]);
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -108,9 +113,10 @@ public class GLUtils {
         glPopMatrix();
     }
 
-    public static void drawTriangle(Vector2 a, Vector2 b, Vector2 c, float[] color) {
+    public static void drawTriangle(Vector2 a, Vector2 b, Vector2 c, Color color) {
         glPushMatrix();
-        glColor3f(color[0], color[1], color[2]);
+        float[] colorA = color.getAsArray();
+        glColor3f(colorA[0], colorA[1], colorA[2]);
         glBegin(GL_TRIANGLES);
         glVertex2d(a.getX(), a.getY());
         glVertex2d(b.getX(), b.getY());

@@ -5,12 +5,15 @@ import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.tower.Tower;
 import de.marc.towerDefenceGame.tower.projectile.projectiles.BasicProjectile;
+import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.RandomRange;
 import de.marc.towerDefenceGame.utils.Vector2;
 import org.lwjgl.opengl.GL11;
 
 public class BasicTower extends Tower {
+
+    public static int cost = 10;
 
     public BasicTower(double x, double y) {
         super("Basic tower", "basicTowerTurret", "basicTowerBase", x, y, 200D, 2D, Math.toRadians(1), new RandomRange(2, 5), TargetMode.FIRST);
@@ -22,7 +25,7 @@ public class BasicTower extends Tower {
             Vector2 targetDirection = Vector2.duplicate(this.target.getMiddle()).subtract(this.middle);
             long time = Math.round(BasicProjectile.getSpeed() * targetDirection.getLength() * 10000);
             Vector2 predictedPos = this.target.predictPosInTime(time);
-            GLUtils.drawLine(this.middle.getX(), this.middle.getY(), predictedPos.getX(), predictedPos.getY(), 2, new float[] {0.5f, 0.5f, 0.5f});
+            GLUtils.drawLine(this.middle.getX(), this.middle.getY(), predictedPos.getX(), predictedPos.getY(), 2, new Color(0.5f, 0.5f, 0.5f));
         }
         GL11.glPushMatrix();
         GLUtils.rotateAroundLocation(Math.toDegrees(this.angle), this.middle);

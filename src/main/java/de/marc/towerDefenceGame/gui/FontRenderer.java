@@ -2,6 +2,7 @@ package de.marc.towerDefenceGame.gui;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.texture.Texture;
+import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import org.lwjgl.opengl.GL11;
 
@@ -22,7 +23,7 @@ public class FontRenderer {
         this.texture = TowerDefenceGame.theGame.getTextureManager().getTextureFromName("font");
     }
 
-    public void drawString(String text, double x, double y, double sizeMultiplier, float[] color) {
+    public void drawString(String text, double x, double y, double sizeMultiplier, Color color) {
         GL11.glPushMatrix();
         GL11.glScaled(sizeMultiplier, sizeMultiplier, 1);
         double charXPos = x;

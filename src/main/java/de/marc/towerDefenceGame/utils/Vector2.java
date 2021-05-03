@@ -11,6 +11,11 @@ public class Vector2 {
         this.y = y;
     }
 
+    public Vector2(Vector2 vec) {
+        this.x = vec.getX();
+        this.y = vec.getY();
+    }
+
     public static Vector2 duplicate(Vector2 vec) {
         return new Vector2(vec.getX(), vec.getY());
     }

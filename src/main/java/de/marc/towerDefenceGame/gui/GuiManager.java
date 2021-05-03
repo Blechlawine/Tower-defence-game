@@ -1,5 +1,6 @@
 package de.marc.towerDefenceGame.gui;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.gui.guis.InGameGui;
 import de.marc.towerDefenceGame.utils.ListManager;
 
@@ -9,7 +10,7 @@ public class GuiManager extends ListManager<Gui> {
 
     @Override
     public void setup() {
-        this.addGui(new InGameGui("ingame"));
+        this.addGui(new InGameGui());
     }
 
     public void addGui(Gui gui) {
@@ -28,7 +29,9 @@ public class GuiManager extends ListManager<Gui> {
     }
 
     public void setActiveGui(Gui gui) {
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("gui").removeElement(this.currentGui);
         this.currentGui = gui;
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("gui").addElement(this.currentGui);
     }
 
     public Gui getCurrentGui() {

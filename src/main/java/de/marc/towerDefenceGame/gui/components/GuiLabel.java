@@ -2,13 +2,14 @@ package de.marc.towerDefenceGame.gui.components;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
+import de.marc.towerDefenceGame.utils.Color;
 
 public class GuiLabel extends GuiComponent {
 
     private String text;
-    private float[] color;
+    private Color color;
 
-    public GuiLabel(String text, double x, double y, float[] color) {
+    public GuiLabel(String text, double x, double y, Color color) {
         super(x, y);
         this.text = text;
         this.color = color;
