@@ -21,10 +21,6 @@ public abstract class Tool implements Renderable, Listener {
             TileClickEvent e = (TileClickEvent) event;
             this.use(e.getTarget(), e.getMouseButton());
         }
-//        else if (event instanceof MouseButtonEvent) {
-//            MouseButtonEvent e = (MouseButtonEvent) event;
-//
-//        }
     }
 
     public abstract void use(Tile target, int mouseButton);
