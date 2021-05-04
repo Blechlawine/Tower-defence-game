@@ -100,6 +100,10 @@ public class Tile implements Renderable, Listener {
         this.occupied = false;
     }
 
+    public boolean isOccupied() {
+        return this.occupied;
+    }
+
     public void render() {
         if (this.textureIndex != 0) {
             GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, 0, 0, 1, 1, this.type.getTextureId(), new Color(1, 1, 1 ));

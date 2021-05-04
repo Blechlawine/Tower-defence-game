@@ -27,7 +27,7 @@ public class BasicTowerTool extends Tool {
     @Override
     public void use(Tile target, int mouseButton) {
         if (mouseButton == 0) {
-            if (target.getTileType() == Tile.TileType.PLATFORM) {
+            if (target.getTileType() == Tile.TileType.PLATFORM && !target.isOccupied()) {
                 if (TowerDefenceGame.theGame.getPlayer().pay(BasicTower.cost)) {
                     target.construct(new BasicTower(target.getMiddle().getX(), target.getMiddle().getY()));
                 }

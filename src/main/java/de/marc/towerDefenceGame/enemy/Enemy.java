@@ -74,13 +74,16 @@ public abstract class Enemy implements Listener, Renderable {
         } else if (event instanceof PreUpdateEvent) {
             PreUpdateEvent e = (PreUpdateEvent) event;
 //            TowerDefenceGame.theGame.getLogger().debug(this.positionNode.getMiddleX(), this.positionNode.next.getMiddleX());
-            double newGotoX = this.positionNode.next.getMiddleX() + this.pathOffset.getX();
-            double newGotoY = this.positionNode.next.getMiddleY() + this.pathOffset.getY();
-            this.gotoPos = new Vector2(newGotoX, newGotoY);
-            double motionX = this.gotoPos.getX() - this.middle.getX();
-            double motionY = this.gotoPos.getY() - this.middle.getY();
+            if (this.positionNode.next != null) {
+                double newGotoX = this.positionNode.next.getMiddleX() + this.pathOffset.getX();
+                double newGotoY = this.positionNode.next.getMiddleY() + this.pathOffset.getY();
+                this.gotoPos = new Vector2(newGotoX, newGotoY);
+                double motionX = this.gotoPos.getX() - this.middle.getX();
+                double motionY = this.gotoPos.getY() - this.middle.getY();
+                this.setMotion(motionX, motionY);
+
+            }
 //            TowerDefenceGame.theGame.getLogger().debug(motionY, motionX);
-            this.setMotion(motionX, motionY);
             if (this.middle.getX() <= this.gotoPos.getX() + this.movementAccuracy
                     && this.middle.getX() >= this.gotoPos.getX() - this.movementAccuracy
                     && this.middle.getY() <= this.gotoPos.getY() + this.movementAccuracy
