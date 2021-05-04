@@ -9,6 +9,4 @@
 - map layer-support
   - glowing elements on a seperate layer
 - UI sizing fix
-- rework tower placing
-  - that towers can't be placed on the path
 - simplify healthbars to be easier to spot with a lot of enemies

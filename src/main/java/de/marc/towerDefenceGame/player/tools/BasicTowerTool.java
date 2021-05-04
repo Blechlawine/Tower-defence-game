@@ -3,6 +3,7 @@ package de.marc.towerDefenceGame.player.tools;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
 import de.marc.towerDefenceGame.level.Tile;
+import de.marc.towerDefenceGame.level.path.Path;
 import de.marc.towerDefenceGame.tower.towers.BasicTower;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
@@ -26,8 +27,10 @@ public class BasicTowerTool extends Tool {
     @Override
     public void use(Tile target, int mouseButton) {
         if (mouseButton == 0) {
-            if (TowerDefenceGame.theGame.getPlayer().pay(BasicTower.cost)) {
-                target.construct(new BasicTower(target.getMiddle().getX(), target.getMiddle().getY()));
+            if (target.getTileType() == Tile.TileType.PLATFORM) {
+                if (TowerDefenceGame.theGame.getPlayer().pay(BasicTower.cost)) {
+                    target.construct(new BasicTower(target.getMiddle().getX(), target.getMiddle().getY()));
+                }
             }
         } else if (mouseButton == 1) {
             TowerDefenceGame.theGame.getPlayer().addMoney(BasicTower.cost);
