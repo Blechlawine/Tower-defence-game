@@ -11,6 +11,4 @@
 - UI sizing fix
 - rework tower placing
   - that towers can't be placed on the path
-  - Toolbar for selecting towers
-- tower costs
 - simplify healthbars to be easier to spot with a lot of enemies
