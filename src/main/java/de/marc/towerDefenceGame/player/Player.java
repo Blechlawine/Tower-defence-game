@@ -168,7 +168,17 @@ public class Player extends Camera implements Listener {
     }
 
     public void setActiveTool(Tool tool) {
+        if (this.activeTool != null) {
+            this.activeTool.deactivate();
+        }
         this.activeTool = tool;
+    }
+
+    public void deactivateActiveTool() {
+        if (this.activeTool != null) {
+            this.activeTool.deactivate();
+            this.activeTool = null;
+        }
     }
 
     public void updateCameraOrigin() {

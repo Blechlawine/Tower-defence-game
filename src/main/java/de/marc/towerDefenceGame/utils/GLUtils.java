@@ -67,6 +67,20 @@ public class GLUtils {
 //        Hier bleibts irgendwie farbig?!?!?!?
     }
 
+    public static void drawLineO(double startX, double startY, double endX, double endY, float lineWidth, float opacity, Color color) {
+        glPushMatrix();
+        float[] colorA = color.getAsArray();
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        glColor4f(colorA[0], colorA[1], colorA[2], opacity);
+        glLineWidth(lineWidth);
+        glBegin(GL_LINE_LOOP);
+        glVertex2d(startX, startY);
+        glVertex2d(endX, endY);
+        glEnd();
+        glPopMatrix();
+    }
+
     public static void drawLine(double startX, double startY, double endX, double endY, float lineWidth, Color color) {
         glPushMatrix();
         float[] colorA = color.getAsArray();

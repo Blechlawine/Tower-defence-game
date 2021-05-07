@@ -35,6 +35,8 @@ public class TextureManager extends ListManager<Texture> {
         // Towers
         this.loadTexture("assets/textures/basic_tower/base.png", "basicTowerBase");
         this.loadTexture("assets/textures/basic_tower/turret.png", "basicTowerTurret");
+        this.loadTexture("assets/textures/sniper_tower/base.png", "sniperTowerBase");
+        this.loadTexture("assets/textures/sniper_tower/turret.png", "sniperTowerTurret");
     }
 
     public void loadTexture(String path, String name) {

@@ -3,14 +3,15 @@ package de.marc.towerDefenceGame.gui.components;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.utils.Color;
+import de.marc.towerDefenceGame.utils.Vector2;
 
 public class GuiLabel extends GuiComponent {
 
     private String text;
     private Color color;
 
-    public GuiLabel(String text, double x, double y, Color color) {
-        super(x, y);
+    public GuiLabel(String text, Vector2 pos, Color color) {
+        super(pos);
         this.text = text;
         this.color = color;
     }
@@ -21,7 +22,7 @@ public class GuiLabel extends GuiComponent {
 
     @Override
     public void render() {
-        TowerDefenceGame.theGame.getFontRenderer().drawString(this.text, this.xPos, this.yPos, 2, this.color);
+        TowerDefenceGame.theGame.getFontRenderer().drawString(this.text, this.pos, 2, this.color);
     }
 
     @Override

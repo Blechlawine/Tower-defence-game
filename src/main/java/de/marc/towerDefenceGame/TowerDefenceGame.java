@@ -3,6 +3,7 @@ package de.marc.towerDefenceGame;
 import de.marc.towerDefenceGame.event.EventManager;
 import de.marc.towerDefenceGame.event.events.*;
 import de.marc.towerDefenceGame.gui.FontRenderer;
+import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.gui.GuiManager;
 import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.player.Player;
@@ -70,6 +71,8 @@ public class TowerDefenceGame {
         this.guiManager = new GuiManager();
         this.thePlayer = new Player();
 
+        Gui.windowSize = new Vector2(this.windowWidth, this.windowHeight);
+
         this.eventManager.setup();
         this.guiManager.setup();
 
@@ -103,6 +106,9 @@ public class TowerDefenceGame {
 //                layer.updateCameraOrigin();
 //            }
             this.thePlayer.updateCameraOrigin();
+            Gui.windowSize.setX(this.windowWidth);
+            Gui.windowSize.setY(this.windowHeight);
+            this.eventManager.hook(new WindowResizeEvent(this.windowWidth, this.windowHeight));
             this.initGL();
         });
 
