@@ -1,5 +1,6 @@
 package de.marc.towerDefenceGame.texture;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.FileUtils;
 import de.marc.towerDefenceGame.utils.ListManager;
 import org.lwjgl.opengl.GL11;
@@ -11,7 +12,8 @@ public class TextureManager extends ListManager<Texture> {
 
     @Override
     public void setup() {
-//        this.loadTexture("assets/TilesFuturistic.png", "tiles");
+        // Miscellanous
+        this.loadTexture("assets/textures/misc/cursor.png", "cursor");
         // Tiletextures
         this.loadTexture("assets/textures/tiles/startportal.png", "startPortal");
         this.loadTexture("assets/textures/tiles/endportal.png", "endPortal");
@@ -40,6 +42,7 @@ public class TextureManager extends ListManager<Texture> {
     }
 
     public void loadTexture(String path, String name) {
+        TowerDefenceGame.theGame.getLogger().info("Loading Texture: \"" + path + "\" as name: \"" + name + "\"");
         this.content.add(FileUtils.readTexturePNG(path, name));
     }
 

@@ -108,7 +108,7 @@ public class Tile implements Renderable, Listener {
         if (this.textureIndex != 0) {
             GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, 0, 0, 1, 1, this.type.getTextureId(), new Color(1, 1, 1 ));
             if (selectedTile == this) {
-                GLUtils.drawRect(this.xPos, this.yPos, size, size, new Color(1, 1, 1 ));
+                GLUtils.drawTexturedRect(this.xPos, this.yPos, size, size, 0, 0, 1, 1, "cursor", new Color(1, 1, 1));
             }
         }
 //        GLUtils.drawLine(0, 0, MouseMoveEvent.getMapPosX(), MouseMoveEvent.getMapPosY(), new float[] { 0.5F, 0.5F, 0.5F });
@@ -139,6 +139,10 @@ public class Tile implements Renderable, Listener {
 
     public Chunk getParentChunk() {
         return this.chunk;
+    }
+
+    public void select() {
+        selectedTile = this;
     }
 
     public enum TileType {

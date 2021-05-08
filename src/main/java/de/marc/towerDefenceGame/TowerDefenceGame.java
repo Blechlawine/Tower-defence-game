@@ -7,6 +7,7 @@ import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.gui.GuiManager;
 import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.player.Player;
+import de.marc.towerDefenceGame.player.tools.SelectTool;
 import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
@@ -81,6 +82,8 @@ public class TowerDefenceGame {
         this.renderer.addLayer(new RenderLayer("projectiles", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("towers", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("gui", new Camera(new Vector2(0, 0), new Vector2(0, 0))));
+
+        this.thePlayer.setActiveTool(new SelectTool());
 
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action));

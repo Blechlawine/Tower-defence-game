@@ -4,6 +4,7 @@ import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.*;
+import de.marc.towerDefenceGame.player.tools.SelectTool;
 import de.marc.towerDefenceGame.player.tools.Tool;
 import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.utils.Vector2;
@@ -168,17 +169,13 @@ public class Player extends Camera implements Listener {
     }
 
     public void setActiveTool(Tool tool) {
-        if (this.activeTool != null) {
+        if (this.activeTool != null)
             this.activeTool.deactivate();
-        }
         this.activeTool = tool;
     }
 
     public void deactivateActiveTool() {
-        if (this.activeTool != null) {
-            this.activeTool.deactivate();
-            this.activeTool = null;
-        }
+        this.setActiveTool(new SelectTool());
     }
 
     public void updateCameraOrigin() {
