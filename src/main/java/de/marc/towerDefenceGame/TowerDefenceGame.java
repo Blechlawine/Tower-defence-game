@@ -85,21 +85,13 @@ public class TowerDefenceGame {
 
         this.thePlayer.setActiveTool(new SelectTool());
 
-        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action));
-        });
+        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action)));
 
-        glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
-            this.eventManager.hook(new MouseButtonEvent(button, action));
-        });
+        glfwSetMouseButtonCallback(window, (window, button, action, mods) -> this.eventManager.hook(new MouseButtonEvent(button, action)));
 
-        glfwSetScrollCallback(window, (window, xOffset, yOffset) -> {
-            this.eventManager.hook(new MouseScrollEvent(xOffset, yOffset));
-        });
+        glfwSetScrollCallback(window, (window, xOffset, yOffset) -> this.eventManager.hook(new MouseScrollEvent(xOffset, yOffset)));
 
-        glfwSetCursorPosCallback(window, (window, xpos, ypos) -> {
-            this.eventManager.hook(new MouseMoveEvent(xpos, ypos));
-        });
+        glfwSetCursorPosCallback(window, (window, xpos, ypos) -> this.eventManager.hook(new MouseMoveEvent(xpos, ypos)));
 
         glfwSetWindowSizeCallback(window , (window, width, height) -> {
             this.windowWidth = width;
