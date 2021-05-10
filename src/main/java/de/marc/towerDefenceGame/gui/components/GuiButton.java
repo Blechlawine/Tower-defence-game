@@ -40,6 +40,7 @@ public abstract class GuiButton extends GuiComponent {
                     if (e.getAction() == DOWN) {
                         this.state = 2;
                         this.onClick();
+                        event.cancel();
                     }
                 }
             } else if (this.state == 2) { // this button is pressed

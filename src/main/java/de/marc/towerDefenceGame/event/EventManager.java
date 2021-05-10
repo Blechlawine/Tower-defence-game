@@ -22,6 +22,9 @@ public class EventManager extends ListManager<Listener> {
             for (int i = 0; i < this.content.size(); i++) {
                 Listener listener = this.content.get(i);
                 listener.onEvent(event);
+                if (event.isCancelled()) {
+                    return;
+                }
             }
         }
     }

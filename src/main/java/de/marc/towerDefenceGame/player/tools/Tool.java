@@ -23,6 +23,7 @@ public abstract class Tool implements Renderable, Listener {
         if (event instanceof TileClickEvent) {
             TileClickEvent e = (TileClickEvent) event;
             this.use(e.getTarget(), e.getMouseButton());
+            event.cancel();
         }
     }
 
