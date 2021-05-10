@@ -3,6 +3,7 @@
 
 - Profiler for performance analysis
 - Texturepack/Tilepack support
+- Menu
 - Render map-background
 - Keybindingmanager for user-settable keybinds
 - map layer-support
