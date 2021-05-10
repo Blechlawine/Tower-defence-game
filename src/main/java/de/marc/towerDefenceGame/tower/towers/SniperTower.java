@@ -2,6 +2,7 @@ package de.marc.towerDefenceGame.tower.towers;
 
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
+import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.tower.Tower;
 import de.marc.towerDefenceGame.tower.projectile.projectiles.BasicProjectile;
 import de.marc.towerDefenceGame.utils.Color;
@@ -15,18 +16,18 @@ public class SniperTower extends Tower {
     private float shotOpacity = 0F;
     private Vector2 lastTargetPosition, lastAttackVec;
 
-    public static int cost = 20;
-
-    public SniperTower(double middleX, double middleY) {
+    public SniperTower(Tile positionTile, double middleX, double middleY) {
         super("Snipertower",
                 "sniperTowerTurret",
                 "sniperTowerBase",
+                positionTile,
                 middleX, middleY,
                 200D,
                 0.3d,
                 Math.toRadians(1),
                 new RandomRange(50, 75),
                 TargetMode.FIRST);
+        this.cost = 20;
     }
 
     @Override
@@ -43,6 +44,9 @@ public class SniperTower extends Tower {
         GLUtils.rotateAroundLocation(Math.toDegrees(this.angle), this.middle);
         this.drawTurretTexture();
         GL11.glPopMatrix();
+        if (Tile.selectedTile == this.positionTile) {
+            GLUtils.drawCircleCenteredOutline(this.middle.getX(), this.middle.getY(), this.range, 32, 1, new Color(1, 1, 1));
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.PreUpdateEvent;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
+import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.tower.projectile.projectiles.BasicProjectile;
 import de.marc.towerDefenceGame.utils.*;
 
@@ -15,10 +16,12 @@ import java.util.TreeSet;
 public abstract class Tower implements Listener, Renderable {
 
     protected String name;
+    public int cost;
 
     protected String turretTexture, baseTexture;
 
     protected Vector2 middle, lookVec, pos;
+    protected Tile positionTile;
 
     protected double range, fireRate, turnSpeed, angle;
     protected RandomRange damage;
@@ -29,11 +32,12 @@ public abstract class Tower implements Listener, Renderable {
     protected TreeSet<Enemy> possibleTargets;
     private EnemyComparator.CompareMode compareMode = EnemyComparator.CompareMode.TRAVELLED_DISTANCE;
 
-    public Tower(String name, String turretTexture, String baseTexture, double middleX, double middleY, double range, double fireRate, double turnSpeed, RandomRange damage, TargetMode initialTargetMode) {
+    public Tower(String name, String turretTexture, String baseTexture, Tile positionTile, double middleX, double middleY, double range, double fireRate, double turnSpeed, RandomRange damage, TargetMode initialTargetMode) {
         this.name = name;
 
         this.turretTexture = turretTexture;
         this.baseTexture = baseTexture;
+        this.positionTile = positionTile;
 
         this.range = range;
         this.damage = damage;

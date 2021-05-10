@@ -68,20 +68,13 @@ public class Tile implements Renderable, Listener {
     }
 
     public void onEvent(Event event) {
-        if (this.textureIndex != 0) {
-            if (event instanceof MouseButtonEvent) {
-                MouseButtonEvent e = (MouseButtonEvent) event;
-                double clickXPos = MouseMoveEvent.getMapPosX();
-                double clickYPos = MouseMoveEvent.getMapPosY();
-                if (clickXPos >= this.xPos && clickXPos < this.xPos + size && clickYPos >= this.yPos && clickYPos < this.yPos + size) {
-                    if (e.getAction() == DOWN) {
-                        TowerDefenceGame.theGame.getEventManager().hook(new TileClickEvent(this, e.getButton()));
-//                        if (e.getButton() == 0) {
-//
-//                        } else if (e.getButton() == 1) {
-//
-//                        }
-                    }
+        if (event instanceof MouseButtonEvent) {
+            MouseButtonEvent e = (MouseButtonEvent) event;
+            double clickXPos = MouseMoveEvent.getMapPosX();
+            double clickYPos = MouseMoveEvent.getMapPosY();
+            if (clickXPos >= this.xPos && clickXPos < this.xPos + size && clickYPos >= this.yPos && clickYPos < this.yPos + size) {
+                if (e.getAction() == DOWN) {
+                    TowerDefenceGame.theGame.getEventManager().hook(new TileClickEvent(this, e.getButton()));
                 }
             }
         }
@@ -143,6 +136,10 @@ public class Tile implements Renderable, Listener {
 
     public void select() {
         selectedTile = this;
+    }
+
+    public Tower getTower() {
+        return this.myTower;
     }
 
     public enum TileType {

@@ -3,6 +3,7 @@ package de.marc.towerDefenceGame.tower.towers;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
+import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.tower.Tower;
 import de.marc.towerDefenceGame.tower.projectile.projectiles.BasicProjectile;
 import de.marc.towerDefenceGame.utils.Color;
@@ -13,10 +14,18 @@ import org.lwjgl.opengl.GL11;
 
 public class BasicTower extends Tower {
 
-    public static int cost = 10;
-
-    public BasicTower(double x, double y) {
-        super("Basic tower", "basicTowerTurret", "basicTowerBase", x, y, 200D, 2D, Math.toRadians(1), new RandomRange(2, 5), TargetMode.FIRST);
+    public BasicTower(Tile positionTile, double x, double y) {
+        super("Basic tower",
+                "basicTowerTurret",
+                "basicTowerBase",
+                positionTile,
+                x, y,
+                40D,
+                2D,
+                Math.toRadians(1),
+                new RandomRange(2, 5),
+                TargetMode.FIRST);
+        this.cost = 10;
     }
 
     public void render() {
@@ -35,6 +44,9 @@ public class BasicTower extends Tower {
 //                Vector2.duplicate(this.middle).add(new Vector2(10, 0)),
 //                new float[] { 0, 1, 1 });
         GL11.glPopMatrix();
+        if (Tile.selectedTile == this.positionTile) {
+            GLUtils.drawCircleCenteredOutline(this.middle.getX(), this.middle.getY(), this.range, 32, 1, new Color(1, 1, 1));
+        }
     }
 
     @Override

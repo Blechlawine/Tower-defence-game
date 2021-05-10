@@ -64,7 +64,23 @@ public class GLUtils {
         }
         glEnd();
         glPopMatrix();
-//        Hier bleibts irgendwie farbig?!?!?!?
+    }
+
+    public static void drawCircleCenteredOutline(double middleX, double middleY, double radius, int pointAmount, float lineWidth, Color color) {
+        glPushMatrix();
+        glTranslated(middleX, middleY, 0);
+        float[] colorA = color.getAsArray();
+        glColor3f(colorA[0], colorA[1], colorA[2]);
+        glLineWidth(lineWidth);
+        glBegin(GL_LINE_LOOP);
+        for (int i = 0; i < pointAmount; i++) {
+            float angle = (float) (2F * Math.PI / pointAmount * i);
+            double x = radius * Math.cos(angle);
+            double y = radius * Math.sin(angle);
+            glVertex2d(x, y);
+        }
+        glEnd();
+        glPopMatrix();
     }
 
     public static void drawLineO(double startX, double startY, double endX, double endY, float lineWidth, float opacity, Color color) {

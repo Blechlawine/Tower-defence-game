@@ -13,13 +13,14 @@ public class SniperTowerTool extends Tool {
     public void use(Tile target, int mouseButton) {
         if (mouseButton == 0) {
             if (target.getTileType() == Tile.TileType.PLATFORM && !target.isOccupied()) {
-                if (TowerDefenceGame.theGame.getPlayer().pay(SniperTower.cost)) {
-                    target.construct(new SniperTower(target.getMiddle().getX(), target.getMiddle().getY()));
+                if (TowerDefenceGame.theGame.getPlayer().pay(20)) {
+                    target.construct(new SniperTower(target, target.getMiddle().getX(), target.getMiddle().getY()));
                 }
             }
         } else if (mouseButton == 1) {
-            TowerDefenceGame.theGame.getPlayer().addMoney(SniperTower.cost);
-            target.deconstruct();
+            TowerDefenceGame.theGame.getPlayer().deactivateActiveTool();
+//            TowerDefenceGame.theGame.getPlayer().addMoney(SniperTower.cost);
+//            target.deconstruct();
         }
     }
 
@@ -30,5 +31,6 @@ public class SniperTowerTool extends Tool {
         double yPos = MouseMoveEvent.getMapPosY() - size / 2;
         GLUtils.drawTexturedRect(xPos, yPos, size, size, 0, 0, 1, 1, "sniperTowerBase", new Color(0.5f, 0.5f, 0.5f));
         GLUtils.drawTexturedRect(xPos, yPos, size, size, 0, 0, 1, 1, "sniperTowerTurret", new Color(1, 1, 1));
+        GLUtils.drawCircleCenteredOutline(xPos, yPos, 200, 32, 1, new Color(1, 1, 1));
     }
 }
