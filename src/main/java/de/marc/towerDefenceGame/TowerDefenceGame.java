@@ -83,8 +83,6 @@ public class TowerDefenceGame {
         this.renderer.addLayer(new RenderLayer("towers", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("gui", new Camera(new Vector2(0, 0), new Vector2(0, 0))));
 
-        this.thePlayer.setActiveTool(new SelectTool());
-
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action)));
 
         glfwSetMouseButtonCallback(window, (window, button, action, mods) -> this.eventManager.hook(new MouseButtonEvent(button, action)));

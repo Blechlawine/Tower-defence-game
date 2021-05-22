@@ -6,14 +6,18 @@ import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.TileClickEvent;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.utils.Renderable;
+import de.marc.towerDefenceGame.utils.Vector2;
 
 public abstract class Tool implements Renderable, Listener {
 
-    public Tool() {
-        this.activate();
+    private String name;
+
+    public Tool(String name) {
+        this.name = name;
+//        this.activate();
     }
 
-    protected void activate() {
+    public void activate() {
         TowerDefenceGame.theGame.getRenderer().getLayerByName("towers").addElement(this);
         TowerDefenceGame.theGame.getEventManager().addListener(this);
     }
@@ -27,7 +31,12 @@ public abstract class Tool implements Renderable, Listener {
         }
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     public abstract void use(Tile target, int mouseButton);
+    public abstract void renderInUI(Vector2 pos);
 
     public void deactivate() {
         TowerDefenceGame.theGame.getRenderer().getLayerByName("towers").removeElement(this);

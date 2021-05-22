@@ -14,7 +14,6 @@ import static de.marc.towerDefenceGame.utils.KeyAction.UP;
 public abstract class GuiButton extends GuiComponent {
 
     private GuiComponent content;
-    protected double width, height;
     protected Color color, initialColor;
 
     private byte state; // 0 == normal; 1 == hovered; 2 == pressed;
@@ -48,20 +47,15 @@ public abstract class GuiButton extends GuiComponent {
                     this.state = 1;
                 }
             }
-        } else if (event instanceof MouseMoveEvent) {
-            double clickXPos = MouseMoveEvent.getAbsoluteX();
-            double clickYPos = MouseMoveEvent.getAbsoluteY();
-            if (clickXPos >= this.pos.getX() && clickXPos < this.pos.getX() + this.width && clickYPos >= this.pos.getY() && clickYPos < this.pos.getY() + this.height) {
-                // Mouse over
-                if (this.state == 0) {
-                    // Mouse in
-                    this.state = 1;
-                }
-            } else {
-                // Mouse out
-                this.state = 0;
-            }
         }
+        super.onEvent(event);
+    }
+
+    protected void onMouseIn() {
+        this.state = 1;
+    }
+    protected void onMouseOut() {
+        this.state = 0;
     }
 
     @Override

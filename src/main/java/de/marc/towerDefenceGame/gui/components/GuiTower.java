@@ -18,9 +18,6 @@ public class GuiTower extends GuiComponent {
     }
 
     @Override
-    public void onEvent(Event event) {}
-
-    @Override
     public void render() {
         GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), this.size, this.size, 0, 0, 1, 1, this.baseTexture, new Color(0.5f, 0.5f, 0.5f));
         GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), this.size, this.size, 0, 0, 1, 1, this.turretTexture, new Color(1, 1, 1));

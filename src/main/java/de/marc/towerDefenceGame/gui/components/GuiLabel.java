@@ -24,9 +24,4 @@ public class GuiLabel extends GuiComponent {
     public void render() {
         TowerDefenceGame.theGame.getFontRenderer().drawString(this.text, this.pos, 2, this.color);
     }
-
-    @Override
-    public void onEvent(Event event) {
-
-    }
 }

@@ -3,8 +3,13 @@ package de.marc.towerDefenceGame.player.tools;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.tower.towers.SniperTower;
+import de.marc.towerDefenceGame.utils.Vector2;
 
 public class SelectTool extends Tool {
+
+    public SelectTool() {
+        super("select");
+    }
 
     @Override
     public void use(Tile target, int mouseButton) {
@@ -20,6 +25,11 @@ public class SelectTool extends Tool {
                 target.deconstruct();
             }
         }
+    }
+
+    @Override
+    public void renderInUI(Vector2 pos) {
+//        TODO: Selecttool Icon in UI
     }
 
     @Override

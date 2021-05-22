@@ -4,10 +4,14 @@ import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.*;
+import de.marc.towerDefenceGame.player.tools.BasicTowerTool;
 import de.marc.towerDefenceGame.player.tools.SelectTool;
+import de.marc.towerDefenceGame.player.tools.SniperTowerTool;
 import de.marc.towerDefenceGame.player.tools.Tool;
 import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.utils.Vector2;
+
+import java.util.ArrayList;
 
 public class Player extends Camera implements Listener {
 
@@ -19,7 +23,9 @@ public class Player extends Camera implements Listener {
 
     private boolean dragMove = false;
 
+    private ArrayList<Tool> tools;
     private Tool activeTool;
+    private int activeToolIndex;
 
     // Starting values for the player should depend on the level
     private int wallet = 50;
@@ -30,6 +36,13 @@ public class Player extends Camera implements Listener {
         super(new Vector2(0D, 0D));
         TowerDefenceGame.theGame.getEventManager().addListener(this);
         this.motion = new Vector2(0D, 0D);
+
+        this.tools = new ArrayList<Tool>();
+        this.tools.add(new SelectTool());
+        this.tools.add(new BasicTowerTool());
+        this.tools.add(new SniperTowerTool());
+
+        this.activeToolIndex = 0;
     }
 
     public void update(long partialMS) {
@@ -168,14 +181,17 @@ public class Player extends Camera implements Listener {
         }
     }
 
-    public void setActiveTool(Tool tool) {
-        if (this.activeTool != null)
-            this.activeTool.deactivate();
-        this.activeTool = tool;
+    public void setActiveTool(int toolIndex) {
+        for (Tool tool : this.tools) {
+            tool.deactivate();
+        }
+        this.activeToolIndex = toolIndex;
+        this.activeTool = this.tools.get(this.activeToolIndex);
+        this.activeTool.activate();
     }
 
     public void deactivateActiveTool() {
-        this.setActiveTool(new SelectTool());
+        this.setActiveTool(0);
     }
 
     public void updateCameraOrigin() {
@@ -186,7 +202,11 @@ public class Player extends Camera implements Listener {
         return this.maxHealth;
     }
 
-    public Tool getActiveTool() {
-        return this.activeTool;
+    public ArrayList<Tool> getTools() {
+        return this.tools;
+    }
+
+    public int getActiveToolIndex() {
+        return this.activeToolIndex;
     }
 }
