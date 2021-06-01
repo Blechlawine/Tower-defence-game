@@ -1,7 +1,7 @@
 package de.marc.towerDefenceGame.gui;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.gui.guis.InGameGui;
+import de.marc.towerDefenceGame.gui.guis.GuiInGame;
 import de.marc.towerDefenceGame.utils.ListManager;
 
 public class GuiManager extends ListManager<Gui> {
@@ -10,7 +10,7 @@ public class GuiManager extends ListManager<Gui> {
 
     @Override
     public void setup() {
-        this.addGui(new InGameGui());
+        this.addGui(new GuiInGame());
     }
 
     public void addGui(Gui gui) {
