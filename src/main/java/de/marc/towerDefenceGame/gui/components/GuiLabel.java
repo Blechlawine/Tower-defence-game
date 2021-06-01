@@ -13,11 +13,15 @@ public class GuiLabel extends GuiComponent {
     public GuiLabel(String text, Vector2 pos, Color color) {
         super(pos);
         this.text = text;
+        this.width = TowerDefenceGame.theGame.getFontRenderer().getRenderedStringWidth(this.text, 2);
+        this.height = TowerDefenceGame.theGame.getFontRenderer().getCharHeight(2);
         this.color = color;
     }
 
     public void setText(String text) {
         this.text = text;
+        this.width = TowerDefenceGame.theGame.getFontRenderer().getRenderedStringWidth(this.text, 2);
+        this.height = TowerDefenceGame.theGame.getFontRenderer().getCharHeight(2);
     }
 
     @Override

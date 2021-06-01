@@ -94,8 +94,8 @@ public abstract class Tower implements Listener, Renderable {
 
     protected void updateTargets() {
         this.possibleTargets = new TreeSet<Enemy>(new EnemyComparator(this.compareMode));
-        if (!TowerDefenceGame.theGame.currentLevel.getEnemies().isEmpty()) {
-            for (Enemy e : TowerDefenceGame.theGame.currentLevel.getEnemies()) {
+        if (!TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getEnemies().isEmpty()) {
+            for (Enemy e : TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getEnemies()) {
                 double distance = Vector2.duplicate(e.getMiddle()).subtract(this.middle).getLength();
                 if (distance <= this.range) {
                     this.possibleTargets.add(e);

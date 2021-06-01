@@ -33,7 +33,7 @@ public abstract class Projectile implements Renderable, Listener {
         if(event instanceof UpdateEvent) {
             UpdateEvent e = (UpdateEvent) event;
             Enemy collidedWith = null;
-            for (Enemy enemy : TowerDefenceGame.theGame.currentLevel.getEnemies()) {
+            for (Enemy enemy : TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getEnemies()) {
                 Vector2 tempVec = Vector2.duplicate(this.pos);
                 double distance = tempVec.subtract(enemy.getMiddle()).getLength();
                 if (distance <= this.size + enemy.getSize()) {

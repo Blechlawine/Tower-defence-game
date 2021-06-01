@@ -5,6 +5,8 @@ import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.WindowResizeEvent;
 import de.marc.towerDefenceGame.gui.components.GuiComponent;
+import de.marc.towerDefenceGame.utils.Color;
+import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
 import de.marc.towerDefenceGame.utils.Vector2;
 
@@ -15,6 +17,8 @@ public abstract class Gui implements Renderable, Listener {
 
     protected String name;
     protected List<GuiComponent> components;
+
+    protected boolean hasBackground = false;
 
     public static Vector2 windowSize;
 
@@ -28,6 +32,7 @@ public abstract class Gui implements Renderable, Listener {
     public abstract void initGui();
 
     public void render() {
+        if (this.hasBackground) this.drawBackground();
         for (GuiComponent c : this.components) {
             c.render();
         }
@@ -43,5 +48,9 @@ public abstract class Gui implements Renderable, Listener {
 
     public String getName() {
         return this.name;
+    }
+
+    protected void drawBackground() {
+        GLUtils.drawRect(0, 0, this.windowSize.getX(), this.windowSize.getY(), new Color("#263238"));
     }
 }

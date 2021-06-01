@@ -119,7 +119,7 @@ public abstract class Enemy implements Listener, Renderable {
     public void remove() {
         TowerDefenceGame.theGame.getRenderer().getLayerByName("enemies").removeElement(this);
         TowerDefenceGame.theGame.getEventManager().removeListener(this);
-        TowerDefenceGame.theGame.currentLevel.getEnemies().remove(this);
+        TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getEnemies().remove(this);
     }
 
     public void damage(double value) {

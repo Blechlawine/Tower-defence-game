@@ -48,4 +48,12 @@ public abstract class GuiComponent implements Renderable, Listener {
             }
         }
     }
+
+    public double getWidth() {
+        return this.width;
+    }
+
+    public double getHeight() {
+        return this.height;
+    }
 }

@@ -7,6 +7,7 @@ import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Vector2;
+import org.lwjgl.opengl.GL11;
 
 import static de.marc.towerDefenceGame.utils.KeyAction.DOWN;
 import static de.marc.towerDefenceGame.utils.KeyAction.UP;
@@ -61,6 +62,9 @@ public abstract class GuiButton extends GuiComponent {
     @Override
     public void render() {
         GLUtils.drawRect(this.pos.getX(), this.pos.getY(), this.width, this.height, this.color);
+        GL11.glPushMatrix();
+        GL11.glTranslated(this.pos.getX() + (this.width / 2) - (this.content.getWidth() / 2), this.pos.getY() + (this.height / 2) - (this.content.getHeight() / 2), 0);
         this.content.render();
+        GL11.glPopMatrix();
     }
 }

@@ -2,6 +2,7 @@ package de.marc.towerDefenceGame;
 
 import de.marc.towerDefenceGame.event.EventManager;
 import de.marc.towerDefenceGame.event.events.*;
+import de.marc.towerDefenceGame.games.GameManager;
 import de.marc.towerDefenceGame.gui.FontRenderer;
 import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.gui.GuiManager;
@@ -42,6 +43,7 @@ public class TowerDefenceGame {
     private GuiManager guiManager;
     private Renderer renderer;
     private FontRenderer fontRenderer;
+    private GameManager gameManager;
     private Logger logger;
 
     private boolean renderDebugStuff = false;
@@ -68,6 +70,7 @@ public class TowerDefenceGame {
         this.renderer = new Renderer();
         this.eventManager = new EventManager();
         this.towerManager = new TowerManager();
+        this.gameManager = new GameManager();
         this.textureManager = new TextureManager();
         this.guiManager = new GuiManager();
         this.thePlayer = new Player();
@@ -75,7 +78,7 @@ public class TowerDefenceGame {
         Gui.windowSize = new Vector2(this.windowWidth, this.windowHeight);
 
         this.eventManager.setup();
-        this.guiManager.setup();
+        this.gameManager.setup();
 
         this.renderer.addLayer(new RenderLayer("level", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("enemies", this.thePlayer));
@@ -111,14 +114,11 @@ public class TowerDefenceGame {
 
         this.initGL();
 
-        this.currentLevel = Level.generateLevelFromJsonFile("assets/TestBig.json");
+//        this.currentLevel = Level.generateLevelFromJsonFile("assets/TestBig.json");
         this.textureManager.setup();
         this.fontRenderer = new FontRenderer();
-//        this.getTextureHandler().loadTexture("assets/TilesFuturistic.png");
-        this.renderer.getLayerByName("level").addElement(this.currentLevel);
-        this.renderer.getLayerByName("level").addElement(this.currentLevel.getPath());
-        this.guiManager.setActiveGui(this.guiManager.getGuiFromName("ingame"));
-//        this.renderer.getLayerByName("gui").addElement(this.guiManager.getCurrentGui());
+        this.guiManager.setup();
+        this.guiManager.setActiveGui(this.guiManager.getGuiFromName("mainmenu"));
     }
 
     private void loop() {
@@ -189,6 +189,12 @@ public class TowerDefenceGame {
     }
     public FontRenderer getFontRenderer() {
         return this.fontRenderer;
+    }
+    public GameManager getGameManager() {
+        return this.gameManager;
+    }
+    public GuiManager getGuiManager() {
+        return this.guiManager;
     }
 
     public boolean getRenderDebugStuff() {

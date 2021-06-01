@@ -52,8 +52,8 @@ public class FontRenderer {
         return (stringlength * this.charWidth + (stringlength - 1) * this.charGap) * sizeMultiplier;
     }
 
-    public int getCharHeight() {
-        return this.charHeight;
+    public double getCharHeight(double sizeMultiplier) {
+        return this.charHeight * sizeMultiplier;
     }
 
 }
