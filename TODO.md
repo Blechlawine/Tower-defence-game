@@ -3,7 +3,6 @@
 
 - Menu
 - UI window sizing fix 
-- Pause Game when window is being moved
 - Knockback
 - Towerupgrades
 - more Towers

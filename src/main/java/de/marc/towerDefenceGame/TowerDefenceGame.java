@@ -8,7 +8,6 @@ import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.gui.GuiManager;
 import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.player.Player;
-import de.marc.towerDefenceGame.player.tools.SelectTool;
 import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
@@ -108,6 +107,10 @@ public class TowerDefenceGame {
             this.initGL();
         });
 
+        glfwSetWindowPosCallback(window, (window, x, y) -> {
+            this.eventManager.hook(new WindowMoveEvent(x, y));
+        });
+
         glfwMakeContextCurrent(this.window);
         glfwSwapInterval(1);
         GL.createCapabilities();
@@ -126,14 +129,20 @@ public class TowerDefenceGame {
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT);
 
-            long ms = System.nanoTime() / 1000;
+            long ms = System.nanoTime() / 1000000;
 
-            this.eventManager.hook(new PreUpdateEvent(ms));
+            if(this.gameManager.getCurrentGame() != null && !this.gameManager.getCurrentGame().isPaused()) {
+                this.eventManager.hook(new PreUpdateEvent(ms));
+                this.eventManager.hook(new UpdateEvent(ms));
+                this.eventManager.hook(new PostUpdateEvent(ms));
+            }
+            this.eventManager.hook(new UnPausedPostUpdateEvent(ms));
+
             PreUpdateEvent.lastMS = ms;
-
-            // Update hier
-            this.eventManager.hook(new UpdateEvent(ms));
             UpdateEvent.lastMS = ms;
+            PostUpdateEvent.lastMS = ms;
+            UnPausedPostUpdateEvent.lastMS = ms;
+
 
             // Rendern hier
             this.renderer.renderLayers();

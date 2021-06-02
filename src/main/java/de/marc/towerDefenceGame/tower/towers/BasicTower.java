@@ -56,12 +56,12 @@ public class BasicTower extends Tower {
             UpdateEvent e = (UpdateEvent) event;
             if (this.target != null) {
                 Vector2 targetDirection = Vector2.duplicate(this.target.getMiddle()).subtract(this.middle);
-                long time = Math.round(BasicProjectile.getSpeed() * targetDirection.getLength() * 10000);
+                long time = Math.round(BasicProjectile.getSpeed() * targetDirection.getLength() * 10);
                 Vector2 predictedPos = this.target.predictPosInTime(time);
                 boolean isLookingAtFinalPos = this.lookAt(predictedPos, e.partialMS);
 //                TowerDefenceGame.theGame.getLogger().debug(predictedPos.subtract(this.target.getMiddle()));
                 if (this.attackTimer.hasReached((long) (1000 / this.fireRate)) && isLookingAtFinalPos) {
-                    new BasicProjectile(this.middle, Vector2.duplicate(this.lookVec.normalize()), this.damage.getValue(), time / 100);
+                    new BasicProjectile(this.middle, Vector2.duplicate(this.lookVec.normalize()), this.damage.getValue(), time * 10);
                     this.attackTimer.reset();
                 }
             }

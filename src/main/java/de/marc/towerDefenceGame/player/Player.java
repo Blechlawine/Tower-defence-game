@@ -46,7 +46,7 @@ public class Player extends Camera implements Listener {
     }
 
     public void update(long partialMS) {
-        this.pos.add(Vector2.duplicate(this.motion).normalize().multiply(this.currentSpeed * (partialMS / 10000d)));
+        this.pos.add(Vector2.duplicate(this.motion).normalize().multiply(this.currentSpeed * (partialMS / 10d)));
         this.setCameraPos(this.pos);
     }
 

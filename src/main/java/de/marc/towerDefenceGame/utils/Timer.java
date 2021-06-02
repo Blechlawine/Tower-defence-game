@@ -1,20 +1,35 @@
 package de.marc.towerDefenceGame.utils;
 
-public class Timer {
+import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.event.Event;
+import de.marc.towerDefenceGame.event.Listener;
+import de.marc.towerDefenceGame.event.events.PreUpdateEvent;
 
-    private long milliseconds;
-    private long lastMilliseconds;
+public class Timer implements Listener {
 
-    public final long getTime() {
-        return System.nanoTime() / 1000000L;
+    private long lastMS, ms;
+
+    public Timer() {
+        TowerDefenceGame.theGame.getEventManager().addListener(this);
     }
 
-    public final boolean hasReached(long ms) {
-        return this.getTime() - this.lastMilliseconds >= ms;
+    @Override
+    public void onEvent(Event event) {
+        if (event instanceof PreUpdateEvent) {
+            PreUpdateEvent pue = (PreUpdateEvent) event;
+            this.ms += pue.partialMS;
+        }
     }
 
-    public final void reset() {
-        this.lastMilliseconds = this.getTime();
+    public boolean hasReached(long ms) {
+        return this.ms >= this.lastMS + ms;
     }
 
+    public void reset() {
+        this.lastMS = ms;
+    }
+
+    public void destroy() {
+        TowerDefenceGame.theGame.getEventManager().removeListener(this);
+    }
 }

@@ -6,9 +6,7 @@ import de.marc.towerDefenceGame.enemy.EnemyComparator;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.PreUpdateEvent;
-import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.level.Tile;
-import de.marc.towerDefenceGame.tower.projectile.projectiles.BasicProjectile;
 import de.marc.towerDefenceGame.utils.*;
 
 import java.util.TreeSet;
@@ -106,7 +104,7 @@ public abstract class Tower implements Listener, Renderable {
 
     protected void updateTarget() {
         if (!this.possibleTargets.isEmpty()) {
-            if (this.target != null && this.target.getHealth() > 0) {
+            if (this.target != null && this.target.getHealth() > 0 && this.getDistanceToCurrentTarget() < this.range) {
                 return;
             }
             if (this.targetMode == TargetMode.RANDOM) {
@@ -131,7 +129,7 @@ public abstract class Tower implements Listener, Renderable {
     protected boolean lookAt(Vector2 vecToLookAt, long partialMS) {
         Vector2 targetDirection = Vector2.duplicate(vecToLookAt).subtract(this.middle).normalize();
         Vector2 toTarget = Vector2.duplicate(targetDirection).subtract(this.lookVec);
-        Vector2 turnVec = Vector2.duplicate(toTarget).normalize().multiply(this.turnSpeed * partialMS / 10000d);
+        Vector2 turnVec = Vector2.duplicate(toTarget).normalize().multiply(this.turnSpeed * partialMS / 10d);
 //        TowerDefenceGame.theGame.getLogger().debug(targetDirection);
         double toTargetDist = toTarget.getLength();
         double turnDist = turnVec.getLength();
@@ -159,8 +157,17 @@ public abstract class Tower implements Listener, Renderable {
         }
     }
 
+    protected double getDistanceToCurrentTarget() {
+        if (this.target == null) {
+            return -1d;
+        }
+        Vector2 toTarget = Vector2.duplicate(this.pos).subtract(this.target.getMiddle());
+        return toTarget.getLength();
+    }
+
     public void onDestroyed() {
         TowerDefenceGame.theGame.getLogger().info("Tower destroyed");
+        this.attackTimer.destroy();
     }
 
     public enum TargetMode {

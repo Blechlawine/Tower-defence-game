@@ -3,6 +3,7 @@ package de.marc.towerDefenceGame.level;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.enemy.Enemy;
 import de.marc.towerDefenceGame.enemy.EnemySpawner;
+import de.marc.towerDefenceGame.games.Game;
 import de.marc.towerDefenceGame.level.path.Path;
 import de.marc.towerDefenceGame.level.path.PathNode;
 import de.marc.towerDefenceGame.utils.FileUtils;
@@ -35,13 +36,13 @@ public class Level implements Renderable {
 //        TowerDefenceGame.theGame.getTextureHandler().unbindTexture();
     }
 
-    public static Level generateLevelFromJsonFile(String fileName) {
+    public Level generateFromJsonFile(String fileName) {
         TowerDefenceGame.theGame.getLogger().info("Generating Level: " + fileName);
         JSONObject json = FileUtils.readJSONFile(fileName);
         JSONArray layers = json.getJSONArray("layers");
         JSONObject layer = layers.getJSONObject(0);
         JSONArray chunks = layer.getJSONArray("chunks");
-        Level level = new Level();
+        Level level = this;
         int tileSizeInPixel = json.getInt("tilewidth");
         for(int i = 0; i < chunks.length(); i++) {
             JSONObject jsonChunk = chunks.getJSONObject(i);

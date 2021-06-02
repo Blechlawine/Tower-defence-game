@@ -63,7 +63,7 @@ public abstract class Enemy implements Listener, Renderable {
     }
 
     public void update(long partialMS) {
-        this.middle.add(this.motion.normalize().multiply(this.speed * (partialMS / 10000d)));
+        this.middle.add(this.motion.normalize().multiply(this.speed * (partialMS / 10d)));
         this.travelledDistance += this.motion.getLength();
     }
 
@@ -99,7 +99,7 @@ public abstract class Enemy implements Listener, Renderable {
     }
 
     public Vector2 predictPosInTime(long partialMS) {
-        return Vector2.duplicate(this.middle).add(this.motion.normalize().multiply(this.speed * (partialMS / 10000d)));
+        return Vector2.duplicate(this.middle).add(this.motion.normalize().multiply(this.speed * (partialMS / 10d)));
     }
 
     public void onDeath() {

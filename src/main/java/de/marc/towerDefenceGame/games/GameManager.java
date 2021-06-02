@@ -4,7 +4,7 @@ import de.marc.towerDefenceGame.utils.ListManager;
 
 public class GameManager extends ListManager<Game> {
 
-    private Game currentGame;
+    private Game currentGame = null;
 
     @Override
     public void setup() {
