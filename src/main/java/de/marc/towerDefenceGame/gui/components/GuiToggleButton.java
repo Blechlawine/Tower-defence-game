@@ -7,8 +7,8 @@ public abstract class GuiToggleButton extends GuiButton {
 
     private boolean toggled;
 
-    public GuiToggleButton(GuiComponent content, Vector2 pos, double width, double height, Color baseColor) {
-        super(content, pos, width, height, baseColor);
+    public GuiToggleButton(GuiComponent content, Vector2 pos, double width, double height, Color baseColor, Color hoverColor) {
+        super(content, pos, width, height, baseColor, hoverColor);
         this.toggled = false;
     }
 

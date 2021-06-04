@@ -10,6 +10,10 @@ public class GuiLabel extends GuiComponent {
     private String text;
     private Color color;
 
+    public GuiLabel(String text, Color color) {
+        this(text, new Vector2(0, 0), color);
+    }
+
     public GuiLabel(String text, Vector2 pos, Color color) {
         super(pos);
         this.text = text;

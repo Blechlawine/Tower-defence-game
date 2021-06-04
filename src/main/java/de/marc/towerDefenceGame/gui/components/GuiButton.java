@@ -15,11 +15,11 @@ import static de.marc.towerDefenceGame.utils.KeyAction.UP;
 public abstract class GuiButton extends GuiComponent {
 
     private GuiComponent content;
-    protected Color color, initialColor;
+    protected Color color, initialColor, hoverColor;
 
     private byte state; // 0 == normal; 1 == hovered; 2 == pressed;
 
-    public GuiButton(GuiComponent content, Vector2 pos, double width, double height, Color color) {
+    public GuiButton(GuiComponent content, Vector2 pos, double width, double height, Color color, Color hoverColor) {
         super(pos);
         this.content = content;
         this.width = width;
@@ -27,6 +27,7 @@ public abstract class GuiButton extends GuiComponent {
 
         this.initialColor = color;
         this.color = color;
+        this.hoverColor = hoverColor;
     }
 
     public abstract void onClick();
@@ -54,9 +55,11 @@ public abstract class GuiButton extends GuiComponent {
 
     protected void onMouseIn() {
         this.state = 1;
+        this.color = this.hoverColor;
     }
     protected void onMouseOut() {
         this.state = 0;
+        this.color = this.initialColor;
     }
 
     @Override
