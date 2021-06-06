@@ -38,6 +38,7 @@ public class GuiToolbar extends GuiComponent {
                     double relMousePosX = MouseMoveEvent.getAbsoluteX() - this.pos.getX();
                     int hoveredToolIndex = (int) (relMousePosX / this.toolSize);
                     TowerDefenceGame.theGame.getPlayer().setActiveTool(hoveredToolIndex);
+                    e.cancel();
                 }
             }
         }

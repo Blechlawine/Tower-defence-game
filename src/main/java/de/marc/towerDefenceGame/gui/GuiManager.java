@@ -12,9 +12,9 @@ public class GuiManager extends ListManager<Gui> {
 
     @Override
     public void setup() {
-        this.addGui(new GuiInGame());
         this.addGui(new GuiMainMenu());
         this.addGui(new GuiSelectLevel());
+        this.addGui(new GuiInGame());
     }
 
     public void addGui(Gui gui) {
