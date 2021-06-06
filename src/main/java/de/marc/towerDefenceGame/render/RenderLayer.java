@@ -1,9 +1,7 @@
 package de.marc.towerDefenceGame.render;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.enemy.Enemy;
 import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
-import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
 import de.marc.towerDefenceGame.utils.Vector2;
 import org.lwjgl.opengl.GL11;

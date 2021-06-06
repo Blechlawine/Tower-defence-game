@@ -6,7 +6,7 @@ import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.MouseButtonEvent;
 import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
 import de.marc.towerDefenceGame.event.events.TileClickEvent;
-import de.marc.towerDefenceGame.tower.Tower;
+import de.marc.towerDefenceGame.gameObjects.tower.Tower;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Renderable;

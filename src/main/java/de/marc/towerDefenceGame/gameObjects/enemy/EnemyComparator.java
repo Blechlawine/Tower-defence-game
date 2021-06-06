@@ -1,4 +1,4 @@
-package de.marc.towerDefenceGame.enemy;
+package de.marc.towerDefenceGame.gameObjects.enemy;
 
 import java.util.Comparator;
 

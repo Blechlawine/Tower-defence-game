@@ -12,7 +12,7 @@ import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
 import de.marc.towerDefenceGame.texture.TextureManager;
-import de.marc.towerDefenceGame.tower.TowerManager;
+import de.marc.towerDefenceGame.gameObjects.tower.TowerManager;
 import de.marc.towerDefenceGame.utils.Logger;
 import de.marc.towerDefenceGame.texture.TextureHandler;
 import de.marc.towerDefenceGame.utils.Vector2;

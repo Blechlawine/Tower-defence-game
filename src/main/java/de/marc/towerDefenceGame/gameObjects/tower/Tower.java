@@ -1,11 +1,12 @@
-package de.marc.towerDefenceGame.tower;
+package de.marc.towerDefenceGame.gameObjects.tower;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.enemy.Enemy;
-import de.marc.towerDefenceGame.enemy.EnemyComparator;
+import de.marc.towerDefenceGame.gameObjects.enemy.Enemy;
+import de.marc.towerDefenceGame.gameObjects.enemy.EnemyComparator;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.PreUpdateEvent;
+import de.marc.towerDefenceGame.gameObjects.sprites.AnimatedSprite;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.utils.*;
 
@@ -166,8 +167,9 @@ public abstract class Tower implements Listener, Renderable {
     }
 
     public void onDestroyed() {
-        TowerDefenceGame.theGame.getLogger().info("Tower destroyed");
+//        TowerDefenceGame.theGame.getLogger().info("Tower destroyed");
         this.attackTimer.destroy();
+        new AnimatedSprite(this.pos, 16, 16, 12, "dustexplosion", 12, false, "towers");
     }
 
     public enum TargetMode {

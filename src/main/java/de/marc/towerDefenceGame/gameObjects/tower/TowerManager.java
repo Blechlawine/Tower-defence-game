@@ -1,7 +1,6 @@
-package de.marc.towerDefenceGame.tower;
+package de.marc.towerDefenceGame.gameObjects.tower;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.tower.towers.*;
 import de.marc.towerDefenceGame.utils.ListManager;
 
 public class TowerManager extends ListManager<Tower> {

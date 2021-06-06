@@ -1,6 +1,6 @@
-package de.marc.towerDefenceGame.enemy.enemies;
+package de.marc.towerDefenceGame.gameObjects.enemy.enemies;
 
-import de.marc.towerDefenceGame.enemy.Enemy;
+import de.marc.towerDefenceGame.gameObjects.enemy.Enemy;
 import de.marc.towerDefenceGame.level.path.Path;
 import de.marc.towerDefenceGame.level.path.PathNode;
 import de.marc.towerDefenceGame.utils.Color;

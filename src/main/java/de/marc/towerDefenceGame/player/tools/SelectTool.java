@@ -2,7 +2,6 @@ package de.marc.towerDefenceGame.player.tools;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.level.Tile;
-import de.marc.towerDefenceGame.tower.towers.SniperTower;
 import de.marc.towerDefenceGame.utils.Vector2;
 
 public class SelectTool extends Tool {

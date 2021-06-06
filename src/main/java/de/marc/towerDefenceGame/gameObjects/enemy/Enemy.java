@@ -1,4 +1,4 @@
-package de.marc.towerDefenceGame.enemy;
+package de.marc.towerDefenceGame.gameObjects.enemy;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;

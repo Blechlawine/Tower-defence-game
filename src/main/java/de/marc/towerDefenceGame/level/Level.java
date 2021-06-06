@@ -1,9 +1,8 @@
 package de.marc.towerDefenceGame.level;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.enemy.Enemy;
-import de.marc.towerDefenceGame.enemy.EnemySpawner;
-import de.marc.towerDefenceGame.games.Game;
+import de.marc.towerDefenceGame.gameObjects.enemy.Enemy;
+import de.marc.towerDefenceGame.gameObjects.enemy.EnemySpawner;
 import de.marc.towerDefenceGame.level.path.Path;
 import de.marc.towerDefenceGame.level.path.PathNode;
 import de.marc.towerDefenceGame.utils.FileUtils;

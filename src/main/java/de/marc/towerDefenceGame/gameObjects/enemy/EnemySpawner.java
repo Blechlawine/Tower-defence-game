@@ -1,7 +1,7 @@
-package de.marc.towerDefenceGame.enemy;
+package de.marc.towerDefenceGame.gameObjects.enemy;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.enemy.enemies.BasicEnemy;
+import de.marc.towerDefenceGame.gameObjects.enemy.enemies.BasicEnemy;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;

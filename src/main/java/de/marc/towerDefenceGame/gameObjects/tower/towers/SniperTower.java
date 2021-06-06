@@ -1,10 +1,9 @@
-package de.marc.towerDefenceGame.tower.towers;
+package de.marc.towerDefenceGame.gameObjects.tower.towers;
 
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.level.Tile;
-import de.marc.towerDefenceGame.tower.Tower;
-import de.marc.towerDefenceGame.tower.projectile.projectiles.BasicProjectile;
+import de.marc.towerDefenceGame.gameObjects.tower.Tower;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.RandomRange;

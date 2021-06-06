@@ -1,7 +1,7 @@
 package de.marc.towerDefenceGame.level.path;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.enemy.EnemySpawner;
+import de.marc.towerDefenceGame.gameObjects.enemy.EnemySpawner;
 import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.level.Tile.TileType;
