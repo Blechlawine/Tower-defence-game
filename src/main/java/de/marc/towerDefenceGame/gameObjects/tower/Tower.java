@@ -169,7 +169,7 @@ public abstract class Tower implements Listener, Renderable {
     public void onDestroyed() {
 //        TowerDefenceGame.theGame.getLogger().info("Tower destroyed");
         this.attackTimer.destroy();
-        new AnimatedSprite(this.pos, 16, 16, 12, "dustexplosion", 12, false, "towers");
+        new AnimatedSprite(this.pos, 16, 16, 24, "dustexplosion", 12, false, "towers");
     }
 
     public enum TargetMode {
