@@ -161,4 +161,11 @@ public class GLUtils {
         glTranslated(-loc.getX(), -loc.getY(), 0);
     }
 
+    public static void drawAnimatedTexturedRect(Vector2 pos, double width, double height, int frameCount, int currentFrame, String textureName, Color colorOverride) {
+        Texture texture = TowerDefenceGame.theGame.getTextureManager().getTextureFromName(textureName);
+        double uvWidth = 1D / frameCount;
+        double u = uvWidth * currentFrame;
+        drawTexturedRect(pos.getX(), pos.getY(), width, height, u, 0, uvWidth, 1, textureName, colorOverride);
+    }
+
 }
