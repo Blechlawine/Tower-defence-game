@@ -1,6 +1,11 @@
 package de.marc.towerDefenceGame.utils;
 
 import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,11 +19,17 @@ public class Logger {
     }
 
     public void info(String message) {
-        this.outStream.println(message);
+        this.outStream.println(this.makeMessage(message));
     }
 
     public void err(String message) {
-        this.errStream.println(message);
+        this.errStream.println(this.makeMessage(message));
+    }
+
+    private String makeMessage(String message) {
+        LocalDateTime time = LocalDateTime.now();
+        String timeStr = "[" + time.format(DateTimeFormatter.ofPattern("kk':'mm':'ss':'n")) + "]";
+        return timeStr + ": " + message;
     }
 
     public void debug(Object... props) {
