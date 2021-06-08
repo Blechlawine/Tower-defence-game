@@ -12,7 +12,8 @@ public class GameManager extends ListManager<Game> {
     }
 
     public void startNewGame() {
-        this.currentGame = new Game();
+        if (this.currentGame == null)
+            this.currentGame = new Game();
     }
 
     public Game getCurrentGame() {
