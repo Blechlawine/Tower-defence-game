@@ -48,6 +48,19 @@ public abstract class Gui implements Renderable, Listener {
     }
 
     protected void drawBackground() {
-        GLUtils.drawRect(0, 0, this.windowSize.getX(), this.windowSize.getY(), new Color(Colors.BACKGROUND));
+        GLUtils.drawRect(0, 0, windowSize.getX(), windowSize.getY(), new Color(Colors.BACKGROUND));
     }
+
+    protected double getInPixels(double number, String unit) {
+        double pixels = number;
+        if (unit.equalsIgnoreCase("px")) {
+            pixels = number;
+        } else if (unit.equalsIgnoreCase("vw")) {
+            pixels = windowSize.getX() * (number / 100);
+        } else if (unit.equalsIgnoreCase("vh")) {
+            pixels = windowSize.getY() * (number / 100);
+        }
+        return pixels;
+    }
+
 }

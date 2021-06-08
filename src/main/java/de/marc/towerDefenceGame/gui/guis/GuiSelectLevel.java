@@ -27,7 +27,7 @@ public class GuiSelectLevel extends Gui {
         this.levelPreviews = new ArrayList<GuiImage>();
         this.confirmBtn = new GuiButton(
                 new GuiLabel("Confirm", new Color(1, 1, 1)),
-                new Vector2(this.windowSize.getX() / 2 + 20, this.windowSize.getY() - 50),
+                new Vector2(getInPixels(50, "vw") + 20, getInPixels(100, "vh") - 50),
                 100, 20,
                 new Color(Colors.BUTTONPRIMARY),
                 new Color(Colors.BUTTONPRIMARYHOVER)
@@ -52,9 +52,7 @@ public class GuiSelectLevel extends Gui {
                 new Color(1, 0, 0)
         ));
 
-        for(GuiImage guiImage : this.levelPreviews) {
-            this.components.add(guiImage);
-        }
+        this.components.addAll(this.levelPreviews);
         this.components.add(this.confirmBtn);
     }
 }
