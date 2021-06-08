@@ -10,7 +10,7 @@ project.ext.lwjglVersion = "3.2.2"
 project.ext.lwjglNatives = "natives-windows"
 
 group 'de.marc'
-version '0.4'
+version '0.5'
 
 repositories {
     mavenCentral()
