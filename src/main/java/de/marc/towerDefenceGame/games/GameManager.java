@@ -20,4 +20,7 @@ public class GameManager extends ListManager<Game> {
         return this.currentGame;
     }
 
+    public void setCurrentGame(Game game) {
+        this.currentGame = game;
+    }
 }

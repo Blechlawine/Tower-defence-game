@@ -65,7 +65,7 @@ public class Player extends Camera implements Listener {
     public void removeHealth(int amount) {
         this.health -= Math.min(amount, this.health);
         if (this.getHealth() <= 0) {
-            // Spiel zu ende
+            TowerDefenceGame.theGame.getGameManager().getCurrentGame().end();
         }
     }
 

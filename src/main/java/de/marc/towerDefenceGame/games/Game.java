@@ -16,7 +16,7 @@ public class Game implements Listener {
     private long pausedTimeMS = 0L;
 
     public Game() {
-        this.level = new Level().generateFromJsonFile("assets/levels/testbig.json");
+        this.level = new Level().generateFromJsonFile("assets/levels/test2.json");
         TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level);
         TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level.getPath());
         TowerDefenceGame.theGame.getGuiManager().setActiveGui("ingame");
@@ -36,6 +36,14 @@ public class Game implements Listener {
         } else if (event instanceof PostUpdateEvent) {
 //            this.pausedTimeMS = 0L;
         }
+    }
+
+    public void end() {
+        TowerDefenceGame.theGame.getGuiManager().setActiveGui("defeat");
+        this.paused = true;
+//        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").removeElement(this.level);
+//        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").removeElement(this.level.getPath());
+        TowerDefenceGame.theGame.getEventManager().removeListener(this);
     }
 
     public boolean isPaused() {

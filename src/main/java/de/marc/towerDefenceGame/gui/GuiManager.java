@@ -1,6 +1,7 @@
 package de.marc.towerDefenceGame.gui;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.gui.guis.GuiDefeat;
 import de.marc.towerDefenceGame.gui.guis.GuiInGame;
 import de.marc.towerDefenceGame.gui.guis.GuiMainMenu;
 import de.marc.towerDefenceGame.gui.guis.GuiSelectLevel;
@@ -14,6 +15,7 @@ public class GuiManager extends ListManager<Gui> {
     public void setup() {
         this.addGui(new GuiMainMenu());
         this.addGui(new GuiSelectLevel());
+        this.addGui(new GuiDefeat());
         this.addGui(new GuiInGame());
     }
 

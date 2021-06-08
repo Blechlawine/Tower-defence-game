@@ -22,7 +22,7 @@ public class GuiInGame extends Gui {
 
     public void initGui() {
         this.walletLabel = new GuiLabel("- $", new Vector2(10, 10), new Color(1, 0, 0 ));
-        this.healthLabel = new GuiLabel("", new Vector2(10, 20), new Color(1, 0, 0 ));
+        this.healthLabel = new GuiLabel("", new Vector2(10, 30), new Color(1, 0, 0 ));
         this.towerToolbar = new GuiToolbar(new Vector2(getInPixels(50, "vw") - 50, getInPixels(100, "vh") - 50));
 
         this.components.add(this.walletLabel);

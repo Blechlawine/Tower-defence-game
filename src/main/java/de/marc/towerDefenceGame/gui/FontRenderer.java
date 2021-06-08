@@ -25,8 +25,8 @@ public class FontRenderer {
     }
 
     public void drawString(String text, Vector2 pos, double sizeMultiplier, Color color) {
-        double x = pos.getX();
-        double y = pos.getY();
+        double x = pos.getX() / sizeMultiplier;
+        double y = pos.getY() / sizeMultiplier;
         GL11.glPushMatrix();
         GL11.glScaled(sizeMultiplier, sizeMultiplier, 1);
         double charXPos = x;
