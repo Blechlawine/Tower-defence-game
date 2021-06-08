@@ -1,18 +1,28 @@
 # TODO:
 
+- BUG: Multiple Games at the same time
 
+- Waves **IMPORTANT**
 - Menu
+- Linewidth fixed to Map size / Camera zoom
+- Transparency for tool visualizations
+- Ingame kill counter
+- Fullscreen toggle
 - UI window sizing fix 
 - Knockback
+- Tower shot animation
+- Bullettrails
 - Towerupgrades
+- more Enemies
 - more Towers
-  - Grenade launcher
+  - Grenade launcher: Eeexplosioons!!
   - Shotgun
+  - Lock on rocket launchers?
   - etc.
-- Texturepack/Tilepack support
 - Keybindingmanager for user-settable keybinds
 - vfx (glow, etc)
-- Animations (explosions when enemies die, dust when towers are destroyed, etc.)
+- Sounds
+- Animations (explosions when enemies die, Bomb explosions)
 - simplify healthbars to be easier to spot with a lot of enemies
 - Render map-background
-- Profiler for performance analysis
+- Texturepack/Tilepack support
