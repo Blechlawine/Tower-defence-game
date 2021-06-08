@@ -1,7 +1,5 @@
 # TODO:
 
-- BUG: Multiple Games at the same time
-
 - Waves **IMPORTANT**
 - Menu
 - Linewidth fixed to Map size / Camera zoom
