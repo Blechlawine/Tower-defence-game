@@ -29,7 +29,7 @@ public class Player extends Camera implements Listener {
 
     // Starting values for the player should depend on the level
     private int wallet = 50;
-    private int health = 20;
+    private int health = 100;
     private final int maxHealth = health;
 
     public Player() {

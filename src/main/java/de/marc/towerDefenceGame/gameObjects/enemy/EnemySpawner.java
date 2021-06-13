@@ -5,12 +5,21 @@ import de.marc.towerDefenceGame.gameObjects.enemy.enemies.BasicEnemy;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
+import de.marc.towerDefenceGame.gameObjects.enemy.enemies.FastEnemy;
+import de.marc.towerDefenceGame.gameObjects.enemy.enemies.ToughEnemy;
 import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.utils.Timer;
 
+import java.util.*;
+
 public class EnemySpawner implements Listener {
 
-    private int currentWave, waveHealth, waveAverageSpeed;
+    private int currentWave, enemyAmount;
+    private double waveNewEnemyProbability, nextWaveHealthMultiplier;
+
+    private Stack<String> enemiesToSpawn;
+    private List<String> possibleEnemyTypes;
+    private Stack<String> possibleNewEnemyTypes;
 
     private double xPos, yPos;
     private int size;
@@ -18,6 +27,8 @@ public class EnemySpawner implements Listener {
     private Level level;
 
     private Timer spawnTimer;
+    private Timer nextWaveTimer;
+    private long nextWaveDelay = 10000;
     private long spawnDelayMs = 700;
 
     public EnemySpawner(double x, double y, int size, Level level) {
@@ -28,12 +39,50 @@ public class EnemySpawner implements Listener {
         this.spawnWidth = this.size * 0.5f;
         this.level = level;
         this.spawnTimer = new Timer();
+        this.nextWaveTimer = new Timer();
+        this.enemiesToSpawn = new Stack<>();
+        this.possibleEnemyTypes = Collections.singletonList("basic");
+        this.possibleNewEnemyTypes = new Stack<>();
+        this.initializePossibleNewEnemyTypes();
+        // Wave starting values
+        this.enemyAmount = 5;
+        this.waveNewEnemyProbability = 0;
+        // Starting multipliers
+        this.nextWaveHealthMultiplier = 2;
+
+        // Enemies of wave 1
+        this.fillEnemySpawnStack();
+//        for (int i = 0; i <= this.waveHealth; i += 100) {
+//            this.enemiesToSpawn.push("basic");
+//        }
     }
 
     public void spawnEnemy() {
         double offsetX = Math.random() * this.spawnWidth - this.spawnWidth / 2;
         double offsetY = Math.random() * this.spawnWidth - this.spawnWidth / 2;
-        this.level.getEnemies().add(new BasicEnemy(level.getPath().getNode(0), offsetX, offsetY, level.getPath()));
+        if (this.enemiesToSpawn.empty()) {
+            if(this.nextWaveTimer.hasReached(this.nextWaveDelay)) {
+                TowerDefenceGame.theGame.getLogger().debug("Next Wave");
+                this.nextWave(); // TODO: Cooldown timer
+            }
+        } else {
+            Enemy tempEnemy = null;
+            switch (this.enemiesToSpawn.pop().toLowerCase()) {
+                case "basic":
+                    tempEnemy = new BasicEnemy(level.getPath().getNode(0), offsetX, offsetY, level.getPath());
+                    break;
+                case "fast":
+                    tempEnemy = new FastEnemy(level.getPath().getNode(0), offsetX, offsetY, level.getPath());
+                    break;
+                case "tough":
+                    tempEnemy = new ToughEnemy(level.getPath().getNode(0), offsetX, offsetY, level.getPath());
+                    break;
+            }
+            if (this.enemiesToSpawn.empty()) {
+                this.nextWaveTimer.reset();
+            }
+            this.level.getEnemies().add(tempEnemy);
+        }
     }
 
     public void onEvent(Event event) {
@@ -46,4 +95,28 @@ public class EnemySpawner implements Listener {
         }
     }
 
+    public void nextWave() {
+        this.currentWave++;
+        if (this.currentWave % 2 == 0) {
+            this.enemyAmount += Math.max(this.currentWave / 5, 3);
+        }
+        this.waveNewEnemyProbability = this.currentWave / 10d;
+        this.fillEnemySpawnStack();
+    }
+
+    private void fillEnemySpawnStack() {
+        double randNewEnemy = Math.random() * 100;
+        if (randNewEnemy <= this.waveNewEnemyProbability) {
+            this.possibleEnemyTypes.add(this.possibleNewEnemyTypes.pop());
+        }
+        int randWhichEnemy = (int) Math.round(Math.random() * (this.possibleEnemyTypes.size() - 1));
+        for (int i = 0; i < this.enemyAmount; i++) {
+            this.enemiesToSpawn.push(this.possibleEnemyTypes.get(randWhichEnemy));
+        }
+    }
+
+    private void initializePossibleNewEnemyTypes() {
+        this.possibleNewEnemyTypes.push("tough");
+        this.possibleNewEnemyTypes.push("fast");
+    }
 }

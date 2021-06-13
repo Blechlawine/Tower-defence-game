@@ -42,6 +42,10 @@ public abstract class Enemy implements Listener, Renderable {
     public double getHealth() {
         return this.health;
     }
+
+    public double getMaxHealth() {
+        return this.maxHealth;
+    }
     
     public void setMotion(double x, double y) {
         this.motion = new Vector2(x, y);

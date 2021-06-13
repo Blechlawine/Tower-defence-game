@@ -19,6 +19,10 @@ public abstract class GuiComponent implements Renderable, Listener {
         TowerDefenceGame.theGame.getEventManager().addListener(this);
     }
 
+    public void destroy() {
+        TowerDefenceGame.theGame.getEventManager().removeListener(this);
+    }
+
     protected void setPos(Vector2 posIn) {
         this.pos.setX(posIn.getX());
         this.pos.setY(posIn.getY());

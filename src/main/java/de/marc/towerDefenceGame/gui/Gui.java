@@ -22,11 +22,23 @@ public abstract class Gui implements Renderable, Listener {
     public Gui(String name) {
         this.name = name;
         this.components = new ArrayList<GuiComponent>();
-        TowerDefenceGame.theGame.getEventManager().addListener(this);
-        this.initGui();
     }
 
     public abstract void initGui();
+
+    public void enable() {
+        TowerDefenceGame.theGame.getEventManager().addListener(this);
+        this.initGui();
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("gui").addElement(this);
+    }
+
+    public void destroy() {
+        TowerDefenceGame.theGame.getEventManager().removeListener(this);
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("gui").removeElement(this);
+        for (GuiComponent c : this.components) {
+            c.destroy();
+        }
+    }
 
     public void render() {
         if (this.hasBackground) this.drawBackground();

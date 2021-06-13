@@ -35,9 +35,11 @@ public class GuiManager extends ListManager<Gui> {
     }
 
     public void setActiveGui(Gui gui) {
-        TowerDefenceGame.theGame.getRenderer().getLayerByName("gui").removeElement(this.currentGui);
+        if (this.currentGui != null) {
+            this.currentGui.destroy();
+        }
         this.currentGui = gui;
-        TowerDefenceGame.theGame.getRenderer().getLayerByName("gui").addElement(this.currentGui);
+        this.currentGui.enable();
     }
 
     public void setActiveGui(String guiName) {
