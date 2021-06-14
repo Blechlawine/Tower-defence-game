@@ -16,19 +16,22 @@ import org.lwjgl.opengl.GL11;
 public abstract class Enemy implements Listener, Renderable {
 
     protected Vector2 middle, motion, pathOffset, gotoPos;
-    protected double speed, health, maxHealth, size, travelledDistance = 0;
+    protected double speed, health, maxHealth, level, size, travelledDistance = 0;
     private double movementAccuracy = 2;
     protected int reward, score;
     protected Path path;
     private PathNode positionNode;
 
-    public Enemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path, double size) {
+    public Enemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path, double level, double size, double maxHealth) {
         TowerDefenceGame.theGame.getRenderer().getLayerByName("enemies").addElement(this);
         TowerDefenceGame.theGame.getEventManager().addListener(this);
         this.positionNode = positionNode;
         this.pathOffset = new Vector2(pathOffsetX, pathOffsetY);
         this.path = path;
         this.size = size;
+        this.maxHealth = maxHealth * (1 + this.level / 10);
+        this.health = this.maxHealth;
+        this.level = level;
 
         this.middle = new Vector2(this.positionNode.getMiddleX() + this.pathOffset.getX(), this.positionNode.getMiddleY() + this.pathOffset.getY());
         this.motion = new Vector2(0, 0);

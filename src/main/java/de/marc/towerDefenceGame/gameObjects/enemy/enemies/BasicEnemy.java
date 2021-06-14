@@ -8,11 +8,9 @@ import de.marc.towerDefenceGame.utils.GLUtils;
 
 public class BasicEnemy extends Enemy {
 
-    public BasicEnemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path) {
-        super(positionNode, pathOffsetX, pathOffsetY, path, 2);
+    public BasicEnemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path, double level) {
+        super(positionNode, pathOffsetX, pathOffsetY, path, level, 2, 10);
         this.speed = 0.1;
-        this.maxHealth = 10;
-        this.health = this.maxHealth;
         this.reward = 10;
         this.score = 1;
     }

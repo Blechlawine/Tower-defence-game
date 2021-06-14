@@ -15,7 +15,7 @@ import java.util.*;
 public class EnemySpawner implements Listener {
 
     private int currentWave, enemyAmount;
-    private double waveNewEnemyProbability, nextWaveHealthMultiplier;
+    private double waveNewEnemyProbability, prevNewEnemyProbability, nextWaveHealthMultiplier;
 
     private Stack<String> enemiesToSpawn;
     private List<String> possibleEnemyTypes;
@@ -41,10 +41,12 @@ public class EnemySpawner implements Listener {
         this.spawnTimer = new Timer();
         this.nextWaveTimer = new Timer();
         this.enemiesToSpawn = new Stack<>();
-        this.possibleEnemyTypes = Collections.singletonList("basic");
+        this.possibleEnemyTypes = new ArrayList<>();
+        this.possibleEnemyTypes.add("basic");
         this.possibleNewEnemyTypes = new Stack<>();
         this.initializePossibleNewEnemyTypes();
         // Wave starting values
+        this.currentWave = 1;
         this.enemyAmount = 5;
         this.waveNewEnemyProbability = 0;
         // Starting multipliers
@@ -69,13 +71,13 @@ public class EnemySpawner implements Listener {
             Enemy tempEnemy = null;
             switch (this.enemiesToSpawn.pop().toLowerCase()) {
                 case "basic":
-                    tempEnemy = new BasicEnemy(level.getPath().getNode(0), offsetX, offsetY, level.getPath());
+                    tempEnemy = new BasicEnemy(level.getPath().getNode(0), offsetX, offsetY, level.getPath(), this.currentWave);
                     break;
                 case "fast":
-                    tempEnemy = new FastEnemy(level.getPath().getNode(0), offsetX, offsetY, level.getPath());
+                    tempEnemy = new FastEnemy(level.getPath().getNode(0), offsetX, offsetY, level.getPath(), this.currentWave);
                     break;
                 case "tough":
-                    tempEnemy = new ToughEnemy(level.getPath().getNode(0), offsetX, offsetY, level.getPath());
+                    tempEnemy = new ToughEnemy(level.getPath().getNode(0), offsetX, offsetY, level.getPath(), this.currentWave);
                     break;
             }
             if (this.enemiesToSpawn.empty()) {
@@ -100,18 +102,31 @@ public class EnemySpawner implements Listener {
         if (this.currentWave % 2 == 0) {
             this.enemyAmount += Math.max(this.currentWave / 5, 3);
         }
-        this.waveNewEnemyProbability = this.currentWave / 10d;
+        this.waveNewEnemyProbability = this.currentWave / 10d - this.prevNewEnemyProbability;
         this.fillEnemySpawnStack();
     }
 
     private void fillEnemySpawnStack() {
-        double randNewEnemy = Math.random() * 100;
-        if (randNewEnemy <= this.waveNewEnemyProbability) {
-            this.possibleEnemyTypes.add(this.possibleNewEnemyTypes.pop());
+        double randNewEnemy = Math.random();
+        if (randNewEnemy <= this.waveNewEnemyProbability && !this.possibleNewEnemyTypes.empty()) {
+            String nextEnemyType = this.possibleNewEnemyTypes.pop();
+            this.possibleEnemyTypes.add(nextEnemyType);
+            this.prevNewEnemyProbability = this.waveNewEnemyProbability;
         }
         int randWhichEnemy = (int) Math.round(Math.random() * (this.possibleEnemyTypes.size() - 1));
-        for (int i = 0; i < this.enemyAmount; i++) {
+//        TowerDefenceGame.theGame.getLogger().debug(this.possibleEnemyTypes.get(randWhichEnemy), this.currentWave);
+        double difficultyDependentEnemyAmount = getEnemyTypeDifficulty(this.possibleEnemyTypes.get(randWhichEnemy));
+        for (double i = 0; i < this.enemyAmount; i += difficultyDependentEnemyAmount) {
             this.enemiesToSpawn.push(this.possibleEnemyTypes.get(randWhichEnemy));
+        }
+    }
+
+    private double getEnemyTypeDifficulty(String type) {
+        switch (type) {
+            case "tough":
+                return 4;
+            default:
+                return 1;
         }
     }
 

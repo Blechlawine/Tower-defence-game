@@ -7,11 +7,9 @@ import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 
 public class FastEnemy extends Enemy {
-    public FastEnemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path) {
-        super(positionNode, pathOffsetX, pathOffsetY, path, 2);
-        this.speed = 0.3;
-        this.maxHealth = 50;
-        this.health = this.maxHealth;
+    public FastEnemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path, double level) {
+        super(positionNode, pathOffsetX, pathOffsetY, path, level, 2, 5);
+        this.speed = 0.2;
         this.reward = 10;
         this.score = 1;
     }
