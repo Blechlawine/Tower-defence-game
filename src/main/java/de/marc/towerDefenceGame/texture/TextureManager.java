@@ -44,6 +44,9 @@ public class TextureManager extends ListManager<Texture> {
         this.loadTexture("assets/levels/test2.png", "test2Preview");
         // Effects
         this.loadTexture("assets/textures/effects/dustexplosion2.png", "dustexplosion");
+        // UI
+        this.loadTexture("assets/textures/ui/selecttool.png", "selecttool");
+        this.loadTexture("assets/textures/ui/toolbar.png", "toolbar");
     }
 
     public void loadTexture(String path, String name) {

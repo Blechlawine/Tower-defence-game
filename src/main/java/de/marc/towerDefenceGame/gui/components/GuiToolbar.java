@@ -47,12 +47,13 @@ public class GuiToolbar extends GuiComponent {
 
     @Override
     public void render() {
-//        TODO: GuiToolbar background
+        for (int i = 0; i < this.tools.size(); i++) {
+            Vector2 tempPos = this.generateToolPos(i);
+            GLUtils.drawTexturedRect(tempPos.getX(), tempPos.getY(), this.toolSize, this.toolSize, 0, 0, 1, 1, "toolbar", new Color(1, 1, 1));
+            this.tools.get(i).renderInUI(tempPos);
+        }
         Vector2 highlightPos = this.generateToolPos(TowerDefenceGame.theGame.getPlayer().getActiveToolIndex());
         GLUtils.drawTexturedRect(highlightPos.getX(), highlightPos.getY(), this.toolSize, this.toolSize, 0, 0, 1, 1, "cursor",  new Color(1, 1, 1));
-        for (int i = 0; i < this.tools.size(); i++) {
-            this.tools.get(i).renderInUI(this.generateToolPos(i));
-        }
     }
 
     public void setPos(Vector2 posIn) {

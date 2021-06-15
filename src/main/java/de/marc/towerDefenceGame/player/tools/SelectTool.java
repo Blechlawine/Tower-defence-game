@@ -2,9 +2,13 @@ package de.marc.towerDefenceGame.player.tools;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.level.Tile;
+import de.marc.towerDefenceGame.utils.Color;
+import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Vector2;
 
 public class SelectTool extends Tool {
+
+    private double size = 50;
 
     public SelectTool() {
         super("select");
@@ -28,7 +32,7 @@ public class SelectTool extends Tool {
 
     @Override
     public void renderInUI(Vector2 pos) {
-//        TODO: Selecttool Icon in UI
+        GLUtils.drawTexturedRect(pos.getX(), pos.getY(), this.size, this.size, 0, 0, 1, 1, "selecttool", new Color(1, 1, 1));
     }
 
     @Override
