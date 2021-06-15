@@ -65,7 +65,7 @@ public class EnemySpawner implements Listener {
         if (this.enemiesToSpawn.empty()) {
             if(this.nextWaveTimer.hasReached(this.nextWaveDelay)) {
                 TowerDefenceGame.theGame.getLogger().debug("Next Wave");
-                this.nextWave(); // TODO: Cooldown timer
+                this.nextWave();
             }
         } else {
             Enemy tempEnemy = null;
