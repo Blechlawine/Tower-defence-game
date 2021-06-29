@@ -19,7 +19,7 @@ public class GuiMainMenu extends Gui {
 
     @Override
     public void initGui() {
-        Vector2 playBtnPos = new Vector2(windowSize).divide(2);
+        Vector2 playBtnPos = new Vector2(getInPixels(50, "vw") - 50, getInPixels(50, "vh") - 10);
         this.playButton = new GuiButton(
                 new GuiLabel("Play", new Color(Colors.TEXT)),
                 playBtnPos,
