@@ -1,6 +1,6 @@
 # TODO:
 
-- Menu (Levelselection, settings)
+- Menu (settings)
 - Less money on tower destroyed
 - Linewidth fixed to Map size / Camera zoom
 - Transparency for tool visualizations
