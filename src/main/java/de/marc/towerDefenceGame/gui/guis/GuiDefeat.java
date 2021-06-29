@@ -21,20 +21,26 @@ public class GuiDefeat extends Gui {
 
     @Override
     public void initGui() {
-        this.defeatLabel = new GuiLabel("Defeat", new Vector2(getInPixels(50, "vw"), getInPixels(50, "vh")), new Color(1, 0, 0), 2);
-//        this.mainMenuBtn = new GuiButton(
-//                new GuiLabel("Back to main menu", new Color(1, 1, 1)),
-//                new Vector2(getInPixels(50, "vw"), getInPixels(50, "vh") + 50),
-//                200, 20,
-//                new Color(Colors.BUTTONPRIMARY),
-//                new Color(Colors.BUTTONPRIMARYHOVER)
-//        ) {
-//            @Override
-//            public void onClick() {
-//                TowerDefenceGame.theGame.getGuiManager().setActiveGui("mainmenu");
-//            }
-//        };
+        super.initGui();
+        double defeatLabelWidth = TowerDefenceGame.theGame.getFontRenderer().getRenderedStringWidth("Defeat", 2);
+        this.defeatLabel = new GuiLabel("Defeat",
+                new Vector2(getInPixels(50, "vw") - defeatLabelWidth / 2, getInPixels(50, "vh") - 80),
+                new Color(1, 0, 0),
+                2);
+        this.mainMenuBtn = new GuiButton(
+                new GuiLabel("Return to menu", new Color(1, 1, 1)),
+                new Vector2(getInPixels(50, "vw") - 100, getInPixels(50, "vh")),
+                200, 40,
+                new Color(Colors.BUTTONPRIMARY),
+                new Color(Colors.BUTTONPRIMARYHOVER)
+        ) {
+            @Override
+            public void onClick() {
+                TowerDefenceGame.theGame.getGuiManager().setActiveGui(TowerDefenceGame.theGame.getGuiManager().getGuiFromName("mainmenu"));
+            }
+        };
 
         this.components.add(this.defeatLabel);
+        this.components.add(this.mainMenuBtn);
     }
 }

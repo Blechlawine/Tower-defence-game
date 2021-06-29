@@ -22,23 +22,29 @@ public class GuiInGame extends Gui {
     private boolean paused = false;
     private GuiButton resumeBtn, exitBtn, settingsBtn;
 
+    private String walletLabelText = "- $", healthLabelText = "";
+
     public GuiInGame() {
         super("ingame");
     }
 
     public void initGui() {
-        this.walletLabel = new GuiLabel("- $", new Vector2(10, 10), new Color(1, 0, 0 ));
-        this.healthLabel = new GuiLabel("", new Vector2(10, 30), new Color(1, 0, 0 ));
+        super.initGui();
+        this.walletLabel = new GuiLabel(this.walletLabelText, new Vector2(10, 10), new Color(1, 0, 0 ));
+        this.healthLabel = new GuiLabel(this.healthLabelText, new Vector2(10, 30), new Color(1, 0, 0 ));
         this.towerToolbar = new GuiToolbar(new Vector2(getInPixels(50, "vw") - 50, getInPixels(100, "vh") - 50));
 
         this.components.add(this.walletLabel);
         this.components.add(this.healthLabel);
         this.components.add(this.towerToolbar);
+        if (this.paused) {
+            this.makeEscMenu();
+        }
     }
 
     private void makeEscMenu() {
         this.resumeBtn = new GuiButton(new GuiLabel("Resume", new Color(Colors.TEXT)),
-                new Vector2(getInPixels(50, "vw") - 50, getInPixels(50, "vh") - 50),
+                new Vector2(getInPixels(50, "vw") - 100, getInPixels(50, "vh") - 50),
                 200, 40,
                 new Color(Colors.BUTTONPRIMARY),
                 new Color(Colors.BUTTONPRIMARYHOVER)
@@ -49,7 +55,7 @@ public class GuiInGame extends Gui {
             }
         };
         this.exitBtn = new GuiButton(new GuiLabel("Return to menu", new Color(Colors.TEXT)),
-                new Vector2(getInPixels(50, "vw") - 50, getInPixels(50, "vh")),
+                new Vector2(getInPixels(50, "vw") - 100, getInPixels(50, "vh")),
                 200, 40,
                 new Color(Colors.BUTTONPRIMARY),
                 new Color(Colors.BUTTONPRIMARYHOVER)
@@ -86,8 +92,10 @@ public class GuiInGame extends Gui {
         if (event instanceof UpdateEvent) {
             UpdateEvent e = (UpdateEvent) event;
             Player thePlayer = TowerDefenceGame.theGame.getPlayer();
-            this.walletLabel.setText(thePlayer.getWallet() + " $");
-            this.healthLabel.setText(thePlayer.getHealth() + "/" + thePlayer.getMaxHealth());
+            this.walletLabelText = thePlayer.getWallet() + " $";
+            this.healthLabelText = thePlayer.getHealth() + "/" + thePlayer.getMaxHealth();
+            this.walletLabel.setText(this.walletLabelText);
+            this.healthLabel.setText(this.healthLabelText);
         } else if (event instanceof KeyEvent) {
             KeyEvent e = (KeyEvent) event;
             if (e.getKey() == KeyCode.ESC && e.getAction() == KeyAction.UP) {

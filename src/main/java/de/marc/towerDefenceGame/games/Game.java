@@ -17,10 +17,7 @@ public class Game implements Listener {
 
     public Game(String levelFileName) {
         this.level = new Level().generateFromJsonFile(levelFileName);
-        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level);
-        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level.getPath());
-        TowerDefenceGame.theGame.getGuiManager().setActiveGui("ingame");
-        TowerDefenceGame.theGame.getEventManager().addListener(this);
+        this.resume();
     }
 
     @Override
@@ -69,5 +66,12 @@ public class Game implements Listener {
     public void pause() {
         this.paused = true;
         this.shouldAutoUnpause = false;
+    }
+
+    public void resume() {
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level);
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level.getPath());
+        TowerDefenceGame.theGame.getGuiManager().setActiveGui("ingame");
+        TowerDefenceGame.theGame.getEventManager().addListener(this);
     }
 }

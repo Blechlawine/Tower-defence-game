@@ -24,7 +24,9 @@ public abstract class Gui implements Renderable, Listener {
         this.components = new ArrayList<GuiComponent>();
     }
 
-    public abstract void initGui();
+    public void initGui() {
+        this.components = new ArrayList<GuiComponent>();
+    }
 
     public void enable() {
         TowerDefenceGame.theGame.getEventManager().addListener(this);
@@ -50,7 +52,6 @@ public abstract class Gui implements Renderable, Listener {
     @Override
     public void onEvent(Event event) {
         if (event instanceof WindowResizeEvent) {
-            this.components = new ArrayList<GuiComponent>();
             this.initGui();
         }
         List<GuiComponent> tempComponents = new ArrayList<GuiComponent>();

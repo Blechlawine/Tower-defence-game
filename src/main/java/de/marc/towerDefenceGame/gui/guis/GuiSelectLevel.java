@@ -14,7 +14,7 @@ import java.util.List;
 
 public class GuiSelectLevel extends Gui {
 
-    private GuiButton confirmBtn;
+    private GuiButton confirmBtn, cancelBtn;
     private List<GuiButton> levelPreviews;
     private GuiImage highlight;
 
@@ -28,6 +28,7 @@ public class GuiSelectLevel extends Gui {
 
     @Override
     public void initGui() {
+        super.initGui();
         this.levelPreviews = new ArrayList<GuiButton>();
         this.confirmBtn = new GuiButton(
                 new GuiLabel("Confirm", new Color(1, 1, 1)),
@@ -39,6 +40,19 @@ public class GuiSelectLevel extends Gui {
             @Override
             public void onClick() {
                 TowerDefenceGame.theGame.getGameManager().startNewGame(currentlySelectedLevelName);
+            }
+        };
+        this.cancelBtn = new GuiButton(
+                new GuiLabel("Cancel", new Color(1, 1, 1)),
+                new Vector2(getInPixels(50, "vw") - 10 - 200, getInPixels(100, "vh") - 20 - 40),
+                200, 40,
+                new Color(Colors.BUTTONPRIMARY),
+                new Color(Colors.BUTTONPRIMARYHOVER)
+        ) {
+            @Override
+            public void onClick() {
+                // back to main menu
+                TowerDefenceGame.theGame.getGuiManager().setActiveGui(TowerDefenceGame.theGame.getGuiManager().getGuiFromName("mainmenu"));
             }
         };
 
@@ -74,6 +88,7 @@ public class GuiSelectLevel extends Gui {
         
         this.components.addAll(this.levelPreviews);
         this.components.add(this.confirmBtn);
+        this.components.add(this.cancelBtn);
         this.components.add(this.highlight);
     }
 }
