@@ -7,6 +7,7 @@ import de.marc.towerDefenceGame.gui.FontRenderer;
 import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.gui.GuiManager;
 import de.marc.towerDefenceGame.level.Level;
+import de.marc.towerDefenceGame.level.LevelFileManager;
 import de.marc.towerDefenceGame.player.Player;
 import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.render.RenderLayer;
@@ -43,6 +44,7 @@ public class TowerDefenceGame {
     private Renderer renderer;
     private FontRenderer fontRenderer;
     private GameManager gameManager;
+    private LevelFileManager levelFileManager;
     private Logger logger;
 
     private boolean renderDebugStuff = false;
@@ -65,6 +67,7 @@ public class TowerDefenceGame {
     private void init() {
         this.initializeWindow();
 
+        this.levelFileManager = new LevelFileManager();
         this.textureHandler = new TextureHandler();
         this.renderer = new Renderer();
         this.eventManager = new EventManager();
@@ -76,6 +79,7 @@ public class TowerDefenceGame {
 
         Gui.windowSize = new Vector2(this.windowWidth, this.windowHeight);
 
+        this.levelFileManager.setup();
         this.eventManager.setup();
         this.gameManager.setup();
 
@@ -204,6 +208,9 @@ public class TowerDefenceGame {
     }
     public GuiManager getGuiManager() {
         return this.guiManager;
+    }
+    public LevelFileManager getLevelFileManager() {
+        return this.levelFileManager;
     }
 
     public boolean getRenderDebugStuff() {

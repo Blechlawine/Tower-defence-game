@@ -15,8 +15,8 @@ public class Game implements Listener {
     private boolean paused = false;
     private long pausedTimeMS = 0L;
 
-    public Game() {
-        this.level = new Level().generateFromJsonFile("assets/levels/test2.json");
+    public Game(String levelFileName) {
+        this.level = new Level().generateFromJsonFile(levelFileName);
         TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level);
         TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level.getPath());
         TowerDefenceGame.theGame.getGuiManager().setActiveGui("ingame");

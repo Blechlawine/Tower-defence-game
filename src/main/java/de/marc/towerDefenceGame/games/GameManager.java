@@ -1,5 +1,6 @@
 package de.marc.towerDefenceGame.games;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.ListManager;
 
 public class GameManager extends ListManager<Game> {
@@ -11,9 +12,9 @@ public class GameManager extends ListManager<Game> {
 
     }
 
-    public void startNewGame() {
+    public void startNewGame(String levelName) {
         if (this.currentGame == null)
-            this.currentGame = new Game();
+            this.currentGame = new Game(TowerDefenceGame.theGame.getLevelFileManager().getLevelFileByName(levelName));
     }
 
     public Game getCurrentGame() {
