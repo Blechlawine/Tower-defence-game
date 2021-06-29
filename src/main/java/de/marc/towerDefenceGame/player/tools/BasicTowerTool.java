@@ -45,10 +45,6 @@ public class BasicTowerTool extends Tool {
                     target.construct(new BasicTower(target, target.getMiddle().getX(), target.getMiddle().getY()));
                 }
             }
-        } else if (mouseButton == 1) {
-            TowerDefenceGame.theGame.getPlayer().deactivateActiveTool();
-//            TowerDefenceGame.theGame.getPlayer().addMoney(BasicTower.cost);
-//            target.deconstruct();
         }
     }
 }

@@ -3,8 +3,7 @@
 - Menu (settings)
 - Transparency for tool visualizations
 - Ingame kill counter
-- Fullscreen toggle
-- UI window sizing fix 
+- UI window sizing fix
 - Knockback
 - Tower shot animation
 - Bullettrails
@@ -17,6 +16,7 @@
   - etc.
 - Keybindingmanager for user-settable keybinds
 - vfx (glow, etc)
+- Fullscreen toggle
 - Sounds
 - Animations (explosions when enemies die, Bomb explosions)
 - simplify healthbars to be easier to spot with a lot of enemies

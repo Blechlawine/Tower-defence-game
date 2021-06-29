@@ -3,8 +3,10 @@ package de.marc.towerDefenceGame.player.tools;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
+import de.marc.towerDefenceGame.event.events.MouseButtonEvent;
 import de.marc.towerDefenceGame.event.events.TileClickEvent;
 import de.marc.towerDefenceGame.level.Tile;
+import de.marc.towerDefenceGame.utils.KeyAction;
 import de.marc.towerDefenceGame.utils.Renderable;
 import de.marc.towerDefenceGame.utils.Vector2;
 
@@ -28,6 +30,14 @@ public abstract class Tool implements Renderable, Listener {
             TileClickEvent e = (TileClickEvent) event;
             this.use(e.getTarget(), e.getMouseButton());
             event.cancel();
+        } else if (event instanceof MouseButtonEvent) {
+            MouseButtonEvent e = (MouseButtonEvent) event;
+            if (e.getButton() == 1 && e.getAction() == KeyAction.DOWN) {
+                if (TowerDefenceGame.theGame.getPlayer().getActiveToolIndex() != 0) {
+                    TowerDefenceGame.theGame.getPlayer().deactivateActiveTool();
+                    e.cancel();
+                }
+            }
         }
     }
 

@@ -27,10 +27,6 @@ public class SniperTowerTool extends Tool {
                     target.construct(new SniperTower(target, target.getMiddle().getX(), target.getMiddle().getY()));
                 }
             }
-        } else if (mouseButton == 1) {
-            TowerDefenceGame.theGame.getPlayer().deactivateActiveTool();
-//            TowerDefenceGame.theGame.getPlayer().addMoney(SniperTower.cost);
-//            target.deconstruct();
         }
     }
 
