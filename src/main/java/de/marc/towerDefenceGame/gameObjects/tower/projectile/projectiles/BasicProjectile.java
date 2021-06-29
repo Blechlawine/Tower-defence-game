@@ -1,5 +1,6 @@
 package de.marc.towerDefenceGame.gameObjects.tower.projectile.projectiles;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.gameObjects.tower.projectile.Projectile;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
@@ -19,6 +20,7 @@ public class BasicProjectile extends Projectile {
 
     @Override
     public void render() {
-        GLUtils.drawLine(this.pos.getX(), this.pos.getY(), this.pos.getX() - this.motion.getX(), this.pos.getY() - this.motion.getY(), 2, new Color(1, 0, 1));
+        float lineWidth = 1 * (float)TowerDefenceGame.theGame.getPlayer().getScale();
+        GLUtils.drawLine(this.pos.getX(), this.pos.getY(), this.pos.getX() - this.motion.getX(), this.pos.getY() - this.motion.getY(), lineWidth, new Color(1, 0, 1));
     }
 }

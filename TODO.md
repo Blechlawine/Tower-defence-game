@@ -2,7 +2,6 @@
 
 - Menu (settings)
 - Less money on tower destroyed
-- Linewidth fixed to Map size / Camera zoom
 - Transparency for tool visualizations
 - Ingame kill counter
 - Fullscreen toggle

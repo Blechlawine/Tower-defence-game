@@ -1,5 +1,6 @@
 package de.marc.towerDefenceGame.gameObjects.tower.towers;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.level.Tile;
@@ -34,7 +35,8 @@ public class SniperTower extends Tower {
         this.drawBaseTexture();
         if (this.lastTargetPosition != null) {
             Vector2 shotLineStart = new Vector2(this.middle).add(new Vector2(this.lastAttackVec).multiply(8));
-            GLUtils.drawLineO(shotLineStart.getX(), shotLineStart.getY(), this.lastTargetPosition.getX(), this.lastTargetPosition.getY(), 2, this.shotOpacity, new Color(1, 1, 1));
+            float lineWidth = 1 * (float) TowerDefenceGame.theGame.getPlayer().getScale();
+            GLUtils.drawLineO(shotLineStart.getX(), shotLineStart.getY(), this.lastTargetPosition.getX(), this.lastTargetPosition.getY(), lineWidth, this.shotOpacity, new Color(1, 1, 1));
             if (this.shotOpacity > 0) {
                 this.shotOpacity -= 0.05F;
             }
