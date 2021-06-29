@@ -59,4 +59,8 @@ public abstract class GuiComponent implements Renderable, Listener {
     public double getHeight() {
         return this.height;
     }
+
+    public void updatePos(Vector2 pos) {
+        this.pos = pos;
+    }
 }

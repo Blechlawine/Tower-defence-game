@@ -11,13 +11,15 @@ public class GuiImage extends GuiComponent {
     private double width, height, imageWidth, imageHeight, finalWidth, finalHeight;
     private String imageTexHandle;
     private Color backgroundColor;
+    private boolean transparentBackground = false;
 
-    public GuiImage(String imageTexHandle, Vector2 pos, double width, double height, Color backgroundColor) {
+    public GuiImage(String imageTexHandle, Vector2 pos, double width, double height, Color backgroundColor, boolean transparentBackground) {
         super(pos);
         this.width = width;
         this.height = height;
         this.imageTexHandle = imageTexHandle;
         this.backgroundColor = backgroundColor;
+        this.transparentBackground = transparentBackground;
         Texture temp = TowerDefenceGame.theGame.getTextureManager().getTextureFromName(this.imageTexHandle);
         this.imageHeight = temp.getHeight();
         this.imageWidth = temp.getWidth();
@@ -35,7 +37,7 @@ public class GuiImage extends GuiComponent {
 
     @Override
     public void render() {
-        GLUtils.drawRect(this.pos.getX(), this.pos.getY(), this.width, this.height, this.backgroundColor);
+        if (!transparentBackground) GLUtils.drawRect(this.pos.getX(), this.pos.getY(), this.width, this.height, this.backgroundColor);
         GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), this.finalWidth, this.finalHeight, 0, 0, 1, 1, this.imageTexHandle, new Color(1, 1, 1));
     }
 }

@@ -16,8 +16,10 @@ public class GuiSelectLevel extends Gui {
 
     private GuiButton confirmBtn;
     private List<GuiButton> levelPreviews;
+    private GuiImage highlight;
 
     private String currentlySelectedLevelName = "";
+    private Vector2 highlightLocation;
 
     public GuiSelectLevel() {
         super("selectLevel");
@@ -41,16 +43,19 @@ public class GuiSelectLevel extends Gui {
         };
 
         ArrayList<String[]> levelFiles = TowerDefenceGame.theGame.getLevelFileManager().getContent();
-        TowerDefenceGame.theGame.getLogger().debug(levelFiles);
+//        TowerDefenceGame.theGame.getLogger().debug(levelFiles);
+        this.currentlySelectedLevelName = levelFiles.get(0)[1]; // first level selected by default
+        this.highlightLocation = new Vector2(50, 50); // initial highlightlocation
         for (int i = 0; i < levelFiles.size(); i++) {
             String[] temp = levelFiles.get(i);
-            TowerDefenceGame.theGame.getLogger().debug(temp[2]);
+            TowerDefenceGame.theGame.getLogger().debug(temp);
             Vector2 pos = new Vector2(50 + (220 * i), 50);
             GuiImage tempPreviewImage = new GuiImage(
                     temp[2],
                     new Vector2(-100, -100),
                     200, 200,
-                    new Color(0, 0, 0)
+                    new Color(0, 0, 0),
+                    false
             );
             this.levelPreviews.add(new GuiButton(tempPreviewImage,
                     pos,
@@ -60,11 +65,16 @@ public class GuiSelectLevel extends Gui {
                 @Override
                 public void onClick() {
                     currentlySelectedLevelName = temp[1];
+                    highlightLocation = pos;
+                    highlight.updatePos(highlightLocation);
                 }
             });
         }
 
+        this.highlight = new GuiImage("cursor", this.highlightLocation, 200, 200, new Color(0, 0, 0), true);
+
         this.components.addAll(this.levelPreviews);
         this.components.add(this.confirmBtn);
+        this.components.add(this.highlight);
     }
 }
