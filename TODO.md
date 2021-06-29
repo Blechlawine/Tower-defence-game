@@ -1,7 +1,6 @@
 # TODO:
 
 - Menu (settings)
-- Less money on tower destroyed
 - Transparency for tool visualizations
 - Ingame kill counter
 - Fullscreen toggle

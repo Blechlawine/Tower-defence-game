@@ -24,7 +24,6 @@ public class SelectTool extends Tool {
             }
         } else if(mouseButton == 1) {
             if (target.isOccupied()) {
-                TowerDefenceGame.theGame.getPlayer().addMoney(target.getTower().cost);
                 target.deconstruct();
             }
         }

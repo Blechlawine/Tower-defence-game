@@ -90,6 +90,7 @@ public class Tile implements Renderable, Listener {
 
     public void deconstruct() {
         TowerDefenceGame.theGame.getTowerManager().destroyTower(this.myTower);
+        TowerDefenceGame.theGame.getPlayer().addMoney((int) Math.round(this.getTower().cost * 0.7D));
         this.occupied = false;
     }
 
