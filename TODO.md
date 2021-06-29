@@ -6,7 +6,14 @@
 - UI window sizing fix
 - Knockback
 - Tower shot animation
+- Animations (explosions when enemies die, Bomb explosions)
 - Bullettrails
+- Texturepack/Tilepack support
+- Keybindingmanager for user-settable keybinds
+- Render map-background
+- vfx (glow, etc)
+- Sounds
+- Music
 - Towerupgrades
 - more Enemies
 - more Towers
@@ -14,11 +21,5 @@
   - Shotgun
   - Lock on rocket launchers?
   - etc.
-- Keybindingmanager for user-settable keybinds
-- vfx (glow, etc)
 - Fullscreen toggle
-- Sounds
-- Animations (explosions when enemies die, Bomb explosions)
 - simplify healthbars to be easier to spot with a lot of enemies
-- Render map-background
-- Texturepack/Tilepack support
