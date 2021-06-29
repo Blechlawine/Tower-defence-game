@@ -46,6 +46,7 @@ public class GuiSelectLevel extends Gui {
 //        TowerDefenceGame.theGame.getLogger().debug(levelFiles);
         this.currentlySelectedLevelName = levelFiles.get(0)[1]; // first level selected by default
         this.highlightLocation = new Vector2(50, 50); // initial highlightlocation
+        this.highlight = new GuiImage("cursor", this.highlightLocation, 200, 200, new Color(0, 0, 0), true);
         for (int i = 0; i < levelFiles.size(); i++) {
             String[] temp = levelFiles.get(i);
             TowerDefenceGame.theGame.getLogger().debug(temp);
@@ -70,9 +71,7 @@ public class GuiSelectLevel extends Gui {
                 }
             });
         }
-
-        this.highlight = new GuiImage("cursor", this.highlightLocation, 200, 200, new Color(0, 0, 0), true);
-
+        
         this.components.addAll(this.levelPreviews);
         this.components.add(this.confirmBtn);
         this.components.add(this.highlight);
