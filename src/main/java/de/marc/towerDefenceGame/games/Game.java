@@ -12,7 +12,7 @@ public class Game implements Listener {
 
     private Level level;
 
-    private boolean paused = false;
+    private boolean paused = false, shouldAutoUnpause = true;
     private long pausedTimeMS = 0L;
 
     public Game(String levelFileName) {
@@ -30,9 +30,12 @@ public class Game implements Listener {
                 UnPausedPostUpdateEvent uppue = (UnPausedPostUpdateEvent) event;
                 this.pausedTimeMS += uppue.partialMS;
             }
-            this.paused = false;
+            if (this.shouldAutoUnpause) {
+                this.paused = false;
+            }
         } else if (event instanceof WindowMoveEvent) {
             this.paused = true;
+            this.shouldAutoUnpause = true;
         } else if (event instanceof PostUpdateEvent) {
 //            this.pausedTimeMS = 0L;
         }
@@ -56,5 +59,15 @@ public class Game implements Listener {
 
     public Level getLevel() {
         return this.level;
+    }
+
+    public void unpause() {
+        this.paused = false;
+        this.shouldAutoUnpause = true;
+    }
+
+    public void pause() {
+        this.paused = true;
+        this.shouldAutoUnpause = false;
     }
 }

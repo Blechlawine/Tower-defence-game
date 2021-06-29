@@ -70,6 +70,7 @@ public class KeyEvent extends Event {
         L_SHIFT(GLFW.GLFW_KEY_LEFT_SHIFT),
         L_CTRL(GLFW.GLFW_KEY_LEFT_CONTROL),
         SPACE(GLFW.GLFW_KEY_SPACE),
+        ESC(GLFW.GLFW_KEY_ESCAPE),
         NONE(9999);
 
 

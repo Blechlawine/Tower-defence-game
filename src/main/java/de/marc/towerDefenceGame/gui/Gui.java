@@ -53,7 +53,9 @@ public abstract class Gui implements Renderable, Listener {
             this.components = new ArrayList<GuiComponent>();
             this.initGui();
         }
-        for (GuiComponent component : this.components) {
+        List<GuiComponent> tempComponents = new ArrayList<GuiComponent>();
+        tempComponents.addAll(this.components);
+        for (GuiComponent component : tempComponents) {
             component.onEvent(event);
         }
     }
