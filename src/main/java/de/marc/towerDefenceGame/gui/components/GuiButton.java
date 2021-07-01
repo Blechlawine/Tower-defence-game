@@ -1,21 +1,20 @@
 package de.marc.towerDefenceGame.gui.components;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
-import de.marc.towerDefenceGame.event.events.MouseButtonEvent;
-import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
-import de.marc.towerDefenceGame.utils.Color;
-import de.marc.towerDefenceGame.utils.GLUtils;
-import de.marc.towerDefenceGame.utils.Vector2;
+import de.marc.towerDefenceGame.event.events.KeyEvent;
+import de.marc.towerDefenceGame.utils.*;
 import org.lwjgl.opengl.GL11;
 
 import static de.marc.towerDefenceGame.utils.KeyAction.DOWN;
 import static de.marc.towerDefenceGame.utils.KeyAction.UP;
+import static de.marc.towerDefenceGame.utils.Settings.KeyBindings.GUI_INTERACT;
 
 public abstract class GuiButton extends GuiComponent {
 
     private GuiComponent content;
     protected Color color, initialColor, hoverColor;
+
+    private Keybinding pressBinding;
 
     private byte state; // 0 == normal; 1 == hovered; 2 == pressed;
 
@@ -28,28 +27,29 @@ public abstract class GuiButton extends GuiComponent {
         this.initialColor = color;
         this.color = color;
         this.hoverColor = hoverColor;
+        this.pressBinding = new Keybinding(GUI_INTERACT, new KeyAction[] {DOWN, UP}) {
+            @Override
+            public void onKeyAction(KeyAction action, KeyEvent event) {
+                if (state == 1) { // this button is hovered
+                    if (action == DOWN) {
+                        state = 2;
+                        onClick();
+                        event.cancel();
+                    }
+                } else if (state == 2) { // this button is pressed
+                    if (action == UP) {
+                        state = 1;
+                    }
+                }
+            }
+        };
     }
 
     public abstract void onClick();
 
     @Override
     public void onEvent(Event event) {
-        if (event instanceof MouseButtonEvent) {
-            MouseButtonEvent e = (MouseButtonEvent) event;
-            if (this.state == 1) { // this button is hovered
-                if (e.getButton() == 0) {
-                    if (e.getAction() == DOWN) {
-                        this.state = 2;
-                        this.onClick();
-                        event.cancel();
-                    }
-                }
-            } else if (this.state == 2) { // this button is pressed
-                if (e.getButton() == 0 && e.getAction() == UP) {
-                    this.state = 1;
-                }
-            }
-        }
+        this.pressBinding.onEvent(event);
         super.onEvent(event);
     }
 

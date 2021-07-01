@@ -3,7 +3,6 @@ package de.marc.towerDefenceGame.gui.guis;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.KeyEvent;
-import de.marc.towerDefenceGame.event.events.KeyEvent.KeyCode;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.gui.components.GuiButton;
@@ -14,6 +13,8 @@ import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.Colors;
 import de.marc.towerDefenceGame.utils.KeyAction;
 import de.marc.towerDefenceGame.utils.Vector2;
+
+import static de.marc.towerDefenceGame.utils.Settings.KeyBindings.GUI_BACK;
 
 public class GuiInGame extends Gui {
 
@@ -98,7 +99,7 @@ public class GuiInGame extends Gui {
             this.healthLabel.setText(this.healthLabelText);
         } else if (event instanceof KeyEvent) {
             KeyEvent e = (KeyEvent) event;
-            if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("gui.back") && e.getAction() == KeyAction.UP) {
+            if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybindings.get(GUI_BACK) && e.getAction() == KeyAction.UP) {
                 // pause game and show menu
                 if (!this.paused) {
                     this.pauseGame();

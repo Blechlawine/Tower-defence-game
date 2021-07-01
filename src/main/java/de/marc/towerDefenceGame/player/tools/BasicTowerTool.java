@@ -38,13 +38,16 @@ public class BasicTowerTool extends Tool {
     }
 
     @Override
-    public void use(Tile target, int mouseButton) {
-        if (mouseButton == 0) {
-            if (target.getTileType() == Tile.TileType.PLATFORM && !target.isOccupied()) {
-                if (TowerDefenceGame.theGame.getPlayer().pay(10)) {
-                    target.construct(new BasicTower(target, target.getMiddle().getX(), target.getMiddle().getY()));
-                }
+    public void build(Tile target) {
+        if (target.getTileType() == Tile.TileType.PLATFORM && !target.isOccupied()) {
+            if (TowerDefenceGame.theGame.getPlayer().pay(10)) {
+                target.construct(new BasicTower(target, target.getMiddle().getX(), target.getMiddle().getY()));
             }
         }
+    }
+
+    @Override
+    public void destroy(Tile target) {
+        TowerDefenceGame.theGame.getPlayer().deactivateActiveTool();
     }
 }

@@ -72,6 +72,19 @@ public class KeyEvent extends Event {
         L_CTRL(GLFW.GLFW_KEY_LEFT_CONTROL),
         SPACE(GLFW.GLFW_KEY_SPACE),
         ESC(GLFW.GLFW_KEY_ESCAPE),
+        ONE(GLFW.GLFW_KEY_1),
+        TWO(GLFW.GLFW_KEY_2),
+        THREE(GLFW.GLFW_KEY_3),
+        FOUR(GLFW.GLFW_KEY_4),
+        FIVE(GLFW.GLFW_KEY_5),
+        SIX(GLFW.GLFW_KEY_6),
+        SEVEN(GLFW.GLFW_KEY_7),
+        EIGHT(GLFW.GLFW_KEY_8),
+        NINE(GLFW.GLFW_KEY_9),
+        ZERO(GLFW.GLFW_KEY_0),
+        MOUSE_1(1000), // left click
+        MOUSE_2(1001), // right click
+        MOUSE_3(1002), // Middle mouse button
         NONE(9999);
 
 
@@ -83,7 +96,7 @@ public class KeyEvent extends Event {
 
         /***
          * looks for the corresponding KeyCode to the glfw key
-         * @param glfwKey int key from glfw keypress event
+         * @param glfwKey int key from glfw keypress (or mousebutton (+1000)) event
          * @return KeyCode
          */
         public static KeyCode getKeyCodeFromGLFW(int glfwKey) {

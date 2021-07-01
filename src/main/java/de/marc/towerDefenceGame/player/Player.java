@@ -9,10 +9,15 @@ import de.marc.towerDefenceGame.player.tools.SelectTool;
 import de.marc.towerDefenceGame.player.tools.SniperTowerTool;
 import de.marc.towerDefenceGame.player.tools.Tool;
 import de.marc.towerDefenceGame.render.Camera;
+import de.marc.towerDefenceGame.utils.KeyAction;
+import de.marc.towerDefenceGame.utils.Keybinding;
+import de.marc.towerDefenceGame.utils.Settings;
 import de.marc.towerDefenceGame.utils.Vector2;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
+import static de.marc.towerDefenceGame.utils.KeyAction.DOWN;
+import static de.marc.towerDefenceGame.utils.KeyAction.UP;
 
 public class Player extends Camera implements Listener {
 
@@ -33,6 +38,16 @@ public class Player extends Camera implements Listener {
     private int health = 100;
     private final int maxHealth = health;
 
+    //Movement Vectors
+    private Vector2 up = new Vector2(0D, 1);
+    private Vector2 left = new Vector2(1, 0D);
+    private Vector2 down = up.invert();
+    private Vector2 right = left.invert();
+
+    //Keybindings
+    private Keybinding moveUpBinding, moveDownBinding, moveRightBinding, moveLeftBinding, moveFastBinding, moveMouseBinding, moveResetBinding;
+    private ArrayList<Keybinding> bindings = new ArrayList<>();
+
     public Player() {
         super(new Vector2(0D, 0D));
         TowerDefenceGame.theGame.getEventManager().addListener(this);
@@ -44,6 +59,58 @@ public class Player extends Camera implements Listener {
         this.tools.add(new SniperTowerTool());
 
         this.activeToolIndex = 0;
+
+        this.bindings.add(new Keybinding(Settings.KeyBindings.PLAYER_MOVEUP, new KeyAction[]{DOWN, UP}) {
+            @Override
+            public void onKeyAction(KeyAction action, KeyEvent event) {
+                if (action == DOWN) motion.add(up);
+                if (action == UP) motion.subtract(up);
+            }
+        });
+        this.bindings.add(new Keybinding(Settings.KeyBindings.PLAYER_MOVEDOWN, new KeyAction[]{DOWN, UP}) {
+            @Override
+            public void onKeyAction(KeyAction action, KeyEvent event) {
+                if (action == DOWN) motion.add(down);
+                if (action == UP) motion.subtract(down);
+            }
+        });
+        this.bindings.add(new Keybinding(Settings.KeyBindings.PLAYER_MOVELEFT, new KeyAction[]{DOWN, UP}) {
+            @Override
+            public void onKeyAction(KeyAction action, KeyEvent event) {
+                if (action == DOWN) motion.add(left);
+                if (action == UP) motion.subtract(left);
+            }
+        });
+        this.bindings.add(new Keybinding(Settings.KeyBindings.PLAYER_MOVERIGHT, new KeyAction[]{DOWN, UP}) {
+            @Override
+            public void onKeyAction(KeyAction action, KeyEvent event) {
+                if (action == DOWN) motion.add(right);
+                if (action == UP) motion.subtract(right);
+            }
+        });
+        this.bindings.add(new Keybinding(Settings.KeyBindings.PLAYER_MOVEFAST, new KeyAction[]{DOWN, UP}) {
+            @Override
+            public void onKeyAction(KeyAction action, KeyEvent event) {
+                if (action == DOWN) currentSpeed = fastSpeed;
+                if (action == UP) currentSpeed = normalSpeed;
+            }
+        });
+        this.bindings.add(new Keybinding(Settings.KeyBindings.PLAYER_MOVEMOUSE, new KeyAction[]{DOWN, UP}) {
+            @Override
+            public void onKeyAction(KeyAction action, KeyEvent event) {
+                if (action == DOWN) dragMove = true;
+                if (action == UP) dragMove = false;
+            }
+        });
+        this.bindings.add(new Keybinding(Settings.KeyBindings.PLAYER_MOVERESET, new KeyAction[]{UP}) {
+            @Override
+            public void onKeyAction(KeyAction action, KeyEvent event) {
+                if (action == UP) {
+                    pos.setX(0);
+                    pos.setY(0);
+                }
+            }
+        });
     }
 
     public void update(long partialMS) {
@@ -80,56 +147,10 @@ public class Player extends Camera implements Listener {
     }
 
     public void onEvent(Event event) {
-        if (event instanceof KeyEvent) {
-            KeyEvent e = (KeyEvent) event;
-            Vector2 up = new Vector2(0D, 1);
-            Vector2 left = new Vector2(1, 0D);
-            Vector2 down = up.invert();
-            Vector2 right = left.invert();
-            switch (e.getAction()) {
-                case DOWN:
-                    if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveUp")) {
-                        this.motion.add(up);
-                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveLeft")) {
-                        this.motion.add(left);
-                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveRight")) {
-                        this.motion.add(right);
-                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveDown")) {
-                        this.motion.add(down);
-                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveFast")) {
-                        this.currentSpeed = this.fastSpeed;
-                    }
-                    break;
-                case UP:
-                    if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveUp")) {
-                        this.motion.subtract(up);
-                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveLeft")) {
-                        this.motion.subtract(left);
-                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveRight")) {
-                        this.motion.subtract(right);
-                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveDown")) {
-                        this.motion.subtract(down);
-                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveFast")) {
-                        this.currentSpeed = this.normalSpeed;
-                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveReset")) {
-                        this.pos.setX(0);
-                        this.pos.setY(0);
-                    }
-                    break;
-            }
-        } else if (event instanceof MouseButtonEvent) {
-            MouseButtonEvent e = (MouseButtonEvent) event;
-            if (e.getButton() == 2) { // 0 is the left mouse button
-                switch(e.getAction()) {
-                    case DOWN:
-                        this.dragMove = true;
-                        break;
-                    case UP:
-                        this.dragMove = false;
-                        break;
-                }
-            }
-        } else if (event instanceof MouseScrollEvent) {
+        for(Keybinding binding : this.bindings) {
+            binding.onEvent(event);
+        }
+        if (event instanceof MouseScrollEvent) {
             MouseScrollEvent e = (MouseScrollEvent) event;
             if (e.getY() > 0) {
                 // scroll up / zoom in

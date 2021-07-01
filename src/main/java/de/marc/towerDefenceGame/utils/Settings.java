@@ -1,30 +1,30 @@
 package de.marc.towerDefenceGame.utils;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.events.KeyEvent;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
-import java.io.File;
 import java.util.HashMap;
-import java.util.Map;
 
 public class Settings {
 
     public String settingsFile = "settings.json";
 
-    public HashMap<String, KeyEvent.KeyCode> keybinds = new HashMap<String, KeyEvent.KeyCode>() {
+    public HashMap<KeyBindings, KeyEvent.KeyCode> keybindings = new HashMap<KeyBindings, KeyEvent.KeyCode>() {
         {
-            put("gui.back", KeyEvent.KeyCode.ESC);
-            put("player.moveUp", KeyEvent.KeyCode.W);
-            put("player.moveDown", KeyEvent.KeyCode.S);
-            put("player.moveLeft", KeyEvent.KeyCode.A);
-            put("player.moveRight", KeyEvent.KeyCode.D);
-            put("player.moveFast", KeyEvent.KeyCode.L_SHIFT);
-            put("player.moveReset", KeyEvent.KeyCode.SPACE);
-            put("tools.slot1", KeyEvent.KeyCode.ONE);
-            put("tools.slot2", KeyEvent.KeyCode.TWO);
-            put("tools.slot3", KeyEvent.KeyCode.THREE);
+            put(KeyBindings.GUI_BACK, KeyEvent.KeyCode.ESC);
+            put(KeyBindings.GUI_INTERACT, KeyEvent.KeyCode.MOUSE_1);
+            put(KeyBindings.PLAYER_MOVEUP, KeyEvent.KeyCode.W);
+            put(KeyBindings.PLAYER_MOVEDOWN, KeyEvent.KeyCode.S);
+            put(KeyBindings.PLAYER_MOVELEFT, KeyEvent.KeyCode.A);
+            put(KeyBindings.PLAYER_MOVERIGHT, KeyEvent.KeyCode.D);
+            put(KeyBindings.PLAYER_MOVEFAST, KeyEvent.KeyCode.L_SHIFT);
+            put(KeyBindings.PLAYER_MOVERESET, KeyEvent.KeyCode.SPACE);
+            put(KeyBindings.PLAYER_MOVEMOUSE, KeyEvent.KeyCode.MOUSE_3);
+            put(KeyBindings.TOOLS_DESELECT, KeyEvent.KeyCode.MOUSE_2);
+            put(KeyBindings.TOOLS_BUILD, KeyEvent.KeyCode.MOUSE_1);
+            put(KeyBindings.TOOLS_DESTROY, KeyEvent.KeyCode.MOUSE_2);
+            put(KeyBindings.TOOLS_SLOT1, KeyEvent.KeyCode.ONE);
+            put(KeyBindings.TOOLS_SLOT2, KeyEvent.KeyCode.TWO);
+            put(KeyBindings.TOOLS_SLOT3, KeyEvent.KeyCode.THREE);
         }
     };
 
@@ -59,6 +59,12 @@ public class Settings {
 //            this.keybinds.put(keybind.getString("binding"), KeyEvent.KeyCode.getKeyCodeFromGLFW(keybind.getInt("value")));
 //        }
 //        TowerDefenceGame.theGame.getLogger().debug(this.keybinds.entrySet());
+    }
+
+    public enum KeyBindings {
+        GUI_BACK, GUI_INTERACT,
+        PLAYER_MOVEUP, PLAYER_MOVEDOWN, PLAYER_MOVELEFT, PLAYER_MOVERIGHT, PLAYER_MOVEFAST, PLAYER_MOVEMOUSE, PLAYER_MOVERESET,
+        TOOLS_DESELECT, TOOLS_BUILD, TOOLS_DESTROY, TOOLS_SLOT1, TOOLS_SLOT2, TOOLS_SLOT3;
     }
 
 }

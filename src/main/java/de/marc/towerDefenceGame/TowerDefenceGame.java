@@ -95,7 +95,7 @@ public class TowerDefenceGame {
 
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action)));
 
-        glfwSetMouseButtonCallback(window, (window, button, action, mods) -> this.eventManager.hook(new MouseButtonEvent(button, action)));
+        glfwSetMouseButtonCallback(window, (window, button, action, mods) -> this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(button + 1000), action))); //new MouseButtonEvent(button, action)
 
         glfwSetScrollCallback(window, (window, xOffset, yOffset) -> this.eventManager.hook(new MouseScrollEvent(xOffset, yOffset)));
 

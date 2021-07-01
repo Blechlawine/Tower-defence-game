@@ -15,17 +15,18 @@ public class SelectTool extends Tool {
     }
 
     @Override
-    public void use(Tile target, int mouseButton) {
-        if (mouseButton == 0) {
-            if (Tile.selectedTile == null || Tile.selectedTile != target) {
-                target.select();
-            } else {
-                Tile.selectedTile = null;
-            }
-        } else if(mouseButton == 1) {
-            if (target.isOccupied()) {
-                target.deconstruct();
-            }
+    public void build(Tile target) {
+        if (Tile.selectedTile == null || Tile.selectedTile != target) {
+            target.select();
+        } else {
+            Tile.selectedTile = null;
+        }
+    }
+
+    @Override
+    public void destroy(Tile target) {
+        if (target != null && target.isOccupied()) {
+            target.deconstruct();
         }
     }
 

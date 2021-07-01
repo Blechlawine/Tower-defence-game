@@ -20,14 +20,17 @@ public class SniperTowerTool extends Tool {
     }
 
     @Override
-    public void use(Tile target, int mouseButton) {
-        if (mouseButton == 0) {
-            if (target.getTileType() == Tile.TileType.PLATFORM && !target.isOccupied()) {
-                if (TowerDefenceGame.theGame.getPlayer().pay(20)) {
-                    target.construct(new SniperTower(target, target.getMiddle().getX(), target.getMiddle().getY()));
-                }
+    public void build(Tile target) {
+        if (target.getTileType() == Tile.TileType.PLATFORM && !target.isOccupied()) {
+            if (TowerDefenceGame.theGame.getPlayer().pay(20)) {
+                target.construct(new SniperTower(target, target.getMiddle().getX(), target.getMiddle().getY()));
             }
         }
+    }
+
+    @Override
+    public void destroy(Tile target) {
+        TowerDefenceGame.theGame.getPlayer().deactivateActiveTool();
     }
 
     @Override

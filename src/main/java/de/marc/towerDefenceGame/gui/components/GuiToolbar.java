@@ -2,19 +2,20 @@ package de.marc.towerDefenceGame.gui.components;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
-import de.marc.towerDefenceGame.event.events.MouseButtonEvent;
+import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
 import de.marc.towerDefenceGame.player.tools.Tool;
-import de.marc.towerDefenceGame.utils.Color;
-import de.marc.towerDefenceGame.utils.GLUtils;
-import de.marc.towerDefenceGame.utils.KeyAction;
-import de.marc.towerDefenceGame.utils.Vector2;
+import de.marc.towerDefenceGame.utils.*;
 
 import java.util.ArrayList;
+
+import static de.marc.towerDefenceGame.utils.KeyAction.DOWN;
 
 public class GuiToolbar extends GuiComponent {
 
     private ArrayList<Tool> tools;
+
+    private Keybinding toolSelectBinding;
 
     private final Double toolSize = 50d;
 
@@ -23,6 +24,19 @@ public class GuiToolbar extends GuiComponent {
         this.height = this.toolSize;
         this.tools = TowerDefenceGame.theGame.getPlayer().getTools();
         this.width = this.toolSize * this.tools.size();
+        this.toolSelectBinding = new Keybinding(Settings.KeyBindings.GUI_INTERACT, new KeyAction[] {DOWN}) {
+            @Override
+            public void onKeyAction(KeyAction action, KeyEvent event) {
+                if (action == DOWN) {
+                    if (hovered) {
+                        double relMousePosX = MouseMoveEvent.getAbsoluteX() - pos.getX();
+                        int hoveredToolIndex = (int) (relMousePosX / toolSize);
+                        TowerDefenceGame.theGame.getPlayer().setActiveTool(hoveredToolIndex);
+                        event.cancel();
+                    }
+                }
+            }
+        };
     }
 
     private Vector2 generateToolPos(int index) {
@@ -31,17 +45,7 @@ public class GuiToolbar extends GuiComponent {
 
     @Override
     public void onEvent(Event event) {
-        if (event instanceof MouseButtonEvent) {
-            MouseButtonEvent e = (MouseButtonEvent) event;
-            if (e.getButton() == 0 && e.getAction() == KeyAction.DOWN) {
-                if (this.hovered) {
-                    double relMousePosX = MouseMoveEvent.getAbsoluteX() - this.pos.getX();
-                    int hoveredToolIndex = (int) (relMousePosX / this.toolSize);
-                    TowerDefenceGame.theGame.getPlayer().setActiveTool(hoveredToolIndex);
-                    e.cancel();
-                }
-            }
-        }
+        this.toolSelectBinding.onEvent(event);
         super.onEvent(event);
     }
 

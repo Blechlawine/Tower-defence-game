@@ -48,7 +48,10 @@ public class Chunk implements Renderable {
 
     public Tile getTileFromCoords(double x, double y) {
         for (Tile tile : this.tiles) {
-            if (tile.getPosVec().getX() == x && tile.getPosVec().getY() == y) return tile;
+            if (tile.getPosVec().getX() <= x && tile.getPosVec().getX() + Tile.size > x &&
+                tile.getPosVec().getY() <= y && tile.getPosVec().getY() + Tile.size > y) {
+                return tile;
+            }
         }
         return null;
     }

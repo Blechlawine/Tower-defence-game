@@ -3,14 +3,8 @@ package de.marc.towerDefenceGame.level;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
-import de.marc.towerDefenceGame.event.events.MouseButtonEvent;
-import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
-import de.marc.towerDefenceGame.event.events.TileClickEvent;
 import de.marc.towerDefenceGame.gameObjects.tower.Tower;
-import de.marc.towerDefenceGame.utils.Color;
-import de.marc.towerDefenceGame.utils.GLUtils;
-import de.marc.towerDefenceGame.utils.Renderable;
-import de.marc.towerDefenceGame.utils.Vector2;
+import de.marc.towerDefenceGame.utils.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +45,6 @@ public class Tile implements Renderable, Listener {
             this.uv = this.getUVforTextureIndex();
 
         this.uvTileSize = TowerDefenceGame.theGame.getTextureHandler().getTileUVSize();
-//        TowerDefenceGame.theGame.getLogger().debug(this.xPos, this.yPos);
     }
 
     public double[] getUVforTextureIndex() {
@@ -68,16 +61,6 @@ public class Tile implements Renderable, Listener {
     }
 
     public void onEvent(Event event) {
-        if (event instanceof MouseButtonEvent) {
-            MouseButtonEvent e = (MouseButtonEvent) event;
-            double clickXPos = MouseMoveEvent.getMapPosX();
-            double clickYPos = MouseMoveEvent.getMapPosY();
-            if (clickXPos >= this.xPos && clickXPos < this.xPos + size && clickYPos >= this.yPos && clickYPos < this.yPos + size) {
-                if (e.getAction() == DOWN) {
-                    TowerDefenceGame.theGame.getEventManager().hook(new TileClickEvent(this, e.getButton()));
-                }
-            }
-        }
     }
 
     public void construct(Tower tower) {
