@@ -16,6 +16,7 @@ import de.marc.towerDefenceGame.texture.TextureManager;
 import de.marc.towerDefenceGame.gameObjects.tower.TowerManager;
 import de.marc.towerDefenceGame.utils.Logger;
 import de.marc.towerDefenceGame.texture.TextureHandler;
+import de.marc.towerDefenceGame.utils.Settings;
 import de.marc.towerDefenceGame.utils.Vector2;
 import org.lwjgl.opengl.GL;
 
@@ -45,7 +46,9 @@ public class TowerDefenceGame {
     private FontRenderer fontRenderer;
     private GameManager gameManager;
     private LevelFileManager levelFileManager;
+
     private Logger logger;
+    private Settings settings;
 
     private boolean renderDebugStuff = false;
 
@@ -56,6 +59,7 @@ public class TowerDefenceGame {
 
     private void start() {
         this.logger = new Logger();
+        this.settings = new Settings();
 
         init();
         loop();
@@ -211,6 +215,9 @@ public class TowerDefenceGame {
     }
     public LevelFileManager getLevelFileManager() {
         return this.levelFileManager;
+    }
+    public Settings getSettings() {
+        return this.settings;
     }
 
     public boolean getRenderDebugStuff() {

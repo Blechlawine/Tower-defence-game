@@ -1,5 +1,6 @@
 package de.marc.towerDefenceGame.utils;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.texture.Texture;
 import de.matthiasmann.twl.utils.PNGDecoder;
 import org.json.JSONObject;
@@ -14,14 +15,38 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class FileUtils {
 
-    public static JSONObject readJSONFile(String fileName) {
+    public static JSONObject readJSONResource(String fileName) {
         InputStream stream = getFileFromResourceAsStream(fileName);
 
         JSONTokener tokener = new JSONTokener(stream);
         return new JSONObject(tokener);
+    }
+
+    public static void writeJSONFile(String fileName, JSONObject content) {
+//        Path resourcePath = Paths.get(FileUtils.class.getResource("/").getPath());
+//        Path filePath = Paths.get(resourcePath.toAbsolutePath() + "/" + fileName);
+//        TowerDefenceGame.theGame.getLogger().debug(filePath.getFileName());
+        try {
+            File file = new File(fileName);
+            if (file.createNewFile()) {
+                TowerDefenceGame.theGame.getLogger().info(String.format("File created: %s", fileName));
+            } else {
+                TowerDefenceGame.theGame.getLogger().info(String.format("File already exists: %s", fileName));
+            }
+            TowerDefenceGame.theGame.getLogger().info(String.format("Writing file: %s", fileName));
+            FileWriter writer = new FileWriter(fileName);
+            writer.write(content.toString());
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+
+        }
     }
 
     public static InputStream getFileFromResourceAsStream(String fileName) {

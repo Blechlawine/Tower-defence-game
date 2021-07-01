@@ -12,6 +12,7 @@ import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.utils.Vector2;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Player extends Camera implements Listener {
 
@@ -85,65 +86,34 @@ public class Player extends Camera implements Listener {
             Vector2 left = new Vector2(1, 0D);
             Vector2 down = up.invert();
             Vector2 right = left.invert();
-            switch (e.getKey()) {
-                case W:
-                    switch (e.getAction()) {
-                        case DOWN:
-                            this.motion.add(up);
-                            break;
-                        case UP:
-                            this.motion.subtract(up);
-                            break;
+            switch (e.getAction()) {
+                case DOWN:
+                    if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveUp")) {
+                        this.motion.add(up);
+                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveLeft")) {
+                        this.motion.add(left);
+                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveRight")) {
+                        this.motion.add(right);
+                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveDown")) {
+                        this.motion.add(down);
+                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveFast")) {
+                        this.currentSpeed = this.fastSpeed;
                     }
                     break;
-                case A:
-                    switch (e.getAction()) {
-                        case DOWN:
-                            this.motion.add(left);
-                            break;
-                        case UP:
-                            this.motion.subtract(left);
-                            break;
-                    }
-                    break;
-                case S:
-                    switch (e.getAction()) {
-                        case DOWN:
-                            this.motion.add(down);
-                            break;
-                        case UP:
-                            this.motion.subtract(down);
-                            break;
-                    }
-                    break;
-                case D:
-                    switch (e.getAction()) {
-                        case DOWN:
-                            this.motion.add(right);
-                            break;
-                        case UP:
-                            this.motion.subtract(right);
-                            break;
-                    }
-                    break;
-                case L_SHIFT:
-                    switch (e.getAction()) {
-                        case DOWN:
-                            this.currentSpeed = this.fastSpeed;
-                            break;
-                        case UP:
-                            this.currentSpeed = this.normalSpeed;
-                            break;
-                    }
-                    break;
-                case SPACE:
-                    switch (e.getAction()) {
-                        case DOWN:
-                            break;
-                        case UP:
-                            this.pos.setX(0);
-                            this.pos.setY(0);
-                            break;
+                case UP:
+                    if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveUp")) {
+                        this.motion.subtract(up);
+                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveLeft")) {
+                        this.motion.subtract(left);
+                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveRight")) {
+                        this.motion.subtract(right);
+                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveDown")) {
+                        this.motion.subtract(down);
+                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveFast")) {
+                        this.currentSpeed = this.normalSpeed;
+                    } else if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("player.moveReset")) {
+                        this.pos.setX(0);
+                        this.pos.setY(0);
                     }
                     break;
             }

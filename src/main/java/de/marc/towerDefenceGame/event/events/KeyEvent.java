@@ -1,5 +1,6 @@
 package de.marc.towerDefenceGame.event.events;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.utils.KeyAction;
 import org.lwjgl.glfw.GLFW;
@@ -74,10 +75,10 @@ public class KeyEvent extends Event {
         NONE(9999);
 
 
-        private final int glfwKey;
+        private final int key;
 
-        KeyCode(int glfwKey) {
-            this.glfwKey = glfwKey;
+        KeyCode(int key) {
+            this.key = key;
         }
 
         /***
@@ -86,11 +87,16 @@ public class KeyEvent extends Event {
          * @return KeyCode
          */
         public static KeyCode getKeyCodeFromGLFW(int glfwKey) {
-            for (KeyCode key : values()) {
-                if (key.glfwKey == glfwKey)
-                    return key;
+            TowerDefenceGame.theGame.getLogger().debug(glfwKey);
+            for (KeyCode keyCode : values()) {
+                if (keyCode.getKey() == glfwKey)
+                    return keyCode;
             }
             return NONE;
+        }
+
+        public int getKey() {
+            return this.key;
         }
     }
 

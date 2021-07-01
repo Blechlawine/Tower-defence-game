@@ -10,7 +10,7 @@ import de.marc.towerDefenceGame.utils.Vector2;
 
 public class GuiMainMenu extends Gui {
 
-    private GuiButton playButton;
+    private GuiButton playButton, settingsButton;
 
     public GuiMainMenu() {
         super("mainmenu");
@@ -41,6 +41,20 @@ public class GuiMainMenu extends Gui {
             }
         };
 
+        this.settingsButton = new GuiButton(
+                new GuiLabel("Settings", new Color(Colors.TEXT)),
+                new Vector2(playBtnPos).add(new Vector2(0, 50)),
+                200, 40,
+                new Color(Colors.BUTTONPRIMARY),
+                new Color(Colors.BUTTONPRIMARYHOVER)
+        ) {
+            @Override
+            public void onClick() {
+                TowerDefenceGame.theGame.getGuiManager().setActiveGui("settingsMain");
+            }
+        };
+
         this.components.add(this.playButton);
+        this.components.add(this.settingsButton);
     }
 }

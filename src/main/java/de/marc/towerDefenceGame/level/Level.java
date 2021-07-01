@@ -35,7 +35,7 @@ public class Level implements Renderable {
 
     public Level generateFromJsonFile(String fileName) {
         TowerDefenceGame.theGame.getLogger().info("Generating Level: " + fileName);
-        JSONObject json = FileUtils.readJSONFile(fileName);
+        JSONObject json = FileUtils.readJSONResource(fileName);
         JSONArray layers = json.getJSONArray("layers");
         JSONObject layer = layers.getJSONObject(0);
         JSONArray chunks = layer.getJSONArray("chunks");

@@ -98,7 +98,7 @@ public class GuiInGame extends Gui {
             this.healthLabel.setText(this.healthLabelText);
         } else if (event instanceof KeyEvent) {
             KeyEvent e = (KeyEvent) event;
-            if (e.getKey() == KeyCode.ESC && e.getAction() == KeyAction.UP) {
+            if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybinds.get("gui.back") && e.getAction() == KeyAction.UP) {
                 // pause game and show menu
                 if (!this.paused) {
                     this.pauseGame();
