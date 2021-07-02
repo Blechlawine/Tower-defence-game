@@ -1,6 +1,5 @@
 # TODO:
 
-- Redo Event system
 - Menu (settings)
 - Transparency for tool visualizations
 - Ingame kill counter
