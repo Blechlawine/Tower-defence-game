@@ -33,7 +33,7 @@ public class GuiInGame extends Gui {
         super.initGui();
         this.walletLabel = new GuiLabel(this.walletLabelText, new Vector2(10, 10), new Color(1, 0, 0 ));
         this.healthLabel = new GuiLabel(this.healthLabelText, new Vector2(10, 30), new Color(1, 0, 0 ));
-        this.towerToolbar = new GuiToolbar(new Vector2(getInPixels(50, "vw") - 50, getInPixels(100, "vh") - 50));
+        this.towerToolbar = new GuiToolbar(new Vector2(getInPixels(50, "vw") - 75, getInPixels(100, "vh") - 50));
 
         this.components.add(this.walletLabel);
         this.components.add(this.healthLabel);
