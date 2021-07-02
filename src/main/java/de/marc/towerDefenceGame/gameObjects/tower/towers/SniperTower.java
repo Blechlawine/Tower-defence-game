@@ -36,7 +36,7 @@ public class SniperTower extends Tower {
         if (this.lastTargetPosition != null) {
             Vector2 shotLineStart = new Vector2(this.middle).add(new Vector2(this.lastAttackVec).multiply(8));
             float lineWidth = 1 * (float) TowerDefenceGame.theGame.getPlayer().getScale();
-            GLUtils.drawLineO(shotLineStart.getX(), shotLineStart.getY(), this.lastTargetPosition.getX(), this.lastTargetPosition.getY(), lineWidth, this.shotOpacity, new Color(1, 1, 1));
+            GLUtils.drawLineO(shotLineStart.getX(), shotLineStart.getY(), this.lastTargetPosition.getX(), this.lastTargetPosition.getY(), lineWidth, this.shotOpacity, new Color("42A5F5"));
             if (this.shotOpacity > 0) {
                 this.shotOpacity -= 0.05F;
             }

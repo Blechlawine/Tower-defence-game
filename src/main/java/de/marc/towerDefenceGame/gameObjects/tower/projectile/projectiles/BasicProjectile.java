@@ -21,6 +21,6 @@ public class BasicProjectile extends Projectile {
     @Override
     public void render() {
         float lineWidth = 1 * (float)TowerDefenceGame.theGame.getPlayer().getScale();
-        GLUtils.drawLine(this.pos.getX(), this.pos.getY(), this.pos.getX() - this.motion.getX(), this.pos.getY() - this.motion.getY(), lineWidth, new Color(1, 0, 1));
+        GLUtils.drawLine(this.pos.getX(), this.pos.getY(), this.pos.getX() - this.motion.getX(), this.pos.getY() - this.motion.getY(), lineWidth, new Color("8BC34A"));
     }
 }
