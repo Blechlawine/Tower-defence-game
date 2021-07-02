@@ -10,10 +10,9 @@ import de.marc.towerDefenceGame.level.Level;
 
 public class Game implements Listener {
 
-    private Level level;
+    private final Level level;
 
-    private boolean paused = false, shouldAutoUnpause = true;
-    private long pausedTimeMS = 0L;
+    private boolean shouldAutoUnpause = true;
 
     public Game(String levelFileName) {
         this.level = new Level().generateFromJsonFile(levelFileName);
@@ -23,35 +22,28 @@ public class Game implements Listener {
     @Override
     public void onEvent(Event event) {
         if (event instanceof UnPausedPostUpdateEvent) {
-            if (this.isPaused()) {
-                UnPausedPostUpdateEvent uppue = (UnPausedPostUpdateEvent) event;
-                this.pausedTimeMS += uppue.partialMS;
-            }
             if (this.shouldAutoUnpause) {
-                this.paused = false;
+                TowerDefenceGame.theGame.getSettings().isGamePaused = false;
             }
         } else if (event instanceof WindowMoveEvent) {
-            this.paused = true;
+            TowerDefenceGame.theGame.getSettings().isGamePaused = true;
+//            this.paused = true;
             this.shouldAutoUnpause = true;
         } else if (event instanceof PostUpdateEvent) {
 //            this.pausedTimeMS = 0L;
+        }
+        if (!TowerDefenceGame.theGame.getSettings().isGamePaused) {
+            TowerDefenceGame.theGame.getPlayer().onEvent(event);
+            this.level.onEvent(event);
         }
     }
 
     public void end() {
         TowerDefenceGame.theGame.getGuiManager().setActiveGui("defeat");
-        this.paused = true;
+        TowerDefenceGame.theGame.getSettings().isGamePaused = true;
 //        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").removeElement(this.level);
 //        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").removeElement(this.level.getPath());
         TowerDefenceGame.theGame.getEventManager().removeListener(this);
-    }
-
-    public boolean isPaused() {
-        return this.paused;
-    }
-
-    public long getPausedTimeMS() {
-        return this.pausedTimeMS;
     }
 
     public Level getLevel() {
@@ -59,12 +51,12 @@ public class Game implements Listener {
     }
 
     public void unpause() {
-        this.paused = false;
+        TowerDefenceGame.theGame.getSettings().isGamePaused = false;
         this.shouldAutoUnpause = true;
     }
 
     public void pause() {
-        this.paused = true;
+        TowerDefenceGame.theGame.getSettings().isGamePaused = true;
         this.shouldAutoUnpause = false;
     }
 

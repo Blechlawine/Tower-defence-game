@@ -32,7 +32,6 @@ public class EnemySpawner implements Listener {
     private long spawnDelayMs = 700;
 
     public EnemySpawner(double x, double y, int size, Level level) {
-        TowerDefenceGame.theGame.getEventManager().addListener(this);
         this.yPos = y;
         this.xPos = x;
         this.size = size;

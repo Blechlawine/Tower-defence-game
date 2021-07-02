@@ -1,13 +1,15 @@
 package de.marc.towerDefenceGame.level;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.event.Event;
+import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.utils.Renderable;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chunk implements Renderable {
+public class Chunk implements Renderable, Listener {
 
     private double xPosPixel, yPosPixel, widthPixel, heightPixel;
     private int widthTiles, heightTiles;
@@ -42,6 +44,12 @@ public class Chunk implements Renderable {
         GL11.glPopMatrix();
     }
 
+    public void onEvent(Event event) {
+        for(Tile tile : this.tiles) {
+            tile.onEvent(event);
+        }
+    }
+
     public boolean contains(double x, double y) {
         return (x < this.xPosPixel + this.widthPixel && x >= this.xPosPixel) && (y < this.yPosPixel + this.heightPixel && y >= this.yPosPixel);
     }
@@ -49,7 +57,8 @@ public class Chunk implements Renderable {
     public Tile getTileFromCoords(double x, double y) {
         for (Tile tile : this.tiles) {
             if (tile.getPosVec().getX() <= x && tile.getPosVec().getX() + Tile.size > x &&
-                tile.getPosVec().getY() <= y && tile.getPosVec().getY() + Tile.size > y) {
+                tile.getPosVec().getY() <= y && tile.getPosVec().getY() + Tile.size > y &&
+                tile.getTileType() != Tile.TileType.NONE) {
                 return tile;
             }
         }

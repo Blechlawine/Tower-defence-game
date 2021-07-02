@@ -1,6 +1,8 @@
 package de.marc.towerDefenceGame.level;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.event.Event;
+import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.gameObjects.enemy.Enemy;
 import de.marc.towerDefenceGame.gameObjects.enemy.EnemySpawner;
 import de.marc.towerDefenceGame.level.path.Path;
@@ -13,7 +15,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level implements Renderable {
+public class Level implements Renderable, Listener {
 
     private List<Chunk> chunks = new ArrayList<>();
 
@@ -31,6 +33,13 @@ public class Level implements Renderable {
         for (Chunk chunk : this.chunks) {
             chunk.render();
         }
+    }
+
+    public void onEvent(Event event) {
+        for(Chunk chunk : this.chunks) {
+            chunk.onEvent(event);
+        }
+        this.spawner.onEvent(event);
     }
 
     public Level generateFromJsonFile(String fileName) {

@@ -100,7 +100,6 @@ public class KeyEvent extends Event {
          * @return KeyCode
          */
         public static KeyCode getKeyCodeFromGLFW(int glfwKey) {
-            TowerDefenceGame.theGame.getLogger().debug(glfwKey);
             for (KeyCode keyCode : values()) {
                 if (keyCode.getKey() == glfwKey)
                     return keyCode;

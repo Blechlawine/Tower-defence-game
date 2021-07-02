@@ -54,8 +54,7 @@ public abstract class Gui implements Renderable, Listener {
         if (event instanceof WindowResizeEvent) {
             this.initGui();
         }
-        List<GuiComponent> tempComponents = new ArrayList<GuiComponent>();
-        tempComponents.addAll(this.components);
+        List<GuiComponent> tempComponents = new ArrayList<GuiComponent>(this.components);
         for (GuiComponent component : tempComponents) {
             component.onEvent(event);
         }

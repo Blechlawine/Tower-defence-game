@@ -26,8 +26,6 @@ public class Tile implements Renderable, Listener {
     public static Tile selectedTile;
 
     public Tile(double xPos, double yPos, int textureIndex, Chunk chunk) {
-        TowerDefenceGame.theGame.getEventManager().addListener(this);
-
         this.xPos = xPos;
         this.yPos = yPos;
         this.middle = new Vector2(this.xPos + size / 2, this.yPos + size / 2);

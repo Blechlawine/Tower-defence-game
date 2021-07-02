@@ -50,7 +50,6 @@ public class Player extends Camera implements Listener {
 
     public Player() {
         super(new Vector2(0D, 0D));
-        TowerDefenceGame.theGame.getEventManager().addListener(this);
         this.motion = new Vector2(0D, 0D);
 
         this.tools = new ArrayList<Tool>();
@@ -149,6 +148,9 @@ public class Player extends Camera implements Listener {
     public void onEvent(Event event) {
         for(Keybinding binding : this.bindings) {
             binding.onEvent(event);
+        }
+        for(Tool tool : this.tools) {
+            tool.onEvent(event);
         }
         if (event instanceof MouseScrollEvent) {
             MouseScrollEvent e = (MouseScrollEvent) event;

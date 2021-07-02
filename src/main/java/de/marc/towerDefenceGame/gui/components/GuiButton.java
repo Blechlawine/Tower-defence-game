@@ -49,8 +49,8 @@ public abstract class GuiButton extends GuiComponent {
 
     @Override
     public void onEvent(Event event) {
-        this.pressBinding.onEvent(event);
         super.onEvent(event);
+        this.pressBinding.onEvent(event);
     }
 
     protected void onMouseIn() {

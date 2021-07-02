@@ -16,7 +16,7 @@ public class SelectTool extends Tool {
 
     @Override
     public void build(Tile target) {
-        if (Tile.selectedTile == null || Tile.selectedTile != target) {
+        if (target != null && (Tile.selectedTile == null || Tile.selectedTile != target)) {
             target.select();
         } else {
             Tile.selectedTile = null;

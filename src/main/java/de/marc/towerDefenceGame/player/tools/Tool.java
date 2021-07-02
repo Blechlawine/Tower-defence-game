@@ -13,20 +13,28 @@ import static de.marc.towerDefenceGame.utils.KeyAction.DOWN;
 public abstract class Tool implements Renderable, Listener {
 
     private String name;
+    private boolean active;
 
-    private final Keybinding buildBinding, destroyBinding;
+    private Keybinding buildBinding, destroyBinding;
 
     public Tool(String name) {
         this.name = name;
 //        this.activate();
+    }
+
+    public void activate() {
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("tools").addElement(this);
+        this.active = true;
         this.buildBinding = new Keybinding(Settings.KeyBindings.TOOLS_BUILD, new KeyAction[]{DOWN}) {
             @Override
             public void onKeyAction(KeyAction action, KeyEvent event) {
                 double mapPosX = MouseMoveEvent.getMapPosX();
                 double mapPosY = MouseMoveEvent.getMapPosY();
                 Tile target = TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getTileFromCoords(mapPosX, mapPosY);
-                build(target);
-                event.cancel();
+                if (target != null) {
+                    build(target);
+                    event.cancel();
+                }
             }
         };
         this.destroyBinding = new Keybinding(Settings.KeyBindings.TOOLS_DESTROY, new KeyAction[] {DOWN}) {
@@ -37,19 +45,18 @@ public abstract class Tool implements Renderable, Listener {
                 Tile target = TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getTileFromCoords(mapPosX, mapPosY);
                 destroy(target);
                 event.cancel();
+                if (target != null) {
+                }
             }
         };
     }
 
-    public void activate() {
-        TowerDefenceGame.theGame.getRenderer().getLayerByName("towers").addElement(this);
-        TowerDefenceGame.theGame.getEventManager().addListener(this);
-    }
-
     @Override
     public void onEvent(Event event) {
-        this.buildBinding.onEvent(event);
-        this.destroyBinding.onEvent(event);
+        if (this.active) {
+            this.buildBinding.onEvent(event);
+            this.destroyBinding.onEvent(event);
+        }
     }
 
     public String getName() {
@@ -61,7 +68,7 @@ public abstract class Tool implements Renderable, Listener {
     public abstract void destroy(Tile target);
 
     public void deactivate() {
-        TowerDefenceGame.theGame.getRenderer().getLayerByName("towers").removeElement(this);
-        TowerDefenceGame.theGame.getEventManager().removeListener(this);
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("tools").removeElement(this);
+        this.active = false;
     }
 }

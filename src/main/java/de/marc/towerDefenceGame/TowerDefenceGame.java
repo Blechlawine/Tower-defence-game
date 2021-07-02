@@ -91,6 +91,7 @@ public class TowerDefenceGame {
         this.renderer.addLayer(new RenderLayer("enemies", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("projectiles", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("towers", this.thePlayer));
+        this.renderer.addLayer(new RenderLayer("tools", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("gui", new Camera(new Vector2(0, 0), new Vector2(0, 0))));
 
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action)));
@@ -139,7 +140,7 @@ public class TowerDefenceGame {
 
             long ms = System.nanoTime() / 1000000;
 
-            if(this.gameManager.getCurrentGame() != null && !this.gameManager.getCurrentGame().isPaused()) {
+            if(this.gameManager.getCurrentGame() != null && !TowerDefenceGame.theGame.getSettings().isGamePaused) {
                 this.eventManager.hook(new PreUpdateEvent(ms));
                 this.eventManager.hook(new UpdateEvent(ms));
                 this.eventManager.hook(new PostUpdateEvent(ms));

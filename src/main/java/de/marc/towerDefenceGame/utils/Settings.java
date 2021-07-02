@@ -6,8 +6,12 @@ import java.util.HashMap;
 
 public class Settings {
 
+    //unsaved Settings
+    public static Settings instance;
     public String settingsFile = "settings.json";
+    public boolean isGamePaused = false;
 
+    //saved Settings
     public HashMap<KeyBindings, KeyEvent.KeyCode> keybindings = new HashMap<KeyBindings, KeyEvent.KeyCode>() {
         {
             put(KeyBindings.GUI_BACK, KeyEvent.KeyCode.ESC);
@@ -29,6 +33,7 @@ public class Settings {
     };
 
     public Settings() {
+        instance = this;
 //        File testFile = new File(this.settingsFile);
 //        if (testFile.exists()) {
 //            this.loadSettings();

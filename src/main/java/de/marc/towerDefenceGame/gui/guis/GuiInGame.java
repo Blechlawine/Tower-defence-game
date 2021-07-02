@@ -38,7 +38,7 @@ public class GuiInGame extends Gui {
         this.components.add(this.walletLabel);
         this.components.add(this.healthLabel);
         this.components.add(this.towerToolbar);
-        if (this.paused) {
+        if (TowerDefenceGame.theGame.getSettings().isGamePaused) {
             this.makeEscMenu();
         }
     }
@@ -63,7 +63,7 @@ public class GuiInGame extends Gui {
         ) {
             @Override
             public void onClick() {
-                TowerDefenceGame.theGame.getGameManager().getCurrentGame().end();
+                TowerDefenceGame.theGame.getGuiManager().setActiveGui("mainmenu");
             }
         };
         this.components.add(this.resumeBtn);
@@ -77,14 +77,12 @@ public class GuiInGame extends Gui {
 
     private void pauseGame() {
         TowerDefenceGame.theGame.getGameManager().getCurrentGame().pause();
-        this.paused = true;
         this.makeEscMenu();
     }
 
     private void unpauseGame() {
-        this.paused = false;
-        removeEscMenu();
         TowerDefenceGame.theGame.getGameManager().getCurrentGame().unpause();
+        this.removeEscMenu();
     }
 
     @Override
@@ -101,7 +99,7 @@ public class GuiInGame extends Gui {
             KeyEvent e = (KeyEvent) event;
             if (e.getKey() == TowerDefenceGame.theGame.getSettings().keybindings.get(GUI_BACK) && e.getAction() == KeyAction.UP) {
                 // pause game and show menu
-                if (!this.paused) {
+                if (!TowerDefenceGame.theGame.getSettings().isGamePaused) {
                     this.pauseGame();
                 } else {
                     this.unpauseGame();

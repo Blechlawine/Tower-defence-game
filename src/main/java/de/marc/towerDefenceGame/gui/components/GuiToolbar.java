@@ -33,6 +33,7 @@ public class GuiToolbar extends GuiComponent {
                         int hoveredToolIndex = (int) (relMousePosX / toolSize);
                         TowerDefenceGame.theGame.getPlayer().setActiveTool(hoveredToolIndex);
                         event.cancel();
+                        TowerDefenceGame.theGame.getLogger().debug("toolselectBinding on Event");
                     }
                 }
             }
@@ -45,8 +46,8 @@ public class GuiToolbar extends GuiComponent {
 
     @Override
     public void onEvent(Event event) {
-        this.toolSelectBinding.onEvent(event);
         super.onEvent(event);
+        this.toolSelectBinding.onEvent(event);
     }
 
     @Override
