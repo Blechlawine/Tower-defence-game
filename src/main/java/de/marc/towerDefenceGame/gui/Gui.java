@@ -42,6 +42,11 @@ public abstract class Gui implements Renderable, Listener {
         }
     }
 
+    public static void setWindowSize(double width, double height) {
+        windowSize.setX(width / TowerDefenceGame.theGame.getSettings().currentGuiScale);
+        windowSize.setY(height / TowerDefenceGame.theGame.getSettings().currentGuiScale);
+    }
+
     public void render() {
         if (this.hasBackground) this.drawBackground();
         for (GuiComponent c : this.components) {

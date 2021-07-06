@@ -57,9 +57,8 @@ public class RenderLayer {
     }
 
     public Vector2 getCursorPosRelativeToLayer() {
-        return new Vector2(
-                (MouseMoveEvent.getAbsoluteX() - this.getCameraOrigin().getX()) / this.getCameraScale() - this.getCameraPos().getX(),
-                (MouseMoveEvent.getAbsoluteY() - this.getCameraOrigin().getY()) / this.getCameraScale() - this.getCameraPos().getY());
+        double[] pos = MouseMoveEvent.getCameraTransformedPos(this.camera);
+        return new Vector2(pos[0], pos[1]);
     }
 
     public void removeElement(Renderable renderable) {

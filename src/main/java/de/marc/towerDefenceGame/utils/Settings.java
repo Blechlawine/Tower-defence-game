@@ -1,6 +1,10 @@
 package de.marc.towerDefenceGame.utils;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.events.KeyEvent;
+import de.marc.towerDefenceGame.event.events.WindowResizeEvent;
+import de.marc.towerDefenceGame.gui.Gui;
+import de.marc.towerDefenceGame.render.Camera;
 
 import java.util.HashMap;
 
@@ -31,6 +35,16 @@ public class Settings {
             put(KeyBindings.TOOLS_SLOT3, KeyEvent.KeyCode.THREE);
         }
     };
+    public double currentGuiScale = 1;
+    public String currentGuiScaleName = "Small";
+    public HashMap<String, Double> guiScales = new HashMap<String, Double>() {
+        {
+            put("Small", 1d);
+            put("Normal", 2d);
+            put("Large", 3d);
+        }
+    };
+    public Camera guiCamera = new Camera(new Vector2(0, 0), new Vector2(0, 0), this.currentGuiScale);
 
     public Settings() {
         instance = this;
@@ -40,6 +54,17 @@ public class Settings {
 //        } else {
 //            this.saveSettings();
 //        }
+    }
+
+    public void setGuiScale(String key) {
+        if (this.guiScales.containsKey(key)) {
+            this.currentGuiScaleName = key;
+            this.currentGuiScale = this.guiScales.get(key);
+            this.guiCamera.setScale(this.currentGuiScale);
+            double[] windowSize = TowerDefenceGame.theGame.getWindowSize();
+            Gui.setWindowSize(windowSize[0], windowSize[1]);
+            TowerDefenceGame.theGame.getEventManager().hook(new WindowResizeEvent(windowSize[0], windowSize[1]));
+        }
     }
 
     private void saveSettings() {

@@ -21,7 +21,13 @@ public class Camera {
         this.origin = origin;
     }
 
-    protected void setScale(double scale) {
+    public Camera(Vector2 pos, Vector2 origin, double scale) {
+        this.pos = pos;
+        this.origin = origin;
+        this.scale = scale;
+    }
+
+    public void setScale(double scale) {
         this.scale = scale;
     }
 

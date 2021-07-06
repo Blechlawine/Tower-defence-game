@@ -28,14 +28,15 @@ public abstract class GuiComponent implements Renderable, Listener {
     }
 
     protected void onMouseIn() {}
-    protected void onMouseOver() {}
+    protected void onMouseOver(double relativeMouseX, double relativeMouseY) {}
     protected void onMouseOut() {}
 
     @Override
     public void onEvent(Event event) {
         if (event instanceof MouseMoveEvent) {
-            double clickXPos = MouseMoveEvent.getAbsoluteX();
-            double clickYPos = MouseMoveEvent.getAbsoluteY();
+            double[] guiMousePos = MouseMoveEvent.getCameraTransformedPos(TowerDefenceGame.theGame.getSettings().guiCamera);
+            double clickXPos = guiMousePos[0];
+            double clickYPos = guiMousePos[1];
             if (clickXPos >= this.pos.getX() && clickXPos < this.pos.getX() + this.width && clickYPos >= this.pos.getY() && clickYPos < this.pos.getY() + this.height) {
                 // Mouse over
                 if (!this.hovered) {
@@ -43,7 +44,7 @@ public abstract class GuiComponent implements Renderable, Listener {
                     this.onMouseIn();
                     this.hovered = true;
                 }
-                this.onMouseOver();
+                this.onMouseOver(clickXPos - this.pos.getX(), clickYPos - this.pos.getY());
             } else {
                 // Mouse out
                 this.hovered = false;

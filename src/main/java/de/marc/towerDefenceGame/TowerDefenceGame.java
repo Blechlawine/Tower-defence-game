@@ -92,7 +92,7 @@ public class TowerDefenceGame {
         this.renderer.addLayer(new RenderLayer("projectiles", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("towers", this.thePlayer));
         this.renderer.addLayer(new RenderLayer("tools", this.thePlayer));
-        this.renderer.addLayer(new RenderLayer("gui", new Camera(new Vector2(0, 0), new Vector2(0, 0))));
+        this.renderer.addLayer(new RenderLayer("gui", this.settings.guiCamera));
 
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> this.eventManager.hook(new KeyEvent(KeyEvent.KeyCode.getKeyCodeFromGLFW(key), action)));
 
@@ -110,8 +110,7 @@ public class TowerDefenceGame {
 //                layer.updateCameraOrigin();
 //            }
             this.thePlayer.updateCameraOrigin();
-            Gui.windowSize.setX(this.windowWidth);
-            Gui.windowSize.setY(this.windowHeight);
+            Gui.setWindowSize(this.windowWidth, this.windowHeight);
             this.eventManager.hook(new WindowResizeEvent(this.windowWidth, this.windowHeight));
             this.initGL();
         });
