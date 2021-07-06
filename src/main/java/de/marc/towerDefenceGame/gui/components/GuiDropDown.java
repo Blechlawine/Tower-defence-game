@@ -73,8 +73,10 @@ public abstract class GuiDropDown extends GuiComponent {
     }
 
     private void valueClick() {
-        this.valueChange(this.value, this.values[this.hoveredValueIndex]);
-        this.value = this.values[this.hoveredValueIndex];
+        if (this.hoveredValueIndex != -1) {
+            this.valueChange(this.value, this.values[this.hoveredValueIndex]);
+            this.value = this.values[this.hoveredValueIndex];
+        }
         close();
     }
 
@@ -102,7 +104,10 @@ public abstract class GuiDropDown extends GuiComponent {
         GLUtils.drawRect(this.pos.getX(), this.pos.getY(), this.width, this.initialHeight, this.color);
         TowerDefenceGame.theGame.getFontRenderer().drawString(this.value, new Vector2(this.pos).add(new Vector2(padding, padding)), 2, new Color(Colors.TEXT));
         double iconSize = TowerDefenceGame.theGame.getFontRenderer().getCharHeight(2) * 3;
+        GL11.glPushMatrix();
+        GLUtils.rotateAroundLocation((this.open ? 180 : 0), new Vector2(this.pos.getX() + this.width - iconSize / 2, this.pos.getY() + iconSize / 2));
         GLUtils.drawTexturedRect(this.pos.getX() + this.width - iconSize, this.pos.getY(), iconSize, iconSize, 0, 0, 1, 1, "dropdownarrow", new Color(Colors.TEXT));
+        GL11.glPopMatrix();
         // draw content
         GL11.glPushMatrix();
         GL11.glTranslated(this.pos.getX(), this.pos.getY() + this.initialHeight, 0);
