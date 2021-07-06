@@ -1,6 +1,6 @@
 # TODO:
 
-- Menu (settings) with UI sizing setting
+- Settingsmenu with Keybindings
 - Next Wave Button when all Enemies are dead
 - Ingame kill counter
 - Knockback
