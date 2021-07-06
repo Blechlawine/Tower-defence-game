@@ -98,12 +98,13 @@ public abstract class GuiDropDown extends GuiComponent {
 
     @Override
     public void render() {
-
         double padding = (this.initialHeight - TowerDefenceGame.theGame.getFontRenderer().getCharHeight(2)) / 2;
         GLUtils.drawRect(this.pos.getX(), this.pos.getY(), this.width, this.initialHeight, this.color);
-        GL11.glPushMatrix();
         TowerDefenceGame.theGame.getFontRenderer().drawString(this.value, new Vector2(this.pos).add(new Vector2(padding, padding)), 2, new Color(Colors.TEXT));
+        double iconSize = TowerDefenceGame.theGame.getFontRenderer().getCharHeight(2) * 3;
+        GLUtils.drawTexturedRect(this.pos.getX() + this.width - iconSize, this.pos.getY(), iconSize, iconSize, 0, 0, 1, 1, "dropdownarrow", new Color(Colors.TEXT));
         // draw content
+        GL11.glPushMatrix();
         GL11.glTranslated(this.pos.getX(), this.pos.getY() + this.initialHeight, 0);
         if (this.open) {
             for (int i = 0; i < this.values.length; i++) {

@@ -48,6 +48,7 @@ public class TextureManager extends ListManager<Texture> {
         this.loadTexture("assets/textures/ui/selecttool.png", "selecttool");
         this.loadTexture("assets/textures/ui/toolbar.png", "toolbar");
         this.loadTexture("assets/textures/ui/logo.png", "logo");
+        this.loadTexture("assets/textures/ui/dropdownarrow.png", "dropdownarrow");
     }
 
     public void loadTexture(String path, String name) {
