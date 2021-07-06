@@ -1,20 +1,20 @@
 # TODO:
 
-- Menu (settings)
-- Transparency for tool visualizations
+- Menu (settings) with UI sizing setting
+- Next Wave Button when all Enemies are dead
 - Ingame kill counter
-- UI window sizing fix
 - Knockback
+- Transparency for tool visualizations
+- Towerupgrades
 - Tower shot animation
 - Animations (explosions when enemies die, Bomb explosions)
 - Bullettrails
-- Texturepack/Tilepack support
-- Keybindingmanager for user-settable keybinds
-- Render map-background
 - vfx (glow, etc)
 - Sounds
 - Music
-- Towerupgrades
+- Render map-background
+- Keybindingmanager for user-settable keybinds
+- Texturepack/Tilepack support
 - more Enemies
 - more Towers
   - Grenade launcher: Eeexplosioons!!
