@@ -1,6 +1,6 @@
 # TODO:
 
-- Settingsmenu with Keybindings
+- scrollable TabContent
 - Select level menu rework
 - Next Wave Button when all Enemies are dead
 - Ingame kill counter
