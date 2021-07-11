@@ -57,18 +57,30 @@ public class GuiSettingsMain extends Gui {
         };
 
         ArrayList<GuiComponent> controlTabComponents = new ArrayList<>();
+        Settings.KeyBindings[] editableBindings = new Settings.KeyBindings[] {
+                Settings.KeyBindings.PLAYER_MOVEUP,
+                Settings.KeyBindings.PLAYER_MOVEDOWN,
+                Settings.KeyBindings.PLAYER_MOVELEFT,
+                Settings.KeyBindings.PLAYER_MOVERIGHT,
+                Settings.KeyBindings.PLAYER_MOVEFAST,
+                Settings.KeyBindings.PLAYER_MOVERESET,
+                Settings.KeyBindings.PLAYER_MOVEMOUSE,
+                Settings.KeyBindings.TOOLS_BUILD,
+                Settings.KeyBindings.TOOLS_DESELECT,
+                Settings.KeyBindings.TOOLS_DESTROY
+        };
         int index = 0;
-        for(Map.Entry<Settings.KeyBindings, KeyEvent.KeyCode> binding : TowerDefenceGame.theGame.getSettings().keybindings.entrySet()) {
-            Vector2 position = new Vector2(getInPixels(50, "vw"), getInPixels(0, "vh") + 60 * index);
-            controlTabComponents.add(new GuiLabel(binding.getKey().name(), new Vector2(position).add(new Vector2(-250, 10)), new Color(Colors.TEXT)));
+        for(Settings.KeyBindings binding : editableBindings) {
+            Vector2 position = new Vector2(getInPixels(50, "vw"), getInPixels(0, "vh") + 60 * index++);
+            controlTabComponents.add(new GuiLabel(binding.toString(), new Vector2(position).add(new Vector2(-250, 10)), new Color(Colors.TEXT)));
             controlTabComponents.add(new GuiKeyCodeInput(
                     position.add(new Vector2(100, 0)),
                     200, 40,
-                    binding.getValue(),
-                    binding.getKey()
+                    TowerDefenceGame.theGame.getSettings().keybindings.get(binding),
+                    binding
             ));
-            index++;
         }
+
         this.tabContentComponents = new GuiComponent[][] {
                 // Graphics
                 new GuiComponent[] {
