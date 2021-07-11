@@ -2,9 +2,7 @@ package de.marc.towerDefenceGame.gui.guis;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.gui.Gui;
-import de.marc.towerDefenceGame.gui.components.GuiButton;
-import de.marc.towerDefenceGame.gui.components.GuiDropDown;
-import de.marc.towerDefenceGame.gui.components.GuiLabel;
+import de.marc.towerDefenceGame.gui.components.*;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.Colors;
 import de.marc.towerDefenceGame.utils.Vector2;
@@ -17,6 +15,8 @@ public class GuiSettingsMain extends Gui {
     private GuiButton backBtn;
 
     private GuiDropDown uiScaleDropDown;
+    private GuiTabs settingsTabs;
+    private GuiComponent[][] tabContentComponents;
 
     public GuiSettingsMain() {
         super("settingsMain");
@@ -54,7 +54,30 @@ public class GuiSettingsMain extends Gui {
             }
         };
 
+        this.tabContentComponents = new GuiComponent[][] {
+                // Graphics
+                new GuiComponent[] {
+                        this.uiScaleDropDown
+                },
+                // Controls
+                new GuiComponent[] {
+
+                },
+        };
+
+        this.settingsTabs = new GuiTabs(
+                new Vector2(getInPixels(0, "vw"), getInPixels(0, "vh")),
+                new String[] {"Graphics", "Controls"},
+                200, 40,
+                0,
+                this.tabContentComponents,
+                getInPixels(100, "vh") - 100,
+                new Color(Colors.BUTTONPRIMARY),
+                new Color(Colors.BUTTONPRIMARYHOVER)
+        );
+
         this.components.add(this.backBtn);
-        this.components.add(this.uiScaleDropDown);
+//        this.components.add(this.uiScaleDropDown);
+        this.components.add(this.settingsTabs);
     }
 }
