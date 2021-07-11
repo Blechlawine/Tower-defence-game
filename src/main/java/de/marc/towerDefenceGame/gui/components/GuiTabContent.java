@@ -38,7 +38,7 @@ public class GuiTabContent extends GuiComponent {
     @Override
     public void render() {
         if (this.visible) {
-        TowerDefenceGame.theGame.getFontRenderer().drawString(this.title, new Vector2(this.pos).add(new Vector2(10, 10)), 3, new Color(Colors.TEXT));
+            TowerDefenceGame.theGame.getFontRenderer().drawString(this.title, new Vector2(this.pos).add(new Vector2(10, 10)), 3, new Color(Colors.TEXT));
             for(GuiComponent c : this.content) {
                 c.render();
             }

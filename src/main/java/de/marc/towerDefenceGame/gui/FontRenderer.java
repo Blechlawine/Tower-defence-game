@@ -56,4 +56,8 @@ public class FontRenderer {
         return this.charHeight * sizeMultiplier;
     }
 
+    public void drawCenteredString(String text, Vector2 pos, double sizeMultiplier, Color color) {
+        double stringWidth = this.getRenderedStringWidth(text, sizeMultiplier);
+        this.drawString(text, new Vector2(pos).subtract(new Vector2(stringWidth / 2, 0)), sizeMultiplier, color);
+    }
 }
