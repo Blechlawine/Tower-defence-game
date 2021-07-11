@@ -77,7 +77,6 @@ public class GuiSettingsMain extends Gui {
         );
 
         this.components.add(this.backBtn);
-//        this.components.add(this.uiScaleDropDown);
         this.components.add(this.settingsTabs);
     }
 }
