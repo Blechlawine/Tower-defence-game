@@ -73,11 +73,21 @@ public class GuiTabs extends GuiComponent {
     @Override
     public void render() {
         double padding = (this.tabHeight - TowerDefenceGame.theGame.getFontRenderer().getCharHeight(2)) / 2;
+        double pressedTextOffset = this.tabHeight / 16 * 3;
         for(int i = 0; i < this.values.length; i++) {
             String value = this.values[i];
-            Vector2 valuePos = new Vector2(this.pos).add(new Vector2(0, this.tabHeight * i));
-            GLUtils.drawRect(valuePos.getX(), valuePos.getY(), this.width, this.tabHeight, (this.hoveredValueIndex == i || this.activeTab.equals(value) ? this.hoverColor : this.initialColor));
-            TowerDefenceGame.theGame.getFontRenderer().drawString(value, new Vector2(valuePos).add(new Vector2(padding, padding)), 2, new Color(Colors.TEXT));
+            Vector2 valuePos = new Vector2(this.pos).add(new Vector2(0, (this.tabHeight + 4) * i));
+
+            String textureHandle = (this.activeTab.equals(value) ? "buttonpressed" : "button");
+            // left side
+            GLUtils.drawTexturedRect(valuePos.getX(), valuePos.getY(), this.tabHeight, this.tabHeight, 0, 0, 1, 1, textureHandle, new Color(1, 1, 1));
+            // right side
+            GLUtils.drawTexturedRect(valuePos.getX() + this.width - this.tabHeight, valuePos.getY(), this.tabHeight, this.tabHeight, 1, 0, -1, 1, textureHandle, new Color(1, 1, 1));
+            // middle part
+            GLUtils.drawTexturedRect(valuePos.getX() + this.tabHeight, valuePos.getY(), this.width - (this.tabHeight*2), this.tabHeight, 0.5, 0, 0.5, 1, textureHandle, new Color(1, 1, 1));
+
+//            GLUtils.drawRect(valuePos.getX(), valuePos.getY(), this.width, this.tabHeight, (this.hoveredValueIndex == i || this.activeTab.equals(value) ? this.hoverColor : this.initialColor));
+            TowerDefenceGame.theGame.getFontRenderer().drawString(value, new Vector2(valuePos).add(new Vector2(padding, padding + (this.activeTab.equals(value) ? pressedTextOffset / 2 : -pressedTextOffset / 2))), 2, new Color(Colors.TEXT));
         }
         for(GuiTabContent tabContent : this.tabContents) {
             tabContent.render();
