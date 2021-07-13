@@ -51,7 +51,13 @@ public class GuiKeyCodeInput extends GuiComponent {
     @Override
     public void render() {
         double padding = (this.height - TowerDefenceGame.theGame.getFontRenderer().getCharHeight(2)) / 2;
-        GLUtils.drawRect(this.pos.getX(), this.pos.getY(), this.width, this.height, (this.active ? new Color(Colors.BUTTONPRIMARYHOVER) : new Color(Colors.BUTTONPRIMARY)));
+        String textureHandle = "textinput";
+        // left side
+        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), this.height, this.height, 0, 0, 1, 1, textureHandle, new Color(1, 1, 1));
+        // right side
+        GLUtils.drawTexturedRect(this.pos.getX() + this.width - this.height, this.pos.getY(), this.height, this.height, 1, 0, -1, 1, textureHandle, new Color(1, 1, 1));
+        // middle part
+        GLUtils.drawTexturedRect(this.pos.getX() + this.height, this.pos.getY(), this.width - (this.height*2), this.height, 0.5, 0, 0.5, 1, textureHandle, new Color(1, 1, 1));
         TowerDefenceGame.theGame.getFontRenderer().drawCenteredString((this.active ? "Press any Key..." : this.value.name()), new Vector2(this.pos).add(new Vector2(this.width / 2, padding)), 2, new Color(Colors.TEXT));
     }
 }

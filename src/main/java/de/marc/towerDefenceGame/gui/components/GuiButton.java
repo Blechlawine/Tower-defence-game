@@ -33,12 +33,13 @@ public abstract class GuiButton extends GuiComponent {
                 if (state == 1) { // this button is hovered
                     if (action == DOWN) {
                         state = 2;
-                        onClick();
                         event.cancel();
                     }
                 } else if (state == 2) { // this button is pressed
                     if (action == UP) {
                         state = 1;
+                        onClick();
+                        event.cancel();
                     }
                 }
             }
@@ -64,9 +65,16 @@ public abstract class GuiButton extends GuiComponent {
 
     @Override
     public void render() {
-        GLUtils.drawRect(this.pos.getX(), this.pos.getY(), this.width, this.height, this.color);
+        String textureHandle = (this.state == 2 ? "buttonpressed" : "button");
+        // left side
+        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), this.height, this.height, 0, 0, 1, 1, textureHandle, new Color(1, 1, 1));
+        // right side
+        GLUtils.drawTexturedRect(this.pos.getX() + this.width - this.height, this.pos.getY(), this.height, this.height, 1, 0, -1, 1, textureHandle, new Color(1, 1, 1));
+        // middle part
+        GLUtils.drawTexturedRect(this.pos.getX() + this.height, this.pos.getY(), this.width - (this.height*2), this.height, 0.5, 0, 0.5, 1, textureHandle, new Color(1, 1, 1));
+        double pressedTextOffset = this.height / 16 * 3;
         GL11.glPushMatrix();
-        GL11.glTranslated(this.pos.getX() + (this.width / 2) - (this.content.getWidth() / 2), this.pos.getY() + (this.height / 2) - (this.content.getHeight() / 2), 0);
+        GL11.glTranslated(this.pos.getX() + (this.width / 2) - (this.content.getWidth() / 2), this.pos.getY() + (this.height / 2) - (this.content.getHeight() / 2) + (this.state == 2 ? pressedTextOffset / 2 : -pressedTextOffset / 2), 0);
         this.content.render();
         GL11.glPopMatrix();
     }
