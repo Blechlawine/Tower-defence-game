@@ -37,9 +37,6 @@ public abstract class Gui implements Renderable, Listener {
     public void destroy() {
         TowerDefenceGame.theGame.getEventManager().removeListener(this);
         TowerDefenceGame.theGame.getRenderer().getLayerByName("gui").removeElement(this);
-        for (GuiComponent c : this.components) {
-            c.destroy();
-        }
     }
 
     public static void setWindowSize(double width, double height) {

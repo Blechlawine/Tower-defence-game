@@ -18,6 +18,7 @@ public class GuiToolbar extends GuiComponent {
     private Keybinding toolSelectBinding;
 
     private final Double toolSize = 50d;
+    private double relMousePosX;
 
     public GuiToolbar(Vector2 pos) {
         super(pos);
@@ -29,7 +30,6 @@ public class GuiToolbar extends GuiComponent {
             public void onKeyAction(KeyAction action, KeyEvent event) {
                 if (action == DOWN) {
                     if (hovered) {
-                        double relMousePosX = MouseMoveEvent.getCameraTransformedPos(TowerDefenceGame.theGame.getSettings().guiCamera)[0] - pos.getX();
                         int hoveredToolIndex = (int) (relMousePosX / toolSize);
                         TowerDefenceGame.theGame.getPlayer().setActiveTool(hoveredToolIndex);
                         event.cancel();
@@ -46,6 +46,10 @@ public class GuiToolbar extends GuiComponent {
 
     @Override
     public void onEvent(Event event) {
+        if (event instanceof MouseMoveEvent) {
+            MouseMoveEvent mme = (MouseMoveEvent) event;
+            this.relMousePosX = mme.getCameraTransformedPos(TowerDefenceGame.theGame.getSettings().guiCamera)[0] - pos.getX();
+        }
         super.onEvent(event);
         this.toolSelectBinding.onEvent(event);
     }

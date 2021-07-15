@@ -44,10 +44,10 @@ public class SniperTowerTool extends Tool {
     @Override
     public void render() {
         double size = 16;
-        double xPos = MouseMoveEvent.getMapPosX() - size / 2;
-        double yPos = MouseMoveEvent.getMapPosY() - size / 2;
+        double xPos = this.mapPosX - size / 2;
+        double yPos = this.mapPosY - size / 2;
         GLUtils.drawTexturedRect(xPos, yPos, size, size, 0, 0, 1, 1, "sniperTowerBase", new Color(0.5f, 0.5f, 0.5f));
         GLUtils.drawTexturedRect(xPos, yPos, size, size, 0, 0, 1, 1, "sniperTowerTurret", new Color(1, 1, 1));
-        GLUtils.drawCircleCenteredOutline(MouseMoveEvent.getMapPosX(), MouseMoveEvent.getMapPosY(), 200, 32, 1, new Color(1, 1, 1));
+        GLUtils.drawCircleCenteredOutline(this.mapPosX, this.mapPosY, 200, 32, 1, new Color(1, 1, 1));
     }
 }

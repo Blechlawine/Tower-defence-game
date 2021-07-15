@@ -18,10 +18,6 @@ public abstract class GuiComponent implements Renderable, Listener {
         this.pos = pos;
     }
 
-    public void destroy() {
-        TowerDefenceGame.theGame.getEventManager().removeListener(this);
-    }
-
     protected void setPos(Vector2 posIn) {
         this.pos.setX(posIn.getX());
         this.pos.setY(posIn.getY());
@@ -34,7 +30,8 @@ public abstract class GuiComponent implements Renderable, Listener {
     @Override
     public void onEvent(Event event) {
         if (event instanceof MouseMoveEvent) {
-            double[] guiMousePos = MouseMoveEvent.getCameraTransformedPos(TowerDefenceGame.theGame.getSettings().guiCamera);
+            MouseMoveEvent mme = (MouseMoveEvent) event;
+            double[] guiMousePos = mme.getCameraTransformedPos(TowerDefenceGame.theGame.getSettings().guiCamera);
             double clickXPos = guiMousePos[0];
             double clickYPos = guiMousePos[1];
             if (clickXPos >= this.pos.getX() && clickXPos < this.pos.getX() + this.width && clickYPos >= this.pos.getY() && clickYPos < this.pos.getY() + this.height) {

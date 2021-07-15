@@ -15,6 +15,7 @@ public abstract class Tool implements Renderable, Listener {
     private String name;
     private boolean active;
 
+    protected double mapPosX, mapPosY;
     private Keybinding buildBinding, destroyBinding;
 
     public Tool(String name) {
@@ -28,8 +29,6 @@ public abstract class Tool implements Renderable, Listener {
         this.buildBinding = new Keybinding(Settings.KeyBindings.TOOLS_BUILD, new KeyAction[]{DOWN}) {
             @Override
             public void onKeyAction(KeyAction action, KeyEvent event) {
-                double mapPosX = MouseMoveEvent.getMapPosX();
-                double mapPosY = MouseMoveEvent.getMapPosY();
                 Tile target = TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getTileFromCoords(mapPosX, mapPosY);
                 if (target != null) {
                     build(target);
@@ -40,8 +39,6 @@ public abstract class Tool implements Renderable, Listener {
         this.destroyBinding = new Keybinding(Settings.KeyBindings.TOOLS_DESTROY, new KeyAction[] {DOWN}) {
             @Override
             public void onKeyAction(KeyAction action, KeyEvent event) {
-                double mapPosX = MouseMoveEvent.getMapPosX();
-                double mapPosY = MouseMoveEvent.getMapPosY();
                 Tile target = TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getTileFromCoords(mapPosX, mapPosY);
                 destroy(target);
                 event.cancel();
@@ -53,6 +50,11 @@ public abstract class Tool implements Renderable, Listener {
 
     @Override
     public void onEvent(Event event) {
+        if (event instanceof MouseMoveEvent) {
+            MouseMoveEvent mme = (MouseMoveEvent) event;
+            this.mapPosX = mme.getMapPosX();
+            this.mapPosY = mme.getMapPosY();
+        }
         if (this.active) {
             this.buildBinding.onEvent(event);
             this.destroyBinding.onEvent(event);

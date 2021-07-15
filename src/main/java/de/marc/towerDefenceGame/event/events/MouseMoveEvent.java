@@ -7,15 +7,15 @@ import de.marc.towerDefenceGame.utils.Vector2;
 
 public class MouseMoveEvent extends Event {
 
-    private static double absoluteX = 0, absoluteY = 0, mapPosX, mapPosY;
+    private double absoluteX = 0, absoluteY = 0, mapPosX, mapPosY;
     private final double prevX, prevY;
     private final double dX, dY;
 
     public MouseMoveEvent(double x, double y) {
         this.prevX = absoluteX;
         this.prevY = absoluteY;
-        absoluteX = x;
-        absoluteY = y;
+        this.absoluteX = x;
+        this.absoluteY = y;
         this.dX = absoluteX - this.prevX;
         this.dY = absoluteY - this.prevY;
         Vector2 camPos = TowerDefenceGame.theGame.getRenderer().getLayerByName("level").getCameraPos();
@@ -30,7 +30,7 @@ public class MouseMoveEvent extends Event {
      * @param camera camera of which to use the transforms
      * @return double
      */
-    public static double[] getCameraTransformedPos(Camera camera) {
+    public double[] getCameraTransformedPos(Camera camera) {
         Vector2 camPos = camera.getPos();
         Vector2 camOrigin = camera.getOrigin();
         double camScale = camera.getScale();
@@ -59,24 +59,24 @@ public class MouseMoveEvent extends Event {
      * Current mouse x-Position
      * @return double
      */
-    public static double getAbsoluteY() {
-        return absoluteY;
+    public double getAbsoluteY() {
+        return this.absoluteY;
     }
 
     /***
      * Current mouse y-Position
      * @return double
      */
-    public static double getAbsoluteX() {
-        return absoluteX;
+    public double getAbsoluteX() {
+        return this.absoluteX;
     }
 
 
-    public static double getMapPosX() {
-        return mapPosX;
+    public double getMapPosX() {
+        return this.mapPosX;
     }
 
-    public static double getMapPosY() {
-        return mapPosY;
+    public double getMapPosY() {
+        return this.mapPosY;
     }
 }

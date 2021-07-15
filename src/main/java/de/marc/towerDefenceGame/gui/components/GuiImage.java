@@ -8,7 +8,7 @@ import de.marc.towerDefenceGame.utils.Vector2;
 
 public class GuiImage extends GuiComponent {
 
-    private double width, height, imageWidth, imageHeight, finalWidth, finalHeight;
+    private double imageWidth, imageHeight, finalWidth, finalHeight;
     private String imageTexHandle;
     private Color backgroundColor;
     private boolean transparentBackground = false;
