@@ -64,6 +64,7 @@ public class Game implements Listener {
     public void resume() {
         TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level);
         TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level.getPath());
+        TowerDefenceGame.theGame.getPlayer().setPos(this.level.getMiddlePos());
         TowerDefenceGame.theGame.getGuiManager().setActiveGui("ingame");
         TowerDefenceGame.theGame.getEventManager().addListener(this);
     }

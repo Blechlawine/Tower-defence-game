@@ -9,6 +9,7 @@ import de.marc.towerDefenceGame.level.path.Path;
 import de.marc.towerDefenceGame.level.path.PathNode;
 import de.marc.towerDefenceGame.utils.FileUtils;
 import de.marc.towerDefenceGame.utils.Renderable;
+import de.marc.towerDefenceGame.utils.Vector2;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -24,6 +25,7 @@ public class Level implements Renderable, Listener {
     private final ArrayList<Enemy> enemies;
 
     private Path path;
+    private Vector2 middle;
 
     public Level() {
         this.enemies = new ArrayList<>();
@@ -76,6 +78,7 @@ public class Level implements Renderable, Listener {
             level.addChunk(tempChunk);
         }
         level.setPath(Path.buildPath(level));
+        level.middle = level.createMiddlePos();
         TowerDefenceGame.theGame.getLogger().info("Finished Level: " + fileName);
         return level;
     }
@@ -105,5 +108,21 @@ public class Level implements Renderable, Listener {
         return null;
     }
 
+    private Vector2 createMiddlePos() {
+        Vector2 tempMiddle = new Vector2(0, 0);
+        int numChunks = 0;
+        for (Chunk chunk : this.chunks) {
+            tempMiddle.add(chunk.getMiddlePos());
+            numChunks++;
+        }
+        if (numChunks > 0) {
+            tempMiddle.divide(numChunks);
+        }
+        return tempMiddle.invert();
+    }
+
+    public Vector2 getMiddlePos() {
+        return this.middle;
+    }
 }
 

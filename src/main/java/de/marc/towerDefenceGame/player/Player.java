@@ -105,8 +105,10 @@ public class Player extends Camera implements Listener {
             @Override
             public void onKeyAction(KeyAction action, KeyEvent event) {
                 if (action == UP) {
-                    pos.setX(0);
-                    pos.setY(0);
+                    Vector2 middle = TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getMiddlePos();
+                    TowerDefenceGame.theGame.getLogger().debug(middle);
+                    pos.setX(middle.getX());
+                    pos.setY(middle.getY());
                 }
             }
         });
@@ -201,5 +203,9 @@ public class Player extends Camera implements Listener {
 
     public int getActiveToolIndex() {
         return this.activeToolIndex;
+    }
+
+    public void setPos(Vector2 pos) {
+        this.pos = new Vector2(pos);
     }
 }

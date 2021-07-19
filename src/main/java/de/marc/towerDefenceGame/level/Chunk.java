@@ -4,6 +4,7 @@ import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.utils.Renderable;
+import de.marc.towerDefenceGame.utils.Vector2;
 import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
@@ -63,6 +64,21 @@ public class Chunk implements Renderable, Listener {
             }
         }
         return null;
+    }
+
+    public Vector2 getMiddlePos() {
+        Vector2 average = new Vector2(this.xPosPixel, this.yPosPixel);
+        int numTiles = 0;
+        for (Tile tile : this.tiles) {
+            if (tile.getTileType() != Tile.TileType.NONE) {
+                average.add(tile.getMiddle());
+                numTiles++;
+            }
+        }
+        if (numTiles > 0) {
+            average.divide(numTiles);
+        }
+        return average;
     }
 
     public Level getParentLevel() {
