@@ -14,11 +14,18 @@ import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
 import de.marc.towerDefenceGame.texture.TextureManager;
 import de.marc.towerDefenceGame.gameObjects.tower.TowerManager;
+import de.marc.towerDefenceGame.utils.FileUtils;
 import de.marc.towerDefenceGame.utils.Logger;
 import de.marc.towerDefenceGame.texture.TextureHandler;
 import de.marc.towerDefenceGame.utils.Settings;
 import de.marc.towerDefenceGame.utils.Vector2;
+import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.stb.STBImage;
+import static org.lwjgl.system.MemoryUtil.*;
+
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL20.*;
@@ -174,6 +181,43 @@ public class TowerDefenceGame {
         if(this.window == 0) {
             throw new RuntimeException("Failed to create GLFW Window");
         }
+        // window Icon
+        this.setWindowIcon("assets/textures/ui/logo.png");
+    }
+
+    // Code from https://stackoverflow.com/questions/42322382/glfw-window-icon
+    private void setWindowIcon(String path) {
+        IntBuffer w = memAllocInt(1);
+        IntBuffer h = memAllocInt(1);
+        IntBuffer comp = memAllocInt(1);
+
+        // Icons
+        {
+            ByteBuffer icon;
+            try {
+                icon = FileUtils.ioResourceToByteBuffer(path, 65536); // 4096 for 32 px, 65536 for 128px
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+
+            try ( GLFWImage.Buffer icons = GLFWImage.malloc(1) ) {
+                ByteBuffer pixels = STBImage.stbi_load_from_memory(icon, w, h, comp, 4);
+                icons
+                        .position(0)
+                        .width(w.get(0))
+                        .height(h.get(0))
+                        .pixels(pixels);
+
+                icons.position(0);
+                glfwSetWindowIcon(window, icons);
+
+                STBImage.stbi_image_free(pixels);
+            }
+        }
+
+        memFree(comp);
+        memFree(h);
+        memFree(w);
     }
 
     private void initGL() {
