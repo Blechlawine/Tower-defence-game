@@ -4,6 +4,7 @@ import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.Colors;
+import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Vector2;
 
 public class GuiTabContent extends GuiComponent {
@@ -38,10 +39,11 @@ public class GuiTabContent extends GuiComponent {
     @Override
     public void render() {
         if (this.visible) {
-            TowerDefenceGame.theGame.getFontRenderer().drawString(this.title, new Vector2(this.pos).add(new Vector2(10, 10)), 3, new Color(Colors.TEXT));
             for(GuiComponent c : this.content) {
                 c.render();
             }
+            GLUtils.drawRect(this.pos.getX(), this.pos.getY(), this.width, 40, new Color(Colors.BACKGROUND));
+            TowerDefenceGame.theGame.getFontRenderer().drawString(this.title, new Vector2(this.pos).add(new Vector2(10, 10)), 3, new Color(Colors.TEXT));
         }
     }
 }

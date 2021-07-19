@@ -71,7 +71,7 @@ public class GuiSettingsMain extends Gui {
         };
         int index = 0;
         for(Settings.KeyBindings binding : editableBindings) {
-            Vector2 position = new Vector2(getInPixels(50, "vw"), getInPixels(0, "vh") + 60 * index++);
+            Vector2 position = new Vector2(getInPixels(50, "vw"), getInPixels(0, "vh") + 60 * (1 + index++));
             controlTabComponents.add(new GuiLabel(binding.toString(), new Vector2(position).add(new Vector2(-250, 10)), new Color(Colors.TEXT)));
             controlTabComponents.add(new GuiKeyCodeInput(
                     position.add(new Vector2(100, 0)),
@@ -81,13 +81,22 @@ public class GuiSettingsMain extends Gui {
             ));
         }
 
+        GuiScrollContent controlTabContent = new GuiScrollContent(
+                new Vector2(getInPixels(50, "vw"), getInPixels(0, "vh") + 60),
+                getInPixels(100, "vw") - 200,
+                getInPixels(80, "vh"),
+                controlTabComponents.toArray(new GuiComponent[0])
+        );
+
         this.tabContentComponents = new GuiComponent[][] {
                 // Graphics
                 new GuiComponent[] {
-                        this.uiScaleDropDown
+                    this.uiScaleDropDown
                 },
                 // Controls
-                controlTabComponents.toArray(new GuiComponent[0]),
+                new GuiComponent[] {
+                    controlTabContent
+                }
         };
 
         this.settingsTabs = new GuiTabs(

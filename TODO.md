@@ -1,6 +1,5 @@
 # TODO:
 
-- scrollable TabContent
 - Next Wave Button when all Enemies are dead
 - Ingame kill counter
 - Knockback
