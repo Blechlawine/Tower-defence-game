@@ -6,6 +6,7 @@ import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.gui.components.GuiButton;
+import de.marc.towerDefenceGame.gui.components.GuiImage;
 import de.marc.towerDefenceGame.gui.components.GuiLabel;
 import de.marc.towerDefenceGame.gui.components.GuiToolbar;
 import de.marc.towerDefenceGame.player.Player;
@@ -19,6 +20,7 @@ import static de.marc.towerDefenceGame.utils.Settings.KeyBindings.GUI_BACK;
 public class GuiInGame extends Gui {
 
     private GuiLabel walletLabel, healthLabel;
+    private GuiImage walletIcon, healthIcon;
     private GuiToolbar towerToolbar;
     private boolean paused = false;
     private GuiButton resumeBtn, exitBtn, settingsBtn;
@@ -31,12 +33,16 @@ public class GuiInGame extends Gui {
 
     public void initGui() {
         super.initGui();
-        this.walletLabel = new GuiLabel(this.walletLabelText, new Vector2(10, 10), new Color(1, 0, 0 ));
-        this.healthLabel = new GuiLabel(this.healthLabelText, new Vector2(10, 30), new Color(1, 0, 0 ));
+        this.walletLabel = new GuiLabel(this.walletLabelText, new Vector2(28, 10), new Color(Colors.TEXT));
+        this.walletIcon = new GuiImage("moneyicon", new Vector2(10, 10), 16, 16, null, true);
+        this.healthLabel = new GuiLabel(this.healthLabelText, new Vector2(28, 30), new Color(Colors.TEXT));
+        this.healthIcon = new GuiImage("hearticon", new Vector2(10, 30), 16, 16, null, true);
         this.towerToolbar = new GuiToolbar(new Vector2(getInPixels(50, "vw") - 75, getInPixels(100, "vh") - 50));
 
         this.components.add(this.walletLabel);
+        this.components.add(this.walletIcon);
         this.components.add(this.healthLabel);
+        this.components.add(this.healthIcon);
         this.components.add(this.towerToolbar);
         if (TowerDefenceGame.theGame.getSettings().isGamePaused) {
             this.makeEscMenu();

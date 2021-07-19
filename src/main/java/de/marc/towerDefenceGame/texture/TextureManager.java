@@ -52,6 +52,9 @@ public class TextureManager extends ListManager<Texture> {
         this.loadTexture("assets/textures/ui/button.png", "button");
         this.loadTexture("assets/textures/ui/buttonpressed.png", "buttonpressed");
         this.loadTexture("assets/textures/ui/textinput.png", "textinput");
+        // ICONS
+        this.loadTexture("assets/textures/icons/moneyicon.png", "moneyicon");
+        this.loadTexture("assets/textures/icons/hearticon.png", "hearticon");
     }
 
     public void loadTexture(String path, String name) {

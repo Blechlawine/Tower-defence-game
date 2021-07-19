@@ -8,21 +8,21 @@ import de.marc.towerDefenceGame.utils.Vector2;
 public class MouseMoveEvent extends Event {
 
     private double absoluteX = 0, absoluteY = 0, mapPosX, mapPosY;
-    private final double prevX, prevY;
+    private static double prevX, prevY;
     private final double dX, dY;
 
     public MouseMoveEvent(double x, double y) {
-        this.prevX = absoluteX;
-        this.prevY = absoluteY;
         this.absoluteX = x;
         this.absoluteY = y;
-        this.dX = absoluteX - this.prevX;
-        this.dY = absoluteY - this.prevY;
+        this.dX = this.absoluteX - prevX;
+        this.dY = this.absoluteY - prevY;
+        prevY = this.absoluteY;
+        prevX = this.absoluteX;
         Vector2 camPos = TowerDefenceGame.theGame.getRenderer().getLayerByName("level").getCameraPos();
         Vector2 camOrigin = TowerDefenceGame.theGame.getRenderer().getLayerByName("level").getCameraOrigin();
         double camScale = TowerDefenceGame.theGame.getRenderer().getLayerByName("level").getCameraScale();
-        mapPosX = (absoluteX - camOrigin.getX()) / camScale - camPos.getX();
-        mapPosY = (absoluteY - camOrigin.getY()) / camScale - camPos.getY();
+        mapPosX = (this.absoluteX - camOrigin.getX()) / camScale - camPos.getX();
+        mapPosY = (this.absoluteY - camOrigin.getY()) / camScale - camPos.getY();
     }
 
     /***
@@ -34,8 +34,8 @@ public class MouseMoveEvent extends Event {
         Vector2 camPos = camera.getPos();
         Vector2 camOrigin = camera.getOrigin();
         double camScale = camera.getScale();
-        double x = (absoluteX - camOrigin.getX()) / camScale - camPos.getX();
-        double y = (absoluteY - camOrigin.getY()) / camScale - camPos.getY();
+        double x = (this.absoluteX - camOrigin.getX()) / camScale - camPos.getX();
+        double y = (this.absoluteY - camOrigin.getY()) / camScale - camPos.getY();
         return new double[] {x, y};
     }
 

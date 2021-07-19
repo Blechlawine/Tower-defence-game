@@ -16,6 +16,7 @@ public class Game implements Listener {
 
     public Game(String levelFileName) {
         this.level = new Level().generateFromJsonFile(levelFileName);
+        TowerDefenceGame.theGame.getPlayer().setActiveTool(0);
         this.resume();
     }
 
