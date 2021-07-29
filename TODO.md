@@ -1,5 +1,8 @@
 # TODO:
 
+- Refactor entire Codebase
+- Credits
+- Soundsettings
 - Next Wave Button when all Enemies are dead
 - Ingame kill counter
 - Knockback
@@ -9,8 +12,7 @@
 - Animations (explosions when enemies die, Bomb explosions)
 - Bullettrails
 - vfx (glow, etc)
-- Sounds
-- Music
+- Soundeffects
 - Render map-background
 - Keybindingmanager for user-settable keybinds
 - Texturepack/Tilepack support
