@@ -12,6 +12,8 @@ import de.marc.towerDefenceGame.player.Player;
 import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
+import de.marc.towerDefenceGame.sound.SoundBufferManager;
+import de.marc.towerDefenceGame.sound.SoundSourceManager;
 import de.marc.towerDefenceGame.texture.TextureManager;
 import de.marc.towerDefenceGame.gameObjects.tower.TowerManager;
 import de.marc.towerDefenceGame.utils.FileUtils;
@@ -48,11 +50,13 @@ public class TowerDefenceGame {
     private TextureHandler textureHandler;
     private TowerManager towerManager;
     private TextureManager textureManager;
+    private SoundBufferManager soundBufferManager;
     private GuiManager guiManager;
     private Renderer renderer;
     private FontRenderer fontRenderer;
     private GameManager gameManager;
     private LevelFileManager levelFileManager;
+    private SoundSourceManager soundSourceManager;
 
     private Logger logger;
     private Settings settings;
@@ -85,8 +89,10 @@ public class TowerDefenceGame {
         this.towerManager = new TowerManager();
         this.gameManager = new GameManager();
         this.textureManager = new TextureManager();
+        this.soundBufferManager = new SoundBufferManager();
         this.guiManager = new GuiManager();
         this.thePlayer = new Player();
+        this.soundSourceManager = new SoundSourceManager();
 
         Gui.windowSize = new Vector2(this.windowWidth, this.windowHeight);
 
@@ -132,8 +138,11 @@ public class TowerDefenceGame {
 
         this.initGL();
 
+        this.soundBufferManager.initSoundSystem();
 //        this.currentLevel = Level.generateLevelFromJsonFile("assets/TestBig.json");
         this.textureManager.setup();
+        this.soundBufferManager.setup();
+        this.soundSourceManager.setup();
         this.fontRenderer = new FontRenderer();
         this.guiManager.setup();
         this.guiManager.setActiveGui(this.guiManager.getGuiFromName("mainmenu"));
@@ -262,6 +271,12 @@ public class TowerDefenceGame {
     }
     public Settings getSettings() {
         return this.settings;
+    }
+    public SoundBufferManager getSoundBufferManager() {
+        return this.soundBufferManager;
+    }
+    public SoundSourceManager getSoundSourceManager() {
+        return this.soundSourceManager;
     }
 
     public boolean getRenderDebugStuff() {

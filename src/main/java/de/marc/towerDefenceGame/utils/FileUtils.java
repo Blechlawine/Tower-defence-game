@@ -8,6 +8,7 @@ import org.json.JSONTokener;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+import org.lwjgl.stb.STBVorbisInfo;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -17,6 +18,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+import java.nio.ShortBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.SeekableByteChannel;
@@ -24,6 +27,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import static org.lwjgl.BufferUtils.*;
+import static org.lwjgl.stb.STBVorbis.*;
 
 public class FileUtils {
 
@@ -102,6 +106,30 @@ public class FileUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static ShortBuffer readVorbis(String resource, int bufferSize, STBVorbisInfo info) {
+        ByteBuffer vorbis;
+        try {
+            vorbis = ioResourceToByteBuffer(resource, bufferSize);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        IntBuffer error = BufferUtils.createIntBuffer(1);
+        long decoder = stb_vorbis_open_memory(vorbis, error, null);
+        if (decoder == 0) {
+            throw new RuntimeException("Failed to open Ogg Vorbis file. Error: " + error.get(0));
+        }
+        stb_vorbis_get_info(decoder, info);
+
+        int channels = info.channels();
+        ShortBuffer pcm = BufferUtils.createShortBuffer(stb_vorbis_stream_length_in_samples(decoder) * channels);
+
+        stb_vorbis_get_samples_short_interleaved(decoder, channels, pcm);
+        stb_vorbis_close(decoder);
+
+        return pcm;
     }
 
     // Code from https://stackoverflow.com/questions/42322382/glfw-window-icon

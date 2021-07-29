@@ -1,0 +1,44 @@
+package de.marc.towerDefenceGame.sound;
+
+import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.utils.MapManager;
+import org.lwjgl.openal.AL;
+import org.lwjgl.openal.ALC;
+import org.lwjgl.openal.ALC10;
+import org.lwjgl.openal.ALCCapabilities;
+
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+
+public class SoundBufferManager extends MapManager<String, SoundBuffer> {
+
+    @Override
+    public void setup() {
+        this.loadSound("assets/sound/ost.ogg", "ost");
+    }
+
+    public void loadSound(String path, String name) {
+        TowerDefenceGame.theGame.getLogger().info("Loading Sound: \"" + path + "\" as name: \"" + name + "\"");
+        this.content.put(name, new SoundBuffer(path));
+    }
+
+    public SoundBuffer getSoundFromName(String name) {
+        return this.content.get(name);
+    }
+
+    public void initSoundSystem() {
+        long device = ALC10.alcOpenDevice((ByteBuffer) null);
+        if (device == 0) {
+            throw new IllegalStateException("Failed to open the default OpenAL device!");
+        }
+
+        ALCCapabilities capabilities = ALC.createCapabilities(device);
+        long context = ALC10.alcCreateContext(device, (IntBuffer) null);
+        if (context == 0) {
+            throw new IllegalStateException("Failed to create OpenAL context!");
+        }
+        ALC10.alcMakeContextCurrent(context);
+        AL.createCapabilities(capabilities);
+    }
+
+}
