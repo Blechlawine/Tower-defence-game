@@ -12,7 +12,7 @@ import java.util.List;
 
 public abstract class Gui implements Renderable, Listener {
 
-    protected String name;
+    protected final String name;
     protected List<GuiComponent> components;
 
     protected boolean hasBackground = false;

@@ -1,6 +1,5 @@
 package de.marc.towerDefenceGame.event.events;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.utils.KeyAction;
 import org.lwjgl.glfw.GLFW;

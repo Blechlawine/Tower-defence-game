@@ -18,7 +18,7 @@ import java.util.List;
 
 public class Level implements Renderable, Listener {
 
-    private List<Chunk> chunks = new ArrayList<>();
+    private final List<Chunk> chunks = new ArrayList<>();
 
     public Tile startPortalTile, endPortalTile;
     public EnemySpawner spawner;

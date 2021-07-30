@@ -72,7 +72,7 @@ public class Path implements Renderable {
     }
 
     public void render() {
-        if (TowerDefenceGame.theGame.getRenderDebugStuff()) {
+        if (TowerDefenceGame.theGame.getSettings().debugMode) {
             PathNode node = this.start;
             while (node.next != null) {
                 GLUtils.drawCircleCentered(node.getMiddleX(), node.getMiddleY(), 2, 20, new Color( 1, 1, 1 ));

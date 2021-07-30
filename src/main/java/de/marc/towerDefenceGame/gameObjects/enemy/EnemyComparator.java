@@ -29,6 +29,6 @@ public class EnemyComparator implements Comparator<Enemy> {
     }
 
     public enum CompareMode {
-        TRAVELLED_DISTANCE, HEALTH_ASCENDING, HEALTH_DESCENDING;
+        TRAVELLED_DISTANCE, HEALTH_ASCENDING, HEALTH_DESCENDING
     }
 }

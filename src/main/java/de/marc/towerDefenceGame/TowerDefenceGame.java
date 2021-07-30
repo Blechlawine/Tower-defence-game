@@ -6,10 +6,8 @@ import de.marc.towerDefenceGame.games.GameManager;
 import de.marc.towerDefenceGame.gui.FontRenderer;
 import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.gui.GuiManager;
-import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.level.LevelFileManager;
 import de.marc.towerDefenceGame.player.Player;
-import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
 import de.marc.towerDefenceGame.sound.SoundBufferManager;
@@ -42,9 +40,7 @@ public class TowerDefenceGame {
     private int windowWidth = 800;
     private int windowHeight = 600;
 
-    public Level currentLevel;
     private Player thePlayer;
-    private boolean inGame;
 
     private EventManager eventManager;
     private TextureHandler textureHandler;
@@ -60,8 +56,6 @@ public class TowerDefenceGame {
 
     private Logger logger;
     private Settings settings;
-
-    private boolean renderDebugStuff = false;
 
     public TowerDefenceGame() {
         theGame = this;
@@ -113,24 +107,19 @@ public class TowerDefenceGame {
 
         glfwSetScrollCallback(window, (window, xOffset, yOffset) -> this.eventManager.hook(new MouseScrollEvent(xOffset, yOffset)));
 
-        glfwSetCursorPosCallback(window, (window, xpos, ypos) -> this.eventManager.hook(new MouseMoveEvent(xpos, ypos)));
+        glfwSetCursorPosCallback(window, (window, xPos, yPos) -> this.eventManager.hook(new MouseMoveEvent(xPos, yPos)));
 
         glfwSetWindowSizeCallback(window , (window, width, height) -> {
             this.windowWidth = width;
             this.windowHeight = height;
             glViewport(0, 0, this.windowWidth, this.windowHeight);
-//            for (RenderLayer layer : this.renderer.getLayers()) {
-//                layer.updateCameraOrigin();
-//            }
             this.thePlayer.updateCameraOrigin();
             Gui.setWindowSize(this.windowWidth, this.windowHeight);
             this.eventManager.hook(new WindowResizeEvent(this.windowWidth, this.windowHeight));
             this.initGL();
         });
 
-        glfwSetWindowPosCallback(window, (window, x, y) -> {
-            this.eventManager.hook(new WindowMoveEvent(x, y));
-        });
+        glfwSetWindowPosCallback(window, (window, x, y) -> this.eventManager.hook(new WindowMoveEvent(x, y)));
 
         glfwMakeContextCurrent(this.window);
         glfwSwapInterval(1);
@@ -277,13 +266,6 @@ public class TowerDefenceGame {
     }
     public SoundSourceManager getSoundSourceManager() {
         return this.soundSourceManager;
-    }
-
-    public boolean getRenderDebugStuff() {
-        return this.renderDebugStuff;
-    }
-    public void setRenderDebugStuff(boolean renderDebugStuff) {
-        this.renderDebugStuff = renderDebugStuff;
     }
 
     public double[] getWindowSize() {

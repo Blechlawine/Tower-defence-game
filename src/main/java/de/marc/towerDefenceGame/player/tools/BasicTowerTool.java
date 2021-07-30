@@ -1,7 +1,6 @@
 package de.marc.towerDefenceGame.player.tools;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
 import de.marc.towerDefenceGame.gui.components.GuiTower;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.gameObjects.tower.towers.BasicTower;
@@ -12,7 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 public class BasicTowerTool extends Tool {
 
-    private GuiTower guiTower;
+    private final GuiTower guiTower;
 
     public BasicTowerTool() {
         super("basicTower");

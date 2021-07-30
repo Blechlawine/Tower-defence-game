@@ -30,9 +30,8 @@ public class Game implements Listener {
             TowerDefenceGame.theGame.getSettings().isGamePaused = true;
 //            this.paused = true;
             this.shouldAutoUnpause = true;
-        } else if (event instanceof PostUpdateEvent) {
-//            this.pausedTimeMS = 0L;
-        }
+        }  //            this.pausedTimeMS = 0L;
+
         if (!TowerDefenceGame.theGame.getSettings().isGamePaused) {
             TowerDefenceGame.theGame.getPlayer().onEvent(event);
             this.level.onEvent(event);

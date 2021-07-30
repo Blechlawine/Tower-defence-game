@@ -1,10 +1,10 @@
 package de.marc.towerDefenceGame.utils;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
-
 public class Color {
 
-    private float r, g, b;
+    private final float r;
+    private final float g;
+    private final float b;
 
     public Color(float r, float g, float b) {
         this.r = r;

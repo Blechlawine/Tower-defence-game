@@ -1,7 +1,6 @@
 package de.marc.towerDefenceGame.gui.guis;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.gui.components.*;
 import de.marc.towerDefenceGame.utils.Color;
@@ -10,7 +9,6 @@ import de.marc.towerDefenceGame.utils.Settings;
 import de.marc.towerDefenceGame.utils.Vector2;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class GuiSettingsMain extends Gui {
 

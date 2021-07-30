@@ -15,7 +15,7 @@ public class SoundBuffer {
             ShortBuffer pcm = FileUtils.readVorbis(file, 32 * 1024, info);
 
             AL10.alBufferData(this.bufferID, info.channels() == 1 ? AL10.AL_FORMAT_MONO16 : AL10.AL_FORMAT_STEREO16, pcm, info.sample_rate());
-        } catch (Exception e) {
+        } catch (Exception ignored) {
 
         }
     }

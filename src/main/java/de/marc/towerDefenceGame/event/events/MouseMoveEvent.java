@@ -7,7 +7,7 @@ import de.marc.towerDefenceGame.utils.Vector2;
 
 public class MouseMoveEvent extends Event {
 
-    private double absoluteX = 0, absoluteY = 0, mapPosX, mapPosY;
+    private double absoluteX, absoluteY, mapPosX, mapPosY;
     private static double prevX, prevY;
     private final double dX, dY;
 

@@ -1,14 +1,14 @@
 package de.marc.towerDefenceGame.render;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.event.events.MouseScrollEvent;
 import de.marc.towerDefenceGame.utils.Vector2;
 
 public class Camera {
 
     protected Vector2 pos, origin;
     protected double scale = 1;
-    protected double maxScale = 7, minScale = 0.5;
+    protected final double maxScale = 7;
+    protected final double minScale = 0.5;
 
     public Camera(Vector2 pos) {
         double[] windowSize = TowerDefenceGame.theGame.getWindowSize();

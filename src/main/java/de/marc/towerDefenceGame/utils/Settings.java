@@ -14,6 +14,7 @@ public class Settings {
     public static Settings instance;
     public String settingsFile = "settings.json";
     public boolean isGamePaused = false;
+    public boolean debugMode = false;
 
     //saved Settings
     public HashMap<KeyBindings, KeyEvent.KeyCode> keybindings = new HashMap<KeyBindings, KeyEvent.KeyCode>() {
@@ -48,12 +49,6 @@ public class Settings {
 
     public Settings() {
         instance = this;
-//        File testFile = new File(this.settingsFile);
-//        if (testFile.exists()) {
-//            this.loadSettings();
-//        } else {
-//            this.saveSettings();
-//        }
     }
 
     public void setGuiScale(String key) {
@@ -67,34 +62,10 @@ public class Settings {
         }
     }
 
-    private void saveSettings() {
-        //TODO: save settings file
-//        JSONObject json = new JSONObject();
-//        JSONArray keybindsJson = new JSONArray();
-//        for (Map.Entry<String, KeyEvent.KeyCode> keybind : this.keybinds.entrySet()) {
-//            JSONObject keybindJson = new JSONObject();
-//            keybindJson.put(keybind.getKey(), keybind.getValue().getGlfwKey());
-//            keybindsJson.put(keybindJson);
-//        }
-//        json.put("keybinds", keybindsJson);
-//        FileUtils.writeJSONFile(this.settingsFile, json);
-    }
-
-    private void loadSettings() {
-        //TODO: load settings file
-//        JSONObject settingsJson = FileUtils.readJSONResource(this.settingsFile);
-//        JSONArray keybindsJsonArray = settingsJson.getJSONArray("keybinds");
-//        for (int i = 0; i < keybindsJsonArray.length(); i++) {
-//            JSONObject keybind = keybindsJsonArray.getJSONObject(i);
-//            this.keybinds.put(keybind.getString("binding"), KeyEvent.KeyCode.getKeyCodeFromGLFW(keybind.getInt("value")));
-//        }
-//        TowerDefenceGame.theGame.getLogger().debug(this.keybinds.entrySet());
-    }
-
     public enum KeyBindings {
         GUI_BACK, GUI_INTERACT,
         PLAYER_MOVEUP, PLAYER_MOVEDOWN, PLAYER_MOVELEFT, PLAYER_MOVERIGHT, PLAYER_MOVEFAST, PLAYER_MOVEMOUSE, PLAYER_MOVERESET,
-        TOOLS_DESELECT, TOOLS_BUILD, TOOLS_DESTROY, TOOLS_SLOT1, TOOLS_SLOT2, TOOLS_SLOT3;
+        TOOLS_DESELECT, TOOLS_BUILD, TOOLS_DESTROY, TOOLS_SLOT1, TOOLS_SLOT2, TOOLS_SLOT3
     }
 
 }

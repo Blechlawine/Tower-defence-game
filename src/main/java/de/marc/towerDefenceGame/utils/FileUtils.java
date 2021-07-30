@@ -39,9 +39,6 @@ public class FileUtils {
     }
 
     public static void writeJSONFile(String fileName, JSONObject content) {
-//        Path resourcePath = Paths.get(FileUtils.class.getResource("/").getPath());
-//        Path filePath = Paths.get(resourcePath.toAbsolutePath() + "/" + fileName);
-//        TowerDefenceGame.theGame.getLogger().debug(filePath.getFileName());
         try {
             File file = new File(fileName);
             if (file.createNewFile()) {
@@ -55,8 +52,6 @@ public class FileUtils {
             writer.close();
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-
         }
     }
 

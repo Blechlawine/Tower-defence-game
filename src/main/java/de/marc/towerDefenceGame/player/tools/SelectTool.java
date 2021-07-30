@@ -1,6 +1,5 @@
 package de.marc.towerDefenceGame.player.tools;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;

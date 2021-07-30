@@ -1,10 +1,8 @@
 package de.marc.towerDefenceGame.event;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.ListManager;
 
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 
 public class EventManager extends ListManager<Listener> {
 

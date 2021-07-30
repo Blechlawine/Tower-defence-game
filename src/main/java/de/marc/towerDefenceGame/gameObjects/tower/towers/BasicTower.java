@@ -31,7 +31,7 @@ public class BasicTower extends Tower {
 
     public void render() {
         this.drawBaseTexture();
-        if (TowerDefenceGame.theGame.getRenderDebugStuff()) {
+        if (TowerDefenceGame.theGame.getSettings().debugMode) {
             Vector2 targetDirection = Vector2.duplicate(this.target.getMiddle()).subtract(this.middle);
             long time = Math.round(BasicProjectile.getSpeed() * targetDirection.getLength() * 10000);
             Vector2 predictedPos = this.target.predictPosInTime(time);
@@ -40,10 +40,6 @@ public class BasicTower extends Tower {
         GL11.glPushMatrix();
         GLUtils.rotateAroundLocation(Math.toDegrees(this.angle), this.middle);
         this.drawTurretTexture();
-//        GLUtils.drawTriangle(Vector2.duplicate(this.middle).add(new Vector2(0, 5)),
-//                Vector2.duplicate(this.middle).add(new Vector2(0, -5)),
-//                Vector2.duplicate(this.middle).add(new Vector2(10, 0)),
-//                new float[] { 0, 1, 1 });
         GL11.glPopMatrix();
         if (Tile.selectedTile == this.positionTile) {
             GLUtils.drawCircleCenteredOutline(this.middle.getX(), this.middle.getY(), this.range, 32, 1, new Color(1, 1, 1));

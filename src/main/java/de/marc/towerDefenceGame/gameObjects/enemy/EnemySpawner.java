@@ -53,9 +53,6 @@ public class EnemySpawner implements Listener {
 
         // Enemies of wave 1
         this.fillEnemySpawnStack();
-//        for (int i = 0; i <= this.waveHealth; i += 100) {
-//            this.enemiesToSpawn.push("basic");
-//        }
     }
 
     public void spawnEnemy() {

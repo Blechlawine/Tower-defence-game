@@ -11,7 +11,7 @@ public class GuiImage extends GuiComponent {
     private double imageWidth, imageHeight, finalWidth, finalHeight;
     private String imageTexHandle;
     private Color backgroundColor;
-    private boolean transparentBackground = false;
+    private boolean transparentBackground;
 
     public GuiImage(String imageTexHandle, Vector2 pos, double width, double height, Color backgroundColor, boolean transparentBackground) {
         super(pos);

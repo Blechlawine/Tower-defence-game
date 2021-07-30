@@ -11,10 +11,9 @@ public class SoundSourceManager extends MapManager<String, SoundSource> {
         this.addSoundSource("coin", "coin",false);
     }
 
-    public SoundSource addSoundSource(String name, String soundBufferName, boolean loop) {
+    public void addSoundSource(String name, String soundBufferName, boolean loop) {
         SoundSource soundSource = this.createSoundSource(soundBufferName, loop);
         this.content.put(name, soundSource);
-        return soundSource;
     }
 
     public SoundSource createSoundSource(String soundBufferName, boolean loop) {

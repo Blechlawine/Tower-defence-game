@@ -146,11 +146,7 @@ public abstract class Tower implements Listener, Renderable {
         double tempAngle = this.lookVec.getAngleDeg();
         double angleThreshold = 2;
 //        TowerDefenceGame.theGame.getLogger().debug();
-        if (tempAngle >= tempAngleGoal - angleThreshold && tempAngle <= tempAngleGoal + angleThreshold) {
-            return true;
-        } else {
-            return false;
-        }
+        return tempAngle >= tempAngleGoal - angleThreshold && tempAngle <= tempAngleGoal + angleThreshold;
     }
 
     protected void attackTarget() {
@@ -175,7 +171,7 @@ public abstract class Tower implements Listener, Renderable {
     }
 
     public enum TargetMode {
-        FIRST, RANDOM, LOWEST_HEALTH, HIGHEST_HEALTH;
+        FIRST, RANDOM, LOWEST_HEALTH, HIGHEST_HEALTH
     }
 
 }

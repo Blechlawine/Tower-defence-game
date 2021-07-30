@@ -1,7 +1,6 @@
 package de.marc.towerDefenceGame.gui.guis;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.gameObjects.tower.Tower;
 import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.gui.components.GuiButton;
 import de.marc.towerDefenceGame.gui.components.GuiLabel;

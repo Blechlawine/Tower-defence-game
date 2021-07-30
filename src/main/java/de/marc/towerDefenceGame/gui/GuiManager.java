@@ -1,6 +1,5 @@
 package de.marc.towerDefenceGame.gui;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.gui.guis.*;
 import de.marc.towerDefenceGame.utils.ListManager;
 

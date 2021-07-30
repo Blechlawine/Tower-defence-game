@@ -3,7 +3,6 @@ package de.marc.towerDefenceGame.utils;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.texture.Texture;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL20.*;
@@ -132,10 +131,6 @@ public class GLUtils {
 
         glTexCoord2d(u, v + uvHeight);
         glVertex2d(left, top + height);
-
-//        Das nochmal? - Nein, anscheinend nicht
-//        glTexCoord2d(u, v);
-//        glVertex2d(left, top);
 
         glEnd();
 

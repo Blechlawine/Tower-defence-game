@@ -1,7 +1,5 @@
 package de.marc.towerDefenceGame.utils;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
-
 public class TimerLegacy {
 
     private long milliseconds, lastMilliseconds;

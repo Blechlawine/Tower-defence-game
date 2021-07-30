@@ -1,7 +1,6 @@
 package de.marc.towerDefenceGame.utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public abstract class ListManager<T> {
 

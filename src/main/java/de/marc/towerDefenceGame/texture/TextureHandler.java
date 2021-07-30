@@ -2,12 +2,8 @@ package de.marc.towerDefenceGame.texture;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.FileUtils;
-import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
-import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
-import static org.lwjgl.opengl.GL13.glActiveTexture;
 
 public class TextureHandler {
 
@@ -21,19 +17,6 @@ public class TextureHandler {
     public double[] getTileUVSize() {
         return this.uvTileSize;
     }
-
-//    public static void bindTexture(int id) {
-//        glActiveTexture(GL_TEXTURE0);
-//        GL11.glBindTexture(GL11.GL_TEXTURE_2D, id);
-//    }
-
-//    public void unbindTexture() {
-//        GL11.glBindTexture(GL11.GL_TEXTURE_2D, 0);
-//    }
-
-//    public Texture loadTexture(String path) {
-//        return FileUtils.readTexturePNG(path);
-//    }
 
     public int getTileSetRowLength() {
         return this.tilesInTextureAtlasX;

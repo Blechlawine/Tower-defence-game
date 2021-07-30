@@ -1,8 +1,5 @@
 package de.marc.towerDefenceGame.render;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
-import org.lwjgl.opengl.GL11;
-
 import java.util.ArrayList;
 import java.util.List;
 

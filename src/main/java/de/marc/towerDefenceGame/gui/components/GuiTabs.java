@@ -5,7 +5,6 @@ import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.utils.*;
-import org.lwjgl.opengl.GL11;
 
 import java.util.ArrayList;
 

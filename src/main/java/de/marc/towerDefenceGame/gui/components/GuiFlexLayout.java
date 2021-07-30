@@ -1,6 +1,5 @@
 package de.marc.towerDefenceGame.gui.components;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.utils.Keybinding;
 import de.marc.towerDefenceGame.utils.Vector2;

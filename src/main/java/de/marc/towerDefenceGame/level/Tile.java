@@ -9,8 +9,6 @@ import de.marc.towerDefenceGame.utils.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static de.marc.towerDefenceGame.utils.KeyAction.DOWN;
-
 public class Tile implements Renderable, Listener {
 
     private double xPos, yPos;

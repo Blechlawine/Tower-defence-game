@@ -1,6 +1,5 @@
 package de.marc.towerDefenceGame.event.events;
 
-import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 
 public class UpdateEvent extends Event {

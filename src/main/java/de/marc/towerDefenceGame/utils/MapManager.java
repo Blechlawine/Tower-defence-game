@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public abstract class MapManager<K, V> {
 
-    protected HashMap<K, V> content;
+    protected final HashMap<K, V> content;
 
     public MapManager() {
         this.content = new HashMap<K, V>();
