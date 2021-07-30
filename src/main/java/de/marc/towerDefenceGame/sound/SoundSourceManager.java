@@ -7,14 +7,21 @@ import de.marc.towerDefenceGame.utils.Vector2;
 public class SoundSourceManager extends MapManager<String, SoundSource> {
     @Override
     public void setup() {
-        this.addSoundSource("ost", "ost", new Vector2(0, 0), true, true);
+        this.addSoundSource("ost", "ost", true);
+        this.addSoundSource("coin", "coin",false);
     }
 
-    public void addSoundSource(String name, String soundBufferName, Vector2 pos, boolean loop, boolean relative) {
-        SoundBuffer buffer = TowerDefenceGame.theGame.getSoundBufferManager().getSoundFromName(soundBufferName);
-        SoundSource soundSource = new SoundSource(buffer.getBufferID(), loop, relative);
-        soundSource.setPosition(pos);
+    public SoundSource addSoundSource(String name, String soundBufferName, boolean loop) {
+        SoundSource soundSource = this.createSoundSource(soundBufferName, loop);
         this.content.put(name, soundSource);
+        return soundSource;
+    }
+
+    public SoundSource createSoundSource(String soundBufferName, boolean loop) {
+        SoundBuffer buffer = TowerDefenceGame.theGame.getSoundBufferManager().getSoundFromName(soundBufferName);
+        SoundSource soundSource = new SoundSource(buffer.getBufferID(), loop, true);
+        soundSource.setPosition(new Vector2(0, 0));
+        return soundSource;
     }
 
     public SoundSource getSoundSourceFromName(String name) {

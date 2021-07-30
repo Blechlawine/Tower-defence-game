@@ -8,6 +8,7 @@ import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.PreUpdateEvent;
 import de.marc.towerDefenceGame.gameObjects.sprites.AnimatedSprite;
 import de.marc.towerDefenceGame.level.Tile;
+import de.marc.towerDefenceGame.sound.SoundSource;
 import de.marc.towerDefenceGame.utils.*;
 
 import java.util.TreeSet;
@@ -21,6 +22,7 @@ public abstract class Tower implements Listener, Renderable {
 
     protected Vector2 middle, lookVec, pos;
     protected Tile positionTile;
+    protected SoundSource soundSource;
 
     protected double range, fireRate, turnSpeed, angle;
     protected RandomRange damage;

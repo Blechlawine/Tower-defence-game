@@ -26,6 +26,7 @@ public class BasicTower extends Tower {
                 new RandomRange(2, 5),
                 TargetMode.FIRST);
         this.cost = 10;
+        this.soundSource = TowerDefenceGame.theGame.getSoundSourceManager().createSoundSource("basictowershot",false);
     }
 
     public void render() {
@@ -61,6 +62,7 @@ public class BasicTower extends Tower {
                 boolean isLookingAtFinalPos = this.lookAt(predictedPos, e.partialMS);
 //                TowerDefenceGame.theGame.getLogger().debug(predictedPos.subtract(this.target.getMiddle()));
                 if (this.attackTimer.hasReached((long) (1000 / this.fireRate)) && isLookingAtFinalPos) {
+                    this.soundSource.play();
                     new BasicProjectile(this.middle, Vector2.duplicate(this.lookVec.normalize()), this.damage.getValue(), time * 10);
                     this.attackTimer.reset();
                 }

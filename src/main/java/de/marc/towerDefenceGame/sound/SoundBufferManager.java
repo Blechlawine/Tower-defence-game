@@ -15,6 +15,8 @@ public class SoundBufferManager extends MapManager<String, SoundBuffer> {
     @Override
     public void setup() {
         this.loadSound("assets/sound/ost.ogg", "ost");
+        this.loadSound("assets/sound/ingame/coin.ogg", "coin");
+        this.loadSound("assets/sound/ingame/basictowershot.ogg", "basictowershot");
     }
 
     public void loadSound(String path, String name) {

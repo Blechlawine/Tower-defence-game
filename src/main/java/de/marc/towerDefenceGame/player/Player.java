@@ -120,6 +120,7 @@ public class Player extends Camera implements Listener {
     }
 
     public void addMoney(int amount) {
+        TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourceFromName("coin").play();
         this.wallet += amount;
     }
 
