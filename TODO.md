@@ -1,7 +1,6 @@
 # TODO:
 
 - SoundSource / Soundbuffer Cleanup
-- Refactor entire Codebase
 - Credits
 - Soundsettings
 - Next Wave Button when all Enemies are dead
