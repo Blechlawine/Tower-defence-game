@@ -40,10 +40,8 @@ public abstract class Tool implements Renderable, Listener {
             @Override
             public void onKeyAction(KeyAction action, KeyEvent event) {
                 Tile target = TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getTileFromCoords(mapPosX, mapPosY);
-                if (target != null) {
-                    destroy(target);
-                    event.cancel();
-                }
+                destroy(target);
+                event.cancel();
             }
         };
     }
