@@ -1,5 +1,5 @@
 Towerdefencegame
 
-Programmer, Visual artist: Marc Zinser
+Programmer, Visual artist, Sound designer: Marc Zinser
 
 Composer: Johannes Meyer
