@@ -2,7 +2,6 @@ package de.marc.towerDefenceGame.texture;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.FileUtils;
-import de.marc.towerDefenceGame.utils.ListManager;
 import de.marc.towerDefenceGame.utils.MapManager;
 import org.lwjgl.opengl.GL11;
 
@@ -62,17 +61,17 @@ public class TextureManager extends MapManager<String, Texture> {
 
     public void loadTexture(String path, String name) {
         TowerDefenceGame.theGame.getLogger().info("Loading Texture: \"" + path + "\" as name: \"" + name + "\"");
-        this.content.put(name, FileUtils.readTexturePNG(path, name));
+        this.content.put(name.toLowerCase(), FileUtils.readTexturePNG(path, name));
     }
 
     public void bindTexture(String name) {
-        Texture temp = this.content.get(name);
+        Texture temp = this.content.get(name.toLowerCase());
         glActiveTexture(GL_TEXTURE0);
         GL11.glBindTexture(GL11.GL_TEXTURE_2D, temp.getID());
     }
 
     public Texture getTextureFromName(String name) {
-        return this.content.get(name);
+        return this.content.get(name.toLowerCase());
     }
 
     public void unbindTexture() {
