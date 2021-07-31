@@ -18,6 +18,12 @@ public abstract class GuiComponent implements Renderable, Listener {
         this.pos = pos;
     }
 
+    public GuiComponent(Vector2 pos, double width, double height) {
+        this.pos = pos;
+        this.width = width;
+        this.height = height;
+    }
+
     protected void setPos(Vector2 posIn) {
         this.pos.setX(posIn.getX());
         this.pos.setY(posIn.getY());

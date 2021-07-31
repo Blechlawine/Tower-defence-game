@@ -4,21 +4,24 @@ import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.MapManager;
 import de.marc.towerDefenceGame.utils.Vector2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SoundSourceManager extends MapManager<String, SoundSource> {
     @Override
     public void setup() {
-        this.addSoundSource("ost", "ost", true);
-        this.addSoundSource("coin", "coin",false);
+        this.addSoundSource("music", "ost", true, SoundSource.SoundSourceCategory.MUSIC);
+        this.addSoundSource("coin", "coin",false, SoundSource.SoundSourceCategory.SFX);
     }
 
-    public void addSoundSource(String name, String soundBufferName, boolean loop) {
-        SoundSource soundSource = this.createSoundSource(soundBufferName, loop);
+    public void addSoundSource(String name, String soundBufferName, boolean loop, SoundSource.SoundSourceCategory category) {
+        SoundSource soundSource = this.createSoundSource(soundBufferName, loop, category);
         this.content.put(name, soundSource);
     }
 
-    public SoundSource createSoundSource(String soundBufferName, boolean loop) {
+    public SoundSource createSoundSource(String soundBufferName, boolean loop, SoundSource.SoundSourceCategory category) {
         SoundBuffer buffer = TowerDefenceGame.theGame.getSoundBufferManager().getSoundFromName(soundBufferName);
-        SoundSource soundSource = new SoundSource(buffer.getBufferID(), loop, true);
+        SoundSource soundSource = new SoundSource(buffer.getBufferID(), loop, true, category);
         soundSource.setPosition(new Vector2(0, 0));
         return soundSource;
     }
@@ -27,4 +30,13 @@ public class SoundSourceManager extends MapManager<String, SoundSource> {
         return this.content.get(name);
     }
 
+    public HashMap<String, SoundSource> getSoundSourcesFromCategory(SoundSource.SoundSourceCategory category) {
+        HashMap<String, SoundSource> result = new HashMap<>();
+        for (Map.Entry<String, SoundSource> entry : this.content.entrySet()) {
+            if (entry.getValue().category == category) {
+                result.put(entry.getKey(), entry.getValue());
+            }
+        }
+        return result;
+    }
 }

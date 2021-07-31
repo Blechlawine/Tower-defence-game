@@ -37,6 +37,12 @@ public class Vector2 {
         return this;
     }
 
+    public Vector2 add(double x, double y) {
+        this.x += x;
+        this.y += y;
+        return this;
+    }
+
     public Vector2 subtract(Vector2 vec) {
         return this.add(vec.invert());
     }

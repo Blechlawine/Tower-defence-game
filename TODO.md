@@ -1,8 +1,8 @@
 # TODO:
 
 - SoundSource / Soundbuffer Cleanup
+- Music always restarts when MainMenu shows up
 - Credits
-- Soundsettings
 - Next Wave Button when all Enemies are dead
 - Ingame kill counter
 - Knockback

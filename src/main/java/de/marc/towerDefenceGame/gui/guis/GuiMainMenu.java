@@ -23,7 +23,7 @@ public class GuiMainMenu extends Gui {
     public void initGui() {
         super.initGui();
         //play ost
-        TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourceFromName("ost").play();
+        TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourceFromName("music").play();
         Vector2 playBtnPos = new Vector2(getInPixels(50, "vw") - 100, getInPixels(50, "vh") - 20);
         String playBtnText = (TowerDefenceGame.theGame.getGameManager().getCurrentGame() != null ? "Resume Game" : "Play");
         this.playButton = new GuiButton(

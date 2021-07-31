@@ -5,6 +5,7 @@ import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.event.events.WindowResizeEvent;
 import de.marc.towerDefenceGame.gui.Gui;
 import de.marc.towerDefenceGame.render.Camera;
+import de.marc.towerDefenceGame.sound.SoundSource;
 
 import java.util.HashMap;
 
@@ -47,6 +48,10 @@ public class Settings {
     };
     public Camera guiCamera = new Camera(new Vector2(0, 0), new Vector2(0, 0), this.currentGuiScale);
 
+    // Audio
+    public float musicVolume = 1F;
+    public float sfxVolume = 1F;
+
     public Settings() {
         instance = this;
     }
@@ -59,6 +64,19 @@ public class Settings {
             double[] windowSize = TowerDefenceGame.theGame.getWindowSize();
             Gui.setWindowSize(windowSize[0], windowSize[1]);
             TowerDefenceGame.theGame.getEventManager().hook(new WindowResizeEvent(windowSize[0], windowSize[1]));
+        }
+    }
+
+    public void setMusicVolume(float volume) {
+        this.musicVolume = volume;
+        TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourceFromName("music").setGain(this.musicVolume);
+    }
+
+    public void setSfxVolume(float volume) {
+        this.sfxVolume = volume;
+        HashMap<String, SoundSource> sources = TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourcesFromCategory(SoundSource.SoundSourceCategory.SFX);
+        for (SoundSource source : sources.values()) {
+            source.setGain(this.sfxVolume);
         }
     }
 

@@ -3,12 +3,13 @@ package de.marc.towerDefenceGame.texture;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.utils.FileUtils;
 import de.marc.towerDefenceGame.utils.ListManager;
+import de.marc.towerDefenceGame.utils.MapManager;
 import org.lwjgl.opengl.GL11;
 
 import static org.lwjgl.opengl.GL13.GL_TEXTURE0;
 import static org.lwjgl.opengl.GL13.glActiveTexture;
 
-public class TextureManager extends ListManager<Texture> {
+public class TextureManager extends MapManager<String, Texture> {
 
     @Override
     public void setup() {
@@ -52,6 +53,8 @@ public class TextureManager extends ListManager<Texture> {
         this.loadTexture("assets/textures/ui/button.png", "button");
         this.loadTexture("assets/textures/ui/buttonpressed.png", "buttonpressed");
         this.loadTexture("assets/textures/ui/textinput.png", "textinput");
+        this.loadTexture("assets/textures/ui/sliderbase.png", "sliderbase");
+        this.loadTexture("assets/textures/ui/sliderhandle.png", "sliderhandle");
         // ICONS
         this.loadTexture("assets/textures/icons/moneyicon.png", "moneyicon");
         this.loadTexture("assets/textures/icons/hearticon.png", "hearticon");
@@ -59,26 +62,17 @@ public class TextureManager extends ListManager<Texture> {
 
     public void loadTexture(String path, String name) {
         TowerDefenceGame.theGame.getLogger().info("Loading Texture: \"" + path + "\" as name: \"" + name + "\"");
-        this.content.add(FileUtils.readTexturePNG(path, name));
+        this.content.put(name, FileUtils.readTexturePNG(path, name));
     }
 
     public void bindTexture(String name) {
-        for (int i = 0; i < this.content.size(); i++) {
-            Texture temp = this.content.get(i);
-            if (temp.getName().equalsIgnoreCase(name)) {
-                glActiveTexture(GL_TEXTURE0);
-                GL11.glBindTexture(GL11.GL_TEXTURE_2D, temp.getID());
-            }
-        }
+        Texture temp = this.content.get(name);
+        glActiveTexture(GL_TEXTURE0);
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D, temp.getID());
     }
 
     public Texture getTextureFromName(String name) {
-        for (Texture temp : this.content) {
-            if (temp.getName().equalsIgnoreCase(name)) {
-                return temp;
-            }
-        }
-        return null;
+        return this.content.get(name);
     }
 
     public void unbindTexture() {

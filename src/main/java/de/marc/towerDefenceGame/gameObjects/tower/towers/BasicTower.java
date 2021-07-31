@@ -6,6 +6,7 @@ import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.gameObjects.tower.Tower;
 import de.marc.towerDefenceGame.gameObjects.tower.projectile.projectiles.BasicProjectile;
+import de.marc.towerDefenceGame.sound.SoundSource;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.RandomRange;
@@ -26,7 +27,7 @@ public class BasicTower extends Tower {
                 new RandomRange(2, 5),
                 TargetMode.FIRST);
         this.cost = 10;
-        this.soundSource = TowerDefenceGame.theGame.getSoundSourceManager().createSoundSource("basictowershot",false);
+        this.soundSource = TowerDefenceGame.theGame.getSoundSourceManager().createSoundSource("basictowershot",false, SoundSource.SoundSourceCategory.SFX);
     }
 
     public void render() {

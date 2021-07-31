@@ -6,9 +6,11 @@ import org.lwjgl.openal.AL10;
 public class SoundSource {
 
     private final int  sourceID;
+    public final SoundSourceCategory category;
 
-    public SoundSource(int bufferID, boolean looping, boolean relative) {
+    public SoundSource(int bufferID, boolean looping, boolean relative, SoundSourceCategory category) {
         this.sourceID = AL10.alGenSources();
+        this.category = category;
         if (looping) {
             AL10.alSourcei(this.sourceID, AL10.AL_LOOPING, AL10.AL_TRUE);
         }
@@ -57,4 +59,7 @@ public class SoundSource {
         AL10.alDeleteSources(this.sourceID);
     }
 
+    public enum SoundSourceCategory {
+        MUSIC, SFX
+    }
 }

@@ -79,6 +79,38 @@ public class GuiSettingsMain extends Gui {
             ));
         }
 
+        ArrayList<GuiComponent> audioTabComponents = new ArrayList<>();
+        // Audio volume sliders
+        Vector2 startPosition = new Vector2(getInPixels(50, "vw"), getInPixels(0, "vh") + 60);
+        // Music volume
+        audioTabComponents.add(new GuiLabel("Music Volume", new Vector2(startPosition).add(-250, 10), new Color(Colors.TEXT)));
+        audioTabComponents.add(new GuiSlider(
+                new Vector2(startPosition).add(100, 0),
+                200, 40,
+                0, 1,
+                TowerDefenceGame.theGame.getSettings().musicVolume,
+                0.01
+        ) {
+            @Override
+            public void onChange(double value) {
+                TowerDefenceGame.theGame.getSettings().setMusicVolume((float)value);
+            }
+        });
+        startPosition.add(0, 60);
+        audioTabComponents.add(new GuiLabel("Sfx Volume", new Vector2(startPosition).add(-250, 10), new Color(Colors.TEXT)));
+        audioTabComponents.add(new GuiSlider(
+                new Vector2(startPosition).add(100, 0),
+                200, 40,
+                0, 1,
+                TowerDefenceGame.theGame.getSettings().sfxVolume,
+                0.01
+        ) {
+            @Override
+            public void onChange(double value) {
+                TowerDefenceGame.theGame.getSettings().setSfxVolume((float)value);
+            }
+        });
+
         GuiScrollContent controlTabContent = new GuiScrollContent(
                 new Vector2(getInPixels(50, "vw"), getInPixels(0, "vh") + 60),
                 getInPixels(100, "vw") - 200,
@@ -86,10 +118,21 @@ public class GuiSettingsMain extends Gui {
                 controlTabComponents.toArray(new GuiComponent[0])
         );
 
+        GuiScrollContent audioTabContent = new GuiScrollContent(
+                new Vector2(getInPixels(50, "vw"), getInPixels(0, "vh") + 60),
+                getInPixels(100, "vw") - 200,
+                getInPixels(80, "vh"),
+                audioTabComponents.toArray(new GuiComponent[0])
+        );
+
         this.tabContentComponents = new GuiComponent[][] {
                 // Graphics
                 new GuiComponent[] {
                     this.uiScaleDropDown
+                },
+                // Audio
+                new GuiComponent[] {
+                    audioTabContent
                 },
                 // Controls
                 new GuiComponent[] {
@@ -99,7 +142,7 @@ public class GuiSettingsMain extends Gui {
 
         this.settingsTabs = new GuiTabs(
                 new Vector2(getInPixels(0, "vw"), getInPixels(0, "vh")),
-                new String[] {"Graphics", "Controls"},
+                new String[] {"Graphics", "Audio", "Controls"},
                 200, 40,
                 0,
                 this.tabContentComponents,
