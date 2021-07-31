@@ -10,6 +10,7 @@ import de.marc.towerDefenceGame.level.LevelFileManager;
 import de.marc.towerDefenceGame.player.Player;
 import de.marc.towerDefenceGame.render.RenderLayer;
 import de.marc.towerDefenceGame.render.Renderer;
+import de.marc.towerDefenceGame.sound.MusicManager;
 import de.marc.towerDefenceGame.sound.SoundBufferManager;
 import de.marc.towerDefenceGame.sound.SoundSourceManager;
 import de.marc.towerDefenceGame.texture.TextureManager;
@@ -53,6 +54,7 @@ public class TowerDefenceGame {
     private GameManager gameManager;
     private LevelFileManager levelFileManager;
     private SoundSourceManager soundSourceManager;
+    private MusicManager musicManager;
 
     private Logger logger;
     private Settings settings;
@@ -89,6 +91,7 @@ public class TowerDefenceGame {
         this.guiManager = new GuiManager();
         this.thePlayer = new Player();
         this.soundSourceManager = new SoundSourceManager();
+        this.musicManager = new MusicManager();
 
         Gui.windowSize = new Vector2(this.windowWidth, this.windowHeight);
 
@@ -134,9 +137,11 @@ public class TowerDefenceGame {
         this.textureManager.setup();
         this.soundBufferManager.setup();
         this.soundSourceManager.setup();
+        this.musicManager.setup();
         this.fontRenderer = new FontRenderer();
         this.guiManager.setup();
         this.guiManager.setActiveGui(this.guiManager.getGuiFromName("mainmenu"));
+        this.musicManager.startMusic();
     }
 
     private void loop() {

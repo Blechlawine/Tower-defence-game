@@ -1,6 +1,5 @@
 # TODO:
 
-- Music always restarts when MainMenu shows up
 - Credits
 - Next Wave Button when all Enemies are dead
 - Ingame kill counter
