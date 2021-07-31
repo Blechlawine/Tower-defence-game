@@ -12,6 +12,8 @@ import java.nio.IntBuffer;
 
 public class SoundBufferManager extends MapManager<String, SoundBuffer> {
 
+    private long device;
+
     @Override
     public void setup() {
         this.loadSound("assets/sound/ost.ogg", "ost");
@@ -29,13 +31,13 @@ public class SoundBufferManager extends MapManager<String, SoundBuffer> {
     }
 
     public void initSoundSystem() {
-        long device = ALC10.alcOpenDevice((ByteBuffer) null);
+        this.device = ALC10.alcOpenDevice((ByteBuffer) null);
         if (device == 0) {
             throw new IllegalStateException("Failed to open the default OpenAL device!");
         }
 
-        ALCCapabilities capabilities = ALC.createCapabilities(device);
-        long context = ALC10.alcCreateContext(device, (IntBuffer) null);
+        ALCCapabilities capabilities = ALC.createCapabilities(this.device);
+        long context = ALC10.alcCreateContext(this.device, (IntBuffer) null);
         if (context == 0) {
             throw new IllegalStateException("Failed to create OpenAL context!");
         }
@@ -43,4 +45,10 @@ public class SoundBufferManager extends MapManager<String, SoundBuffer> {
         AL.createCapabilities(capabilities);
     }
 
+    public void cleanup() {
+        for (SoundBuffer buffer : this.content.values()) {
+            buffer.cleanup();
+        }
+        ALC10.alcCloseDevice(this.device);
+    }
 }

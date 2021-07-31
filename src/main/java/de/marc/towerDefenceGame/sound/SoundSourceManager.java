@@ -39,4 +39,10 @@ public class SoundSourceManager extends MapManager<String, SoundSource> {
         }
         return result;
     }
+
+    public void cleanup() {
+        for (SoundSource source : this.content.values()) {
+            source.cleanup();
+        }
+    }
 }

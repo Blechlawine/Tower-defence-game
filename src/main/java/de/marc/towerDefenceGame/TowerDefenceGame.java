@@ -68,6 +68,8 @@ public class TowerDefenceGame {
 
         init();
         loop();
+        this.getSoundSourceManager().cleanup();
+        this.getSoundBufferManager().cleanup();
         glfwDestroyWindow(this.window);
         glfwTerminate();
         glfwSetErrorCallback(null);
