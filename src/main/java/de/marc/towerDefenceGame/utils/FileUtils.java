@@ -17,6 +17,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.nio.ShortBuffer;
@@ -26,6 +28,8 @@ import java.nio.channels.SeekableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+
 import static org.lwjgl.BufferUtils.*;
 import static org.lwjgl.stb.STBVorbis.*;
 
@@ -65,6 +69,16 @@ public class FileUtils {
         }
     }
 
+    public static File getFileFromResource(String resourceName) throws URISyntaxException {
+        ClassLoader classLoader = FileUtils.class.getClassLoader();
+        URL resource = classLoader.getResource(resourceName);
+        if (resource == null) {
+            throw new IllegalArgumentException("File not found: " + resourceName);
+        } else {
+            return new File(resource.toURI());
+        }
+    }
+
     public static Element readXMLFile(String fileName) {
         InputStream stream = getFileFromResourceAsStream(fileName);
 
@@ -98,6 +112,18 @@ public class FileUtils {
 
             return new Texture(id, name, decoder.getWidth(), decoder.getHeight());
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String[] readTxtResource(String resource) {
+        List<String> lineList;
+        try {
+            File file = getFileFromResource(resource);
+            lineList = Files.readAllLines(file.toPath());
+            return lineList.toArray(new String[0]);
+        } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
         return null;

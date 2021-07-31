@@ -14,6 +14,7 @@ public class GuiManager extends ListManager<Gui> {
         this.addGui(new GuiDefeat());
         this.addGui(new GuiInGame());
         this.addGui(new GuiSettingsMain());
+        this.addGui(new GuiCredits());
     }
 
     public void addGui(Gui gui) {

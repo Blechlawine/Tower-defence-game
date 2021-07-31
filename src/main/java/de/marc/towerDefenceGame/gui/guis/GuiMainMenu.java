@@ -11,7 +11,7 @@ import de.marc.towerDefenceGame.utils.Vector2;
 
 public class GuiMainMenu extends Gui {
 
-    private GuiButton playButton, settingsButton;
+    private GuiButton playButton, settingsButton, creditsButton;
     private GuiImage logo;
 
     public GuiMainMenu() {
@@ -56,6 +56,19 @@ public class GuiMainMenu extends Gui {
             }
         };
 
+        this.creditsButton = new GuiButton(
+                new GuiLabel("Credits", new Color(Colors.TEXT)),
+                new Vector2(playBtnPos).add(new Vector2(0, 100)),
+                200, 40,
+                new Color(Colors.BUTTONPRIMARY),
+                new Color(Colors.BUTTONPRIMARYHOVER)
+        ) {
+            @Override
+            public void onClick() {
+                TowerDefenceGame.theGame.getGuiManager().setActiveGui("credits");
+            }
+        };
+
         this.logo = new GuiImage("logo",
                 new Vector2(getInPixels(50, "vw") - 128, getInPixels(50, "vh") - 280),
                 256, 256,
@@ -63,6 +76,7 @@ public class GuiMainMenu extends Gui {
 
         this.components.add(this.playButton);
         this.components.add(this.settingsButton);
+        this.components.add(this.creditsButton);
         this.components.add(this.logo);
     }
 }
