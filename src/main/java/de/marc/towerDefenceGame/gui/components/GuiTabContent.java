@@ -39,6 +39,7 @@ public class GuiTabContent extends GuiComponent {
     @Override
     public void render() {
         if (this.visible) {
+            GLUtils.drawRect(this.pos.getX(), this.pos.getY(), this.width, this.height, new Color(Colors.BACKGROUND));
             for(GuiComponent c : this.content) {
                 c.render();
             }
