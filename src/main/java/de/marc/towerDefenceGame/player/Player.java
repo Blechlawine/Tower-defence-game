@@ -4,6 +4,7 @@ import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.*;
+import de.marc.towerDefenceGame.level.Level;
 import de.marc.towerDefenceGame.player.tools.BasicTowerTool;
 import de.marc.towerDefenceGame.player.tools.SelectTool;
 import de.marc.towerDefenceGame.player.tools.SniperTowerTool;
@@ -116,6 +117,9 @@ public class Player extends Camera implements Listener {
 
     public void update(long partialMS) {
         this.pos.add(Vector2.duplicate(this.motion).normalize().multiply(this.currentSpeed * (partialMS / 10d)));
+        //limit this.pos
+        Level currentLevel = TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel();
+        this.pos.limitXY(-currentLevel.boundary[2], currentLevel.boundary[0], -currentLevel.boundary[3], currentLevel.boundary[1]);
         this.setCameraPos(this.pos);
     }
 

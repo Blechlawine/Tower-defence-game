@@ -84,4 +84,8 @@ public class Chunk implements Renderable, Listener {
     public Level getParentLevel() {
         return this.level;
     }
+
+    public List<Tile> getTiles() {
+        return this.tiles;
+    }
 }

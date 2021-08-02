@@ -22,8 +22,9 @@ public class Level implements Renderable, Listener {
 
     public Tile startPortalTile, endPortalTile;
     public EnemySpawner spawner;
-    private final ArrayList<Enemy> enemies;
+    public double[] boundary = new double[4]; // left, top, right, bottom
 
+    private final ArrayList<Enemy> enemies;
     private Path path;
     private Vector2 middle;
 
@@ -79,6 +80,7 @@ public class Level implements Renderable, Listener {
         }
         level.setPath(Path.buildPath(level));
         level.middle = level.createMiddlePos();
+        level.createBoundary();
         TowerDefenceGame.theGame.getLogger().info("Finished Level: " + fileName);
         return level;
     }
@@ -119,6 +121,28 @@ public class Level implements Renderable, Listener {
             tempMiddle.divide(numChunks);
         }
         return tempMiddle.invert();
+    }
+
+    private void createBoundary() {
+        for (Chunk chunk : this.chunks) {
+            for (Tile tile : chunk.getTiles()) {
+                if (tile.getTileType() != Tile.TileType.NONE) {
+                    Vector2 tilePos = tile.getPosVec();
+                    if (tilePos.getX() < this.boundary[0]) {
+                        this.boundary[0] = tilePos.getX();
+                    }
+                    if (tilePos.getY() < this.boundary[1]) {
+                        this.boundary[1] = tilePos.getY();
+                    }
+                    if (tilePos.getX() + Tile.size > this.boundary[2]) {
+                        this.boundary[2] = tilePos.getX() + Tile.size;
+                    }
+                    if (tilePos.getY() + Tile.size > this.boundary[3]) {
+                        this.boundary[3] = tilePos.getY() + Tile.size;
+                    }
+                }
+            }
+        }
     }
 
     public Vector2 getMiddlePos() {

@@ -2,16 +2,15 @@
 
 - Next Wave Button when all Enemies are dead
 - Ingame kill counter
+- Soundeffects
 - Knockback
-- Transparency for tool visualizations
 - Towerupgrades
+- Bullettrails
 - Tower shot animation
 - Animations (explosions when enemies die, Bomb explosions)
-- Bullettrails
+- Transparency for tool visualizations
 - vfx (glow, etc)
-- Soundeffects
 - Render map-background
-- Keybindingmanager for user-settable keybinds
 - Texturepack/Tilepack support
 - more Enemies
 - more Towers

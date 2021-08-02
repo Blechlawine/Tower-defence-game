@@ -61,6 +61,22 @@ public class Vector2 {
         return this.x * vec.getX() + this.y * vec.getY();
     }
 
+    public Vector2 limitX(double min, double max) {
+        this.x = Utils.limitD(this.x, min, max);
+        return this;
+    }
+
+    public Vector2 limitY(double min, double max) {
+        this.y = Utils.limitD(this.y, min, max);
+        return this;
+    }
+
+    public Vector2 limitXY(double minX, double maxX, double minY, double maxY) {
+        this.limitX(minX, maxX);
+        this.limitY(minY, maxY);
+        return this;
+    }
+
     public double getAngleRad() {
 //      reicht das? Anscheinend, ja
         return Math.atan2(this.y, this.x);
