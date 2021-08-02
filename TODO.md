@@ -1,16 +1,16 @@
 # TODO:
 
-- Next Wave Button when all Enemies are dead
+- Next Wave Button when all Enemies are dead (also gives a little bit of money)
 - Ingame kill counter
-- Soundeffects
+- Ingame money/kills/health panel background
 - Knockback
-- Towerupgrades
-- Bullettrails
 - Tower shot animation
+- UI Soundeffects
+- Enemy textures
+- Ingame infopanel
+  - Towerupgrades
+- Bullettrails
 - Animations (explosions when enemies die, Bomb explosions)
-- Transparency for tool visualizations
-- vfx (glow, etc)
-- Texturepack/Tilepack support
 - more Enemies
 - more Towers
   - Grenade launcher: Eeexplosioons!!
@@ -18,4 +18,7 @@
   - Lock on rocket launchers?
   - etc.
 - Fullscreen toggle
+- vfx (glow, etc)
+- Transparency for tool visualizations
+- Texturepack/Tilepack support
 - simplify healthbars to be easier to spot with a lot of enemies
