@@ -10,7 +10,6 @@
 - Animations (explosions when enemies die, Bomb explosions)
 - Transparency for tool visualizations
 - vfx (glow, etc)
-- Render map-background
 - Texturepack/Tilepack support
 - more Enemies
 - more Towers

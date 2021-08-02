@@ -15,11 +15,8 @@ import de.marc.towerDefenceGame.sound.SoundBufferManager;
 import de.marc.towerDefenceGame.sound.SoundSourceManager;
 import de.marc.towerDefenceGame.texture.TextureManager;
 import de.marc.towerDefenceGame.gameObjects.tower.TowerManager;
-import de.marc.towerDefenceGame.utils.FileUtils;
-import de.marc.towerDefenceGame.utils.Logger;
+import de.marc.towerDefenceGame.utils.*;
 import de.marc.towerDefenceGame.texture.TextureHandler;
-import de.marc.towerDefenceGame.utils.Settings;
-import de.marc.towerDefenceGame.utils.Vector2;
 import org.lwjgl.glfw.GLFWImage;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.stb.STBImage;
@@ -145,7 +142,9 @@ public class TowerDefenceGame {
     }
 
     private void loop() {
-        glClearColor(0, 0, 0, 0);
+        Color clearColor = new Color(Colors.BACKGROUNDDARK);
+        float[] clearColorArray = clearColor.getAsArray();
+        glClearColor(clearColorArray[0], clearColorArray[1], clearColorArray[2], 0);
         while (!glfwWindowShouldClose(window)) {
             glClear(GL_COLOR_BUFFER_BIT);
 
