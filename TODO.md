@@ -6,7 +6,6 @@
 - Knockback
 - Tower shot animation
 - UI Soundeffects
-- Enemy textures
 - Ingame infopanel
   - Towerupgrades
 - Bullettrails
