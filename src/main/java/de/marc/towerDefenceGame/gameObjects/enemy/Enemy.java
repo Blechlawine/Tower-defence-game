@@ -21,8 +21,9 @@ public abstract class Enemy implements Listener, Renderable {
     protected int reward, score;
     protected Path path;
     private PathNode positionNode;
+    protected String textureHandle;
 
-    public Enemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path, double level, double size, double maxHealth) {
+    public Enemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path, double level, double size, double maxHealth, String textureHandle) {
         TowerDefenceGame.theGame.getRenderer().getLayerByName("enemies").addElement(this);
         TowerDefenceGame.theGame.getEventManager().addListener(this);
         this.positionNode = positionNode;
@@ -32,6 +33,7 @@ public abstract class Enemy implements Listener, Renderable {
         this.maxHealth = maxHealth * (1 + this.level / 10);
         this.health = this.maxHealth;
         this.level = level;
+        this.textureHandle = textureHandle;
 
         this.middle = new Vector2(this.positionNode.getMiddleX() + this.pathOffset.getX(), this.positionNode.getMiddleY() + this.pathOffset.getY());
         this.motion = new Vector2(0, 0);
@@ -54,7 +56,16 @@ public abstract class Enemy implements Listener, Renderable {
         this.motion = new Vector2(x, y);
     }
 
+    protected void renderTexture() {
+        GL11.glPushMatrix();
+        GL11.glTranslated(this.middle.getX(), this.middle.getY(), 0);
+        GLUtils.rotateAroundLocation(this.motion.getAngleDeg(), new Vector2(0, 0));
+        GLUtils.drawCenteredTexturedRect(0, 0, this.size*2, this.size*2, 0, 0, 1, 1, this.textureHandle, new Color(1, 1, 1));
+        GL11.glPopMatrix();
+    }
+
     public void render() {
+        this.renderTexture();
         // Render Healthbar
         double barWidth = 5;
         double barHeight = 1;

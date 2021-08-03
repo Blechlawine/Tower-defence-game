@@ -39,6 +39,10 @@ public class TextureManager extends MapManager<String, Texture> {
         this.loadTexture("assets/textures/basic_tower/turret.png", "basicTowerTurret");
         this.loadTexture("assets/textures/sniper_tower/base.png", "sniperTowerBase");
         this.loadTexture("assets/textures/sniper_tower/turret.png", "sniperTowerTurret");
+        // Enemies
+        this.loadTexture("assets/textures/enemies/basicenemy.png", "basicenemy");
+        this.loadTexture("assets/textures/enemies/fastenemy.png", "fastenemy");
+        this.loadTexture("assets/textures/enemies/toughenemy.png", "toughenemy");
         // Level previews
         this.loadTexture("assets/levels/testbig.png", "testBigPreview");
         this.loadTexture("assets/levels/test2.png", "test2Preview");

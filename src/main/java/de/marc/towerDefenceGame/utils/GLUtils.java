@@ -108,6 +108,10 @@ public class GLUtils {
         glPopMatrix();
     }
 
+    public static void drawCenteredTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight, String textureName, Color colorOverride) {
+        drawTexturedRect(left - width/2, top - height/2, width, height, u, v, uvWidth, uvHeight, textureName, colorOverride);
+    }
+
     public static void drawTexturedRect(double left, double top, double width, double height, double u, double v, double uvWidth, double uvHeight, String textureName, Color colorOverride) {
 //        int[] textureSize = TowerDefenceGame.theGame.getTextureHandler().getTileTextureSize();
         glPushMatrix();
