@@ -5,15 +5,15 @@ import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.gui.Gui;
-import de.marc.towerDefenceGame.gui.components.GuiButton;
-import de.marc.towerDefenceGame.gui.components.GuiImage;
-import de.marc.towerDefenceGame.gui.components.GuiLabel;
-import de.marc.towerDefenceGame.gui.components.GuiToolbar;
+import de.marc.towerDefenceGame.gui.components.*;
+import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.player.Player;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.Colors;
 import de.marc.towerDefenceGame.utils.KeyAction;
 import de.marc.towerDefenceGame.utils.Vector2;
+
+import java.util.HashMap;
 
 import static de.marc.towerDefenceGame.utils.Settings.KeyBindings.GUI_BACK;
 
@@ -22,8 +22,11 @@ public class GuiInGame extends Gui {
     private GuiLabel walletLabel, healthLabel;
     private GuiImage walletIcon, healthIcon;
     private GuiToolbar towerToolbar;
-    private boolean paused = false;
+    private boolean paused = false, showDetailsPanel = false;
     private GuiButton resumeBtn, exitBtn, settingsBtn;
+
+    private final double detailsPanelWidth = 200, detailsPanelHeight = 400;
+    private GuiPanel detailsPanel;
 
     private String walletLabelText = "- $", healthLabelText = "";
 
@@ -46,6 +49,9 @@ public class GuiInGame extends Gui {
         this.components.add(this.towerToolbar);
         if (TowerDefenceGame.theGame.getSettings().isGamePaused) {
             this.makeEscMenu();
+        }
+        if (this.showDetailsPanel) {
+            this.makeDetailsPanel();
         }
     }
 
@@ -74,6 +80,41 @@ public class GuiInGame extends Gui {
         };
         this.components.add(this.resumeBtn);
         this.components.add(this.exitBtn);
+    }
+
+    public void makeDetailsPanel() {
+        this.showDetailsPanel = true;
+        HashMap<String, String> details = Tile.selectedTile.getDetails();
+        // The details panel is positioned on the right side vertically centered
+        Vector2 panelPos = new Vector2(
+                getInPixels(100, "vw") - this.detailsPanelWidth,
+                getInPixels(50, "vh") - this.detailsPanelHeight/2);
+        GuiLabel titleLabel = new GuiLabel(details.get("name"), new Color(Colors.TEXT), 2.5);
+        GuiText descriptionText = new GuiText(
+                details.get("description"),
+                new Vector2(0, 0),
+                this.detailsPanelWidth,
+                2, 1.3,
+                GuiText.TextAlignment.LEFT);
+        GuiComponent[] panelComponents = new GuiComponent[] {
+                titleLabel,
+                descriptionText
+        };
+        GuiFlexLayout detailsPanelLayout = new GuiFlexLayout(
+                new Vector2(0, 0),
+                this.detailsPanelWidth,
+                this.detailsPanelHeight,
+                "column",
+                "flex-start",
+                "start",
+                20, panelComponents);
+        this.detailsPanel = new GuiPanel(panelPos, this.detailsPanelWidth, this.detailsPanelHeight, true, new GuiComponent[] {detailsPanelLayout});
+        this.components.add(this.detailsPanel);
+    }
+
+    public void removeDetailsPanel() {
+        this.showDetailsPanel = false;
+        this.components.remove(this.detailsPanel);
     }
 
     private void removeEscMenu() {

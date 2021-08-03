@@ -52,6 +52,10 @@ public class FontRenderer {
         return (stringlength * this.charWidth + (stringlength - 1) * this.charGap) * sizeMultiplier;
     }
 
+    public int getCharAmountForWidth(double width, double sizeMultiplier) {
+        return (int)Math.floor(width / ((this.charWidth + this.charGap) * sizeMultiplier));
+    }
+
     public double getCharHeight(double sizeMultiplier) {
         return this.charHeight * sizeMultiplier;
     }

@@ -7,6 +7,7 @@ import de.marc.towerDefenceGame.gameObjects.tower.Tower;
 import de.marc.towerDefenceGame.utils.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Tile implements Renderable, Listener {
@@ -120,6 +121,34 @@ public class Tile implements Renderable, Listener {
 
     public Tower getTower() {
         return this.myTower;
+    }
+
+    public HashMap<String, String> getDetails() {
+        HashMap<String, String> result = new HashMap<>();
+        switch(this.getTileType()) {
+            case START:
+                result.put("name", "Start-portal");
+                result.put("description", "This is the start portal. Enemies spawn here.");
+                break;
+            case END:
+                result.put("name", "End-portal");
+                result.put("description", "This is the end portal. Enemies want to go here. You have to protect this portal.");
+                break;
+            case PLATFORM:
+                result.put("name", "Platform");
+                result.put("description", "This is a platform. You can build Towers here to protect the end portal.");
+                break;
+            default:
+                // all the path tiles
+                result.put("name", "Path");
+                result.put("description", "This is the path the enemies travel on, to get to the end portal.");
+                break;
+        }
+        if (this.myTower != null) {
+            //TODO: Tower details
+
+        }
+        return result;
     }
 
     public enum TileType {

@@ -1,8 +1,10 @@
 package de.marc.towerDefenceGame.gui.components;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.utils.Keybinding;
 import de.marc.towerDefenceGame.utils.Vector2;
+import org.lwjgl.opengl.GL11;
 
 public class GuiFlexLayout extends GuiComponent {
 
@@ -53,18 +55,17 @@ public class GuiFlexLayout extends GuiComponent {
         if (flexDirection.equals("row")) {
             for (int i = 0; i < numContent; i++) {
                 GuiComponent c = this.content[i];
-                Vector2 temp = new Vector2(this.pos.getX() + c.pos.getX() + prevElementPos + prevElementSize + this.gap * i, this.pos.getY() + c.pos.getY());
+                Vector2 temp = new Vector2(c.pos.getX() + prevElementPos + prevElementSize + this.gap * i, c.pos.getY());
                 c.setPos(temp);
-                prevElementPos += temp.getX();
+                prevElementPos = temp.getX();
                 prevElementSize = c.getWidth();
             }
         } else if (flexDirection.equals("column")) {
-            prevElementPos = this.pos.getY();
             for (int i = 0; i < numContent; i++) {
                 GuiComponent c = this.content[i];
-                Vector2 temp = new Vector2(this.pos.getX() + c.pos.getX(), this.pos.getY() + c.pos.getY() + prevElementPos + prevElementSize + this.gap * i);
+                Vector2 temp = new Vector2(c.pos.getX(), c.pos.getY() + prevElementPos + prevElementSize + this.gap * i);
                 c.setPos(temp);
-                prevElementPos += temp.getY();
+                prevElementPos = temp.getY();
                 prevElementSize = c.getHeight();
             }
         }
@@ -85,8 +86,11 @@ public class GuiFlexLayout extends GuiComponent {
 
     @Override
     public void render() {
+        GL11.glPushMatrix();
+        GL11.glTranslated(this.pos.getX(), this.pos.getY(), 0);
         for (GuiComponent c : this.content) {
             c.render();
         }
+        GL11.glPopMatrix();
     }
 }
