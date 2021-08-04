@@ -54,6 +54,7 @@ public abstract class Tower implements Listener, Renderable {
         this.possibleTargets = new TreeSet<Enemy>(new EnemyComparator(this.compareMode));
 
         this.lookVec = new Vector2(1, 0);
+        this.angle = this.lookVec.getAngleDeg();
     }
 
     public String getName() {
@@ -130,23 +131,18 @@ public abstract class Tower implements Listener, Renderable {
     }
 
     protected boolean lookAt(Vector2 vecToLookAt, long partialMS) {
-        Vector2 targetDirection = Vector2.duplicate(vecToLookAt).subtract(this.middle).normalize();
-        Vector2 toTarget = Vector2.duplicate(targetDirection).subtract(this.lookVec);
-        Vector2 turnVec = Vector2.duplicate(toTarget).normalize().multiply(this.turnSpeed * partialMS / 10d);
-//        TowerDefenceGame.theGame.getLogger().debug(targetDirection);
-        double toTargetDist = toTarget.getLength();
-        double turnDist = turnVec.getLength();
-        if(toTargetDist <= turnDist) {
-            this.lookVec = targetDirection;
+        Vector2 targetDirection = new Vector2(vecToLookAt).subtract(this.middle).normalize();
+        double targetAngle = targetDirection.getAngleDeg();
+        double angleDiff = targetAngle - this.angle;
+        double turnAngle = angleDiff / Math.abs(angleDiff) * this.turnSpeed;
+        if (Math.abs(angleDiff) <= Math.abs(this.turnSpeed)) {
+            this.lookVec.setAngleDeg(targetAngle);
         } else {
-            this.lookVec.add(turnVec);
+            this.lookVec.setAngleDeg(this.angle + turnAngle);
         }
-        this.angle = this.lookVec.getAngleRad();
-        double tempAngleGoal = targetDirection.getAngleDeg();
-        double tempAngle = this.lookVec.getAngleDeg();
+        this.angle = this.lookVec.getAngleDeg();
         double angleThreshold = 2;
-//        TowerDefenceGame.theGame.getLogger().debug();
-        return tempAngle >= tempAngleGoal - angleThreshold && tempAngle <= tempAngleGoal + angleThreshold;
+        return this.angle >= targetAngle - angleThreshold && this.angle <= targetAngle + angleThreshold;
     }
 
     protected void attackTarget() {

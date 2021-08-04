@@ -24,7 +24,7 @@ public class SniperTower extends Tower {
                 middleX, middleY,
                 200D,
                 0.3d,
-                Math.toRadians(1),
+                0.5,
                 new RandomRange(50, 75),
                 TargetMode.FIRST);
         this.cost = 20;
@@ -42,7 +42,7 @@ public class SniperTower extends Tower {
             }
         }
         GL11.glPushMatrix();
-        GLUtils.rotateAroundLocation(Math.toDegrees(this.angle), this.middle);
+        GLUtils.rotateAroundLocation(this.angle, this.middle);
         this.drawTurretTexture();
         GL11.glPopMatrix();
         if (Tile.selectedTile == this.positionTile) {

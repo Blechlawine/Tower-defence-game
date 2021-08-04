@@ -78,12 +78,21 @@ public class Vector2 {
     }
 
     public double getAngleRad() {
-//      reicht das? Anscheinend, ja
         return Math.atan2(this.y, this.x);
     }
 
     public double getAngleDeg() {
         return Math.toDegrees(this.getAngleRad());
+    }
+
+    public void setAngleDeg(double deg) {
+        this.setAngleRad(Math.toRadians(deg));
+    }
+
+    public void setAngleRad(double rad) {
+        double len = this.getLength();
+        this.y = Math.sin(rad) * len;
+        this.x = Math.cos(rad) * len;
     }
 
     public double getLength() {

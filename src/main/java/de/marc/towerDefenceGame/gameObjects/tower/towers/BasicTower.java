@@ -23,7 +23,7 @@ public class BasicTower extends Tower {
                 x, y,
                 40D,
                 2D,
-                Math.toRadians(1),
+                1D,
                 new RandomRange(2, 5),
                 TargetMode.FIRST);
         this.cost = 10;
@@ -39,7 +39,7 @@ public class BasicTower extends Tower {
             GLUtils.drawLine(this.middle.getX(), this.middle.getY(), predictedPos.getX(), predictedPos.getY(), 2, new Color(0.5f, 0.5f, 0.5f));
         }
         GL11.glPushMatrix();
-        GLUtils.rotateAroundLocation(Math.toDegrees(this.angle), this.middle);
+        GLUtils.rotateAroundLocation(this.angle, this.middle);
         this.drawTurretTexture();
         GL11.glPopMatrix();
         if (Tile.selectedTile == this.positionTile) {
