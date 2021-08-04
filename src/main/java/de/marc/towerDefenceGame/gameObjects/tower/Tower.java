@@ -64,10 +64,10 @@ public abstract class Tower implements Listener, Renderable {
     public void setTargetMode(TargetMode targetMode) {
         this.targetMode = targetMode;
         switch (this.targetMode) {
-            case LOWEST_HEALTH:
+            case WEAKEST:
                 this.compareMode = EnemyComparator.CompareMode.HEALTH_ASCENDING;
                 break;
-            case HIGHEST_HEALTH:
+            case STRONGEST:
                 this.compareMode = EnemyComparator.CompareMode.HEALTH_DESCENDING;
                 break;
             default:
@@ -167,7 +167,7 @@ public abstract class Tower implements Listener, Renderable {
     }
 
     public enum TargetMode {
-        FIRST, RANDOM, LOWEST_HEALTH, HIGHEST_HEALTH
+        FIRST, RANDOM, WEAKEST, STRONGEST
     }
 
 }
