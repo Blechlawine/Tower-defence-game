@@ -57,8 +57,7 @@ public class Tile implements Renderable, Listener {
         return TileType.getTileTypeForId(this.textureIndex);
     }
 
-    public void onEvent(Event event) {
-    }
+    public void onEvent(Event event) {}
 
     public void construct(Tower tower) {
         if (!this.occupied) {

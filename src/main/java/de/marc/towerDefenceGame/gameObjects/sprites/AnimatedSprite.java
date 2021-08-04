@@ -28,12 +28,12 @@ public class AnimatedSprite implements Renderable, Listener {
         this.loop = loop;
         this.renderLayerName = renderLayerName;
         this.frameTimer = new Timer();
-        TowerDefenceGame.theGame.getEventManager().addListener(this);
+        TowerDefenceGame.theGame.getEventManager().addGameListener(this);
         TowerDefenceGame.theGame.getRenderer().getLayerByName(this.renderLayerName).addElement(this);
     }
 
     public void destroy() {
-        TowerDefenceGame.theGame.getEventManager().removeListener(this);
+        TowerDefenceGame.theGame.getEventManager().removeGameListener(this);
         TowerDefenceGame.theGame.getRenderer().getLayerByName(this.renderLayerName).removeElement(this);
     }
 

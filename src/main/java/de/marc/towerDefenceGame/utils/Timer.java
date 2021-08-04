@@ -10,7 +10,7 @@ public class Timer implements Listener {
     private long lastMS, ms;
 
     public Timer() {
-        TowerDefenceGame.theGame.getEventManager().addListener(this);
+        TowerDefenceGame.theGame.getEventManager().addGeneralListener(this);
     }
 
     @Override
@@ -30,6 +30,6 @@ public class Timer implements Listener {
     }
 
     public void destroy() {
-        TowerDefenceGame.theGame.getEventManager().removeListener(this);
+        TowerDefenceGame.theGame.getEventManager().removeGeneralListener(this);
     }
 }

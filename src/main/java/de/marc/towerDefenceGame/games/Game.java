@@ -43,7 +43,7 @@ public class Game implements Listener {
         TowerDefenceGame.theGame.getSettings().isGamePaused = true;
 //        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").removeElement(this.level);
 //        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").removeElement(this.level.getPath());
-        TowerDefenceGame.theGame.getEventManager().removeListener(this);
+        TowerDefenceGame.theGame.getEventManager().removeGameListener(this);
     }
 
     public Level getLevel() {
@@ -65,6 +65,6 @@ public class Game implements Listener {
         TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level.getPath());
         TowerDefenceGame.theGame.getPlayer().setPos(this.level.getMiddlePos());
         TowerDefenceGame.theGame.getGuiManager().setActiveGui("ingame");
-        TowerDefenceGame.theGame.getEventManager().addListener(this);
+        TowerDefenceGame.theGame.getEventManager().addGameListener(this);
     }
 }

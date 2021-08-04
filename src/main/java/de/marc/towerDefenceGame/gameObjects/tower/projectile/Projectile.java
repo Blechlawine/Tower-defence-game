@@ -25,7 +25,7 @@ public abstract class Projectile implements Renderable, Listener {
         this.damage = damage;
         this.ttl = ttl;
         this.ttlTimer = new TimerLegacy(UpdateEvent.lastMS);
-        TowerDefenceGame.theGame.getEventManager().addListener(this);
+        TowerDefenceGame.theGame.getEventManager().addGameListener(this);
         TowerDefenceGame.theGame.getRenderer().getLayerByName("projectiles").addElement(this);
     }
 
@@ -58,7 +58,7 @@ public abstract class Projectile implements Renderable, Listener {
     }
 
     public void onDestroyed() {
-        TowerDefenceGame.theGame.getEventManager().removeListener(this);
+        TowerDefenceGame.theGame.getEventManager().removeGameListener(this);
         TowerDefenceGame.theGame.getRenderer().getLayerByName("projectiles").removeElement(this);
     }
 
