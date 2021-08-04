@@ -28,9 +28,10 @@ public class GuiText extends GuiComponent {
             tempLines.addAll(this.splitLineToWidth(line));
         }
         this.lines = tempLines.toArray(new String[0]);
+//        TowerDefenceGame.theGame.getLogger().debug(this.lines.length, this.size, this.lineHeight);
         this.alignment = alignment;
         this.color = new Color(Colors.TEXT);
-        this.height = this.lines.length * this.size * this.lineHeight;
+        this.height = this.lines.length * this.lineHeight * TowerDefenceGame.theGame.getFontRenderer().getCharHeight(this.size);
     }
 
     private ArrayList<String> splitLineToWidth(String line) {
