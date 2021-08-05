@@ -16,9 +16,14 @@ public class SoundBufferManager extends MapManager<String, SoundBuffer> {
 
     @Override
     public void setup() {
-        this.loadSound("assets/sound/ost.ogg", "ost");
+        // Music
+        this.loadSound("assets/sound/ingame1.ogg", "ingame1music");
+        this.loadSound("assets/sound/menu1.ogg", "menu1music");
+        // Soundeffects
+        this.loadSound("assets/sound/ui/click.ogg", "click");
         this.loadSound("assets/sound/ingame/coin.ogg", "coin");
         this.loadSound("assets/sound/ingame/basictowershot.ogg", "basictowershot");
+        this.loadSound("assets/sound/ingame/snipertowershot.ogg", "snipertowershot");
     }
 
     public void loadSound(String path, String name) {

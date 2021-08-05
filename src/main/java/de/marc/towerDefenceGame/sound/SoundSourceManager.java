@@ -10,7 +10,8 @@ import java.util.Map;
 public class SoundSourceManager extends MapManager<String, SoundSource> {
     @Override
     public void setup() {
-        this.addSoundSource("music", "ost", true, SoundSource.SoundSourceCategory.MUSIC);
+        this.addSoundSource("menu1music", "menu1music", false, SoundSource.SoundSourceCategory.MUSIC);
+        this.addSoundSource("ingame1music", "ingame1music", false, SoundSource.SoundSourceCategory.MUSIC);
         this.addSoundSource("coin", "coin",false, SoundSource.SoundSourceCategory.SFX);
     }
 

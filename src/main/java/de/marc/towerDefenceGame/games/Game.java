@@ -17,6 +17,7 @@ public class Game implements Listener {
     public Game(String levelFileName) {
         this.level = new Level().generateFromJsonFile(levelFileName);
         TowerDefenceGame.theGame.getPlayer().setActiveTool(0);
+        TowerDefenceGame.theGame.getMusicManager().startIngameMusic();
         this.resume();
     }
 

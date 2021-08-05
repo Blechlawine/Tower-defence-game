@@ -5,6 +5,7 @@ import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.gameObjects.tower.Tower;
+import de.marc.towerDefenceGame.sound.SoundSource;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.RandomRange;
@@ -28,6 +29,7 @@ public class SniperTower extends Tower {
                 new RandomRange(50, 75),
                 TargetMode.FIRST);
         this.cost = 20;
+        this.soundSource = TowerDefenceGame.theGame.getSoundSourceManager().createSoundSource("snipertowershot",false, SoundSource.SoundSourceCategory.SFX);
     }
 
     @Override
@@ -61,6 +63,7 @@ public class SniperTower extends Tower {
                 boolean isLookingAtFinalPos = this.lookAt(targetPos, e.partialMS);
                 if (this.attackTimer.hasReached((long) (1000 / this.fireRate)) && isLookingAtFinalPos) {
                     this.shotOpacity = 1F;
+                    this.soundSource.play();
                     this.target.damage(this.damage.getValue());
                     this.lastTargetPosition = Vector2.duplicate(this.target.getMiddle());
                     this.lastAttackVec = new Vector2(this.lookVec);

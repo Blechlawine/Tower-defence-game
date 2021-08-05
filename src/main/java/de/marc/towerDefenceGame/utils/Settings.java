@@ -69,7 +69,10 @@ public class Settings {
 
     public void setMusicVolume(float volume) {
         this.musicVolume = volume;
-        TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourceFromName("music").setGain(this.musicVolume);
+        HashMap<String, SoundSource> sources = TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourcesFromCategory(SoundSource.SoundSourceCategory.MUSIC);
+        for(SoundSource source : sources.values()) {
+            source.setGain(this.musicVolume);
+        }
     }
 
     public void setSfxVolume(float volume) {

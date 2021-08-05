@@ -1,9 +1,11 @@
 package de.marc.towerDefenceGame.gui.components;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.gui.GuiComponent;
 import de.marc.towerDefenceGame.gui.GuiInteractableComponent;
+import de.marc.towerDefenceGame.sound.SoundSource;
 import de.marc.towerDefenceGame.utils.*;
 import org.lwjgl.opengl.GL11;
 
@@ -15,6 +17,7 @@ public abstract class GuiComponentButton extends GuiInteractableComponent {
 
     private GuiComponent content;
     protected Color color, initialColor, hoverColor;
+    private SoundSource soundSource;
 
     private Keybinding pressBinding;
 
@@ -32,6 +35,7 @@ public abstract class GuiComponentButton extends GuiInteractableComponent {
         this.initialColor = color;
         this.color = new Color(primary ? Colors.BUTTONPRIMARY : Colors.BUTTONPRIMARY);
         this.hoverColor = new Color(primary ? Colors.BUTTONPRIMARYHOVER : Colors.BUTTONPRIMARYHOVER);
+        this.soundSource = TowerDefenceGame.theGame.getSoundSourceManager().createSoundSource("click",false, SoundSource.SoundSourceCategory.SFX);
         this.pressBinding = new Keybinding(GUI_INTERACT, new KeyAction[] {DOWN, UP}) {
             @Override
             public void onKeyAction(KeyAction action, KeyEvent event) {
@@ -44,6 +48,7 @@ public abstract class GuiComponentButton extends GuiInteractableComponent {
                     if (action == UP) {
                         state = 1;
                         onClick();
+                        soundSource.play();
                         event.cancel();
                     }
                 }
