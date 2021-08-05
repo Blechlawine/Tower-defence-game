@@ -21,8 +21,8 @@ import static de.marc.towerDefenceGame.utils.Settings.KeyBindings.GUI_BACK;
 
 public class GuiScreenInGame extends GuiScreen {
 
-    private GuiComponentText walletLabel, healthLabel;
-    private GuiComponentImage walletIcon, healthIcon;
+    private GuiComponentText walletLabel, healthLabel, killCountLabel;
+    private GuiComponentImage walletIcon, healthIcon, killCountIcon;
     private GuiComponentToolbar towerToolbar;
     private boolean showDetailsPanel = false, showEscMenu = false;
 
@@ -34,7 +34,7 @@ public class GuiScreenInGame extends GuiScreen {
     private GuiComponentText titleLabel, descriptionText;
     private GuiComponentDropDown targetModeDropDown;
 
-    private String walletLabelText = "- $", healthLabelText = "";
+    private String walletLabelText = "- $", healthLabelText = "", killCountLabelText = "";
     private GuiComponentFlexLayout detailsPanelLayout;
     private ArrayList<GuiComponent> detailsPanelComponents;
 
@@ -57,7 +57,8 @@ public class GuiScreenInGame extends GuiScreen {
 
         this.healthLabel = new GuiComponentText("", new Vector2(28, 30), this.root);
         this.healthLabel.setAlignment(GuiComponentText.TextAlignment.LEFT);
-
+        this.killCountLabel = new GuiComponentText("", new Vector2(28, 50), this.root);
+        this.killCountLabel.setAlignment(GuiComponentText.TextAlignment.LEFT);
         this.healthIcon = new GuiComponentImage(
                 new Vector2(10, 30),
                 this.root,
@@ -65,7 +66,17 @@ public class GuiScreenInGame extends GuiScreen {
                 16,
                 "hearticon",
                 null,
-                true);
+                true
+        );
+        this.killCountIcon = new GuiComponentImage(
+                new Vector2(10, 50),
+                this.root,
+                16,
+                16,
+                "killcounticon",
+                null,
+                true
+        );
 
         this.towerToolbar = new GuiComponentToolbar(
                 new Vector2(getInPixels(50, "vw") - 75, getInPixels(100, "vh") - 50),
@@ -218,6 +229,8 @@ public class GuiScreenInGame extends GuiScreen {
         content.add(this.walletIcon);
         content.add(this.healthLabel);
         content.add(this.healthIcon);
+        content.add(this.killCountIcon);
+        content.add(this.killCountLabel);
         content.add(this.towerToolbar);
         content.add(this.detailsPanel);
         content.add(this.escMenu);
@@ -280,10 +293,13 @@ public class GuiScreenInGame extends GuiScreen {
             Player thePlayer = TowerDefenceGame.theGame.getPlayer();
             this.walletLabelText = thePlayer.getWallet() + " $";
             this.healthLabelText = thePlayer.getHealth() + "/" + thePlayer.getMaxHealth();
+            this.killCountLabelText = String.valueOf(thePlayer.getNumKills());
             this.walletLabel.setWidth(this.game.getFontRenderer().getRenderedStringWidth(this.walletLabelText, 2));
             this.healthLabel.setWidth(this.game.getFontRenderer().getRenderedStringWidth(this.healthLabelText, 2));
+            this.killCountLabel.setWidth(this.game.getFontRenderer().getRenderedStringWidth(this.killCountLabelText, 2));
             this.walletLabel.setText(this.walletLabelText);
             this.healthLabel.setText(this.healthLabelText);
+            this.killCountLabel.setText(this.killCountLabelText);
             if (!this.showDetailsPanel && Tile.selectedTile != null) {
                 this.updateDetailsPanel();
                 this.showDetailsPanel();

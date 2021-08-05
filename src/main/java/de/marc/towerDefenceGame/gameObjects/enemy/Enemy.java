@@ -122,6 +122,7 @@ public abstract class Enemy implements Listener, Renderable {
 
     public void onDeath() {
         TowerDefenceGame.theGame.getPlayer().addMoney(this.reward);
+        TowerDefenceGame.theGame.getPlayer().addKill();
         this.remove();
     }
 

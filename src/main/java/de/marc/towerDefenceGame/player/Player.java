@@ -37,6 +37,7 @@ public class Player extends Camera implements Listener {
     // Starting values for the player should depend on the level
     private int wallet = 50;
     private int health = 100;
+    private int kills = 0;
     private final int maxHealth = health;
 
     //Movement Vectors
@@ -126,6 +127,14 @@ public class Player extends Camera implements Listener {
     public void addMoney(int amount) {
         TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourceFromName("coin").play();
         this.wallet += amount;
+    }
+
+    public void addKill() {
+        this.kills++;
+    }
+
+    public int getNumKills() {
+        return this.kills;
     }
 
     public int getWallet() {

@@ -61,6 +61,7 @@ public class TextureManager extends MapManager<String, Texture> {
         // ICONS
         this.loadTexture("assets/textures/icons/moneyicon.png", "moneyicon");
         this.loadTexture("assets/textures/icons/hearticon.png", "hearticon");
+        this.loadTexture("assets/textures/icons/killcounticon.png", "killcounticon");
     }
 
     public void loadTexture(String path, String name) {
