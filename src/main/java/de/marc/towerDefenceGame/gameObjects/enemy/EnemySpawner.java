@@ -142,4 +142,9 @@ public class EnemySpawner implements Listener {
         this.possibleNewEnemyTypes.push("tough");
         this.possibleNewEnemyTypes.push("fast");
     }
+
+    public String getFirstWaveCountdown() {
+        long counter = this.firstWaveTimer.getCountdown(this.firstWaveDelay);
+        return String.valueOf(counter > 0 ? counter / 1000 + 1 : "");
+    }
 }

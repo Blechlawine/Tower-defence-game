@@ -15,13 +15,12 @@ import de.marc.towerDefenceGame.utils.Vector2;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 
 import static de.marc.towerDefenceGame.utils.Settings.KeyBindings.GUI_BACK;
 
 public class GuiScreenInGame extends GuiScreen {
 
-    private GuiComponentText walletLabel, healthLabel, killCountLabel;
+    private GuiComponentText walletLabel, healthLabel, killCountLabel, firstWaveCountdownLabel;
     private GuiComponentImage walletIcon, healthIcon, killCountIcon;
     private GuiComponentToolbar towerToolbar;
     private boolean showDetailsPanel = false, showEscMenu = false;
@@ -77,6 +76,16 @@ public class GuiScreenInGame extends GuiScreen {
                 null,
                 true
         );
+
+        this.firstWaveCountdownLabel = new GuiComponentText(
+                new Vector2(getInPixels(50, "vw"), getInPixels(10, "vh")),
+                this.root,
+                TowerDefenceGame.theGame.getFontRenderer().getRenderedStringWidth("14", 4),
+                TowerDefenceGame.theGame.getFontRenderer().getCharHeight(4),
+                "14",
+                4,
+                1.3,
+                GuiComponentText.TextAlignment.CENTER);
 
         this.towerToolbar = new GuiComponentToolbar(
                 new Vector2(getInPixels(50, "vw") - 75, getInPixels(100, "vh") - 50),
@@ -232,6 +241,7 @@ public class GuiScreenInGame extends GuiScreen {
         content.add(this.killCountIcon);
         content.add(this.killCountLabel);
         content.add(this.towerToolbar);
+        content.add(this.firstWaveCountdownLabel);
         content.add(this.detailsPanel);
         content.add(this.escMenu);
         this.root.setContent(content);
@@ -300,6 +310,9 @@ public class GuiScreenInGame extends GuiScreen {
             this.walletLabel.setText(this.walletLabelText);
             this.healthLabel.setText(this.healthLabelText);
             this.killCountLabel.setText(this.killCountLabelText);
+            String firstWaveCountDownText = TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().spawner.getFirstWaveCountdown();
+            this.firstWaveCountdownLabel.setWidth(this.game.getFontRenderer().getRenderedStringWidth(firstWaveCountDownText, 4));
+            this.firstWaveCountdownLabel.setText(firstWaveCountDownText);
             if (!this.showDetailsPanel && Tile.selectedTile != null) {
                 this.updateDetailsPanel();
                 this.showDetailsPanel();

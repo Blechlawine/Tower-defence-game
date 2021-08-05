@@ -27,6 +27,10 @@ public class Timer implements Listener {
         }
     }
 
+    public long getCountdown(long ms) {
+        return this.lastMS + ms - this.ms;
+    }
+
     public boolean hasReached(long ms) {
         return this.ms >= this.lastMS + ms;
     }
