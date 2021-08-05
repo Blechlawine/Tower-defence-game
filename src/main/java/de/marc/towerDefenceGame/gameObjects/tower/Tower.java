@@ -46,7 +46,7 @@ public abstract class Tower implements Listener, Renderable {
         this.pos = new Vector2(middleX - 8, middleY - 8);
 
         this.fireRate = fireRate;
-        this.attackTimer = new Timer();
+        this.attackTimer = new Timer(true);
         this.turnSpeed = turnSpeed;
 
         this.target = null;

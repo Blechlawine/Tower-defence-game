@@ -26,10 +26,11 @@ public class EnemySpawner implements Listener {
     private float spawnWidth;
     private Level level;
 
-    private Timer spawnTimer;
-    private Timer nextWaveTimer;
+    private Timer spawnTimer, nextWaveTimer, firstWaveTimer;
     private long nextWaveDelay = 10000;
+    private long firstWaveDelay = 14000;
     private long spawnDelayMs = 700;
+    private boolean firstWave;
 
     public EnemySpawner(double x, double y, int size, Level level) {
         this.yPos = y;
@@ -37,8 +38,9 @@ public class EnemySpawner implements Listener {
         this.size = size;
         this.spawnWidth = this.size * 0.5f;
         this.level = level;
-        this.spawnTimer = new Timer();
-        this.nextWaveTimer = new Timer();
+        this.spawnTimer = new Timer(true);
+        this.nextWaveTimer = new Timer(true);
+        this.firstWaveTimer = new Timer(false);
         this.enemiesToSpawn = new Stack<>();
         this.possibleEnemyTypes = new ArrayList<>();
         this.possibleEnemyTypes.add("basic");
@@ -51,6 +53,7 @@ public class EnemySpawner implements Listener {
         // Starting multipliers
         this.nextWaveHealthMultiplier = 2;
 
+        this.firstWave = true;
         // Enemies of wave 1
         this.fillEnemySpawnStack();
     }
@@ -86,9 +89,17 @@ public class EnemySpawner implements Listener {
     public void onEvent(Event event) {
         if (event instanceof UpdateEvent) {
             UpdateEvent e = (UpdateEvent) event;
-            if (this.spawnTimer.hasReached(this.spawnDelayMs)) {
-                this.spawnEnemy();
-                this.spawnTimer.reset();
+            if (this.firstWave) {
+                TowerDefenceGame.theGame.getLogger().debug("first wave");
+                this.firstWaveTimer.start();
+                this.firstWaveTimer.reset();
+                this.firstWave = false;
+            }
+            if (this.firstWaveTimer.hasReached(this.firstWaveDelay)) {
+                if (this.spawnTimer.hasReached(this.spawnDelayMs)) {
+                    this.spawnEnemy();
+                    this.spawnTimer.reset();
+                }
             }
         }
     }
@@ -120,6 +131,7 @@ public class EnemySpawner implements Listener {
     private double getEnemyTypeDifficulty(String type) {
         switch (type) {
             case "tough":
+//                TowerDefenceGame.theGame.getMusicManager().intenseIngameMusic();
                 return 4;
             default:
                 return 1;

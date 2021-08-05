@@ -9,7 +9,13 @@ public class Timer implements Listener {
 
     private long lastMS, ms;
 
-    public Timer() {
+    public Timer(boolean autostart) {
+        if (autostart) {
+            this.start();
+        }
+    }
+
+    public void start() {
         TowerDefenceGame.theGame.getEventManager().addGeneralListener(this);
     }
 
@@ -26,7 +32,7 @@ public class Timer implements Listener {
     }
 
     public void reset() {
-        this.lastMS = ms;
+        this.lastMS = this.ms;
     }
 
     public void destroy() {

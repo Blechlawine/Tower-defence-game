@@ -27,7 +27,7 @@ public class AnimatedSprite implements Renderable, Listener {
         this.textureFrameCount = textureFrameCount;
         this.loop = loop;
         this.renderLayerName = renderLayerName;
-        this.frameTimer = new Timer();
+        this.frameTimer = new Timer(true);
         TowerDefenceGame.theGame.getEventManager().addGameListener(this);
         TowerDefenceGame.theGame.getRenderer().getLayerByName(this.renderLayerName).addElement(this);
     }
