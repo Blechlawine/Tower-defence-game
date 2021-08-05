@@ -3,7 +3,7 @@ package de.marc.towerDefenceGame.utils;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.event.events.WindowResizeEvent;
-import de.marc.towerDefenceGame.gui.Gui;
+import de.marc.towerDefenceGame.gui.GuiScreen;
 import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.sound.SoundSource;
 
@@ -62,7 +62,7 @@ public class Settings {
             this.currentGuiScale = this.guiScales.get(key);
             this.guiCamera.setScale(this.currentGuiScale);
             double[] windowSize = TowerDefenceGame.theGame.getWindowSize();
-            Gui.setWindowSize(windowSize[0], windowSize[1]);
+            GuiScreen.setWindowSize(windowSize[0], windowSize[1]);
             TowerDefenceGame.theGame.getEventManager().hook(new WindowResizeEvent(windowSize[0], windowSize[1]));
         }
     }

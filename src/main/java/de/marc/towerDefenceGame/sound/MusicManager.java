@@ -5,6 +5,7 @@ import de.marc.towerDefenceGame.TowerDefenceGame;
 public class MusicManager {
 
     private SoundSource musicSoundSource;
+    private final int bpm = 134;
 
     public MusicManager() {
 
@@ -15,9 +16,9 @@ public class MusicManager {
     }
 
     public void startMusic() {
-        if (!this.musicSoundSource.isPlaying()) {
-            this.musicSoundSource.play();
-        }
+//        if (!this.musicSoundSource.isPlaying()) {
+//            this.musicSoundSource.play();
+//        }
     }
 
 }

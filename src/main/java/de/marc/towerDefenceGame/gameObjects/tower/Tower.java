@@ -24,7 +24,7 @@ public abstract class Tower implements Listener, Renderable {
     protected Tile positionTile;
     protected SoundSource soundSource;
 
-    protected double range, fireRate, turnSpeed, angle;
+    protected double range, fireRate, turnSpeed, angle, angleThreshold = 2;
     protected RandomRange damage;
     protected Timer attackTimer;
 
@@ -125,24 +125,21 @@ public abstract class Tower implements Listener, Renderable {
 //        TowerDefenceGame.theGame.getLogger().debug("new Target");
     }
 
-    protected void lookAtTarget() {
-        this.lookVec = Vector2.duplicate(this.target.getMiddle()).subtract(this.middle).normalize();
-        this.angle = lookVec.getAngleRad();
-    }
-
     protected boolean lookAt(Vector2 vecToLookAt, long partialMS) {
         Vector2 targetDirection = new Vector2(vecToLookAt).subtract(this.middle).normalize();
-        double targetAngle = targetDirection.getAngleDeg();
-        double angleDiff = targetAngle - this.angle;
-        double turnAngle = angleDiff / Math.abs(angleDiff) * this.turnSpeed;
-        if (Math.abs(angleDiff) <= Math.abs(this.turnSpeed)) {
-            this.lookVec.setAngleDeg(targetAngle);
+        double targetAngle = targetDirection.getAngleDeg360();
+        double angleDistance = Math.toDegrees(Math.acos(targetDirection.dot(this.lookVec) / targetDirection.getLength() * this.lookVec.getLength()));
+        double currentAngle = this.lookVec.getAngleDeg360();
+        double direction = -(this.lookVec.getX()*targetDirection.getY() - this.lookVec.getY()*targetDirection.getX());
+        double turnAngle = (direction / Math.abs(direction)) * this.turnSpeed;
+        if (angleDistance <= Math.abs(this.turnSpeed)) {
+            this.lookVec.setAngleDeg(Utils.wrapAngleTo180(targetAngle));
         } else {
-            this.lookVec.setAngleDeg(this.angle + turnAngle);
+            double shouldAngle = Utils.wrapAngleTo180(currentAngle + turnAngle);
+            this.lookVec.setAngleDeg(shouldAngle);
         }
         this.angle = this.lookVec.getAngleDeg();
-        double angleThreshold = 2;
-        return this.angle >= targetAngle - angleThreshold && this.angle <= targetAngle + angleThreshold;
+        return this.angle >= targetDirection.getAngleDeg() - this.angleThreshold && this.angle <= targetDirection.getAngleDeg() + this.angleThreshold;
     }
 
     protected void attackTarget() {
@@ -164,6 +161,10 @@ public abstract class Tower implements Listener, Renderable {
 //        TowerDefenceGame.theGame.getLogger().info("Tower destroyed");
         this.attackTimer.destroy();
         new AnimatedSprite(this.pos, 16, 16, 24, "dustexplosion", 12, false, "towers");
+    }
+
+    public TargetMode getTargetMode() {
+        return this.targetMode;
     }
 
     public enum TargetMode {

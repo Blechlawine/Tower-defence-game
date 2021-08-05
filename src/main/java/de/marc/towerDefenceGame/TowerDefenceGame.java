@@ -4,7 +4,7 @@ import de.marc.towerDefenceGame.event.EventManager;
 import de.marc.towerDefenceGame.event.events.*;
 import de.marc.towerDefenceGame.games.GameManager;
 import de.marc.towerDefenceGame.gui.FontRenderer;
-import de.marc.towerDefenceGame.gui.Gui;
+import de.marc.towerDefenceGame.gui.GuiScreen;
 import de.marc.towerDefenceGame.gui.GuiManager;
 import de.marc.towerDefenceGame.level.LevelFileManager;
 import de.marc.towerDefenceGame.player.Player;
@@ -90,7 +90,7 @@ public class TowerDefenceGame {
         this.soundSourceManager = new SoundSourceManager();
         this.musicManager = new MusicManager();
 
-        Gui.windowSize = new Vector2(this.windowWidth, this.windowHeight);
+        GuiScreen.windowSize = new Vector2(this.windowWidth, this.windowHeight);
 
         this.levelFileManager.setup();
         this.eventManager.setup();
@@ -116,7 +116,7 @@ public class TowerDefenceGame {
             this.windowHeight = height;
             glViewport(0, 0, this.windowWidth, this.windowHeight);
             this.thePlayer.updateCameraOrigin();
-            Gui.setWindowSize(this.windowWidth, this.windowHeight);
+            GuiScreen.setWindowSize(this.windowWidth, this.windowHeight);
             this.eventManager.hook(new WindowResizeEvent(this.windowWidth, this.windowHeight));
             this.initGL();
         });

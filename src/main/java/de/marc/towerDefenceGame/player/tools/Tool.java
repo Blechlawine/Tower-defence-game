@@ -7,19 +7,22 @@ import de.marc.towerDefenceGame.event.events.KeyEvent;
 import de.marc.towerDefenceGame.event.events.MouseMoveEvent;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.utils.*;
+import org.lwjgl.opengl.GL11;
 
 import static de.marc.towerDefenceGame.utils.KeyAction.DOWN;
 
 public abstract class Tool implements Renderable, Listener {
 
-    private String name;
+    private String name, baseTextureName, turretTextureName;
     private boolean active;
 
     protected double mapPosX, mapPosY;
     private Keybinding buildBinding, destroyBinding;
 
-    public Tool(String name) {
+    public Tool(String name, String baseTextureName, String turretTextureName) {
         this.name = name;
+        this.baseTextureName = baseTextureName;
+        this.turretTextureName = turretTextureName;
 //        this.activate();
     }
 
@@ -63,7 +66,13 @@ public abstract class Tool implements Renderable, Listener {
         return this.name;
     }
 
-    public abstract void renderInUI(Vector2 pos);
+    public void renderInUI(Vector2 pos) {
+        GL11.glPushMatrix();
+        GL11.glTranslated(pos.getX(), pos.getY(), 0);
+        GLUtils.drawTexturedRect(0, 0, 50, 50, 0, 0, 1, 1, this.baseTextureName, new Color(0.5f, 0.5f, 0.5f));
+        GLUtils.drawTexturedRect(0, 0, 50, 50, 0, 0, 1, 1, this.turretTextureName, new Color(1, 1, 1));
+        GL11.glPopMatrix();
+    }
     public abstract void build(Tile target);
     public abstract void destroy(Tile target);
 

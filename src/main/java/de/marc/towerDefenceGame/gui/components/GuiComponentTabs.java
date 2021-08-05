@@ -3,7 +3,10 @@ package de.marc.towerDefenceGame.gui.components;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.KeyEvent;
-import de.marc.towerDefenceGame.gui.Gui;
+import de.marc.towerDefenceGame.gui.GuiComponent;
+import de.marc.towerDefenceGame.gui.GuiInteractableComponent;
+import de.marc.towerDefenceGame.gui.GuiLayoutComponent;
+import de.marc.towerDefenceGame.gui.GuiScreen;
 import de.marc.towerDefenceGame.utils.*;
 
 import java.util.ArrayList;
@@ -11,49 +14,44 @@ import java.util.ArrayList;
 import static de.marc.towerDefenceGame.utils.KeyAction.DOWN;
 import static de.marc.towerDefenceGame.utils.Settings.KeyBindings.GUI_INTERACT;
 
-public class GuiTabs extends GuiComponent {
+public class GuiComponentTabs extends GuiInteractableComponent {
 
     private String[] values;
-    private GuiComponent[][] tabContentComponents;
-    private ArrayList<GuiTabContent> tabContents = new ArrayList<>();
+    private GuiLayoutComponent[] tabContentComponents;
+    private ArrayList<GuiComponentTabContent> tabs = new ArrayList<>();
     private String activeTab;
     private double tabHeight;
-    protected Color color, initialColor, hoverColor;
 
     private Keybinding changeTabBinding;
     private int hoveredValueIndex = 0;
 
-    public GuiTabs(Vector2 pos, String[] values, double width, double tabHeight, int defaultIndex, GuiComponent[][] tabContentComponents, double tabContentHeight, Color color, Color hoverColor) {
-        super(pos);
+    public GuiComponentTabs(Vector2 relativePos,
+                            GuiComponent parent,
+                            double width,
+                            double height,
+                            String[] values,
+                            double tabHeight,
+                            int defaultIndex,
+                            ArrayList<GuiComponentTabContent> tabs,
+                            double tabContentHeight
+    ) {
+        super(relativePos, parent, width, tabHeight * values.length);
         this.values = values;
-        this.width = width;
         this.tabHeight = tabHeight;
-        this.tabContentComponents = tabContentComponents;
-        this.initialColor = color;
-        this.hoverColor = hoverColor;
-
-        this.color = this.initialColor;
-        this.height = this.tabHeight * this.values.length;
-        this.activeTab = this.values[defaultIndex];
-        for (int i = 0; i < values.length; i++) {
-            GuiComponent[] components = tabContentComponents[i];
-            GuiTabContent tabContent = new GuiTabContent(
-                    values[i],
-                    new Vector2(pos).add(new Vector2(width, 0)),
-                    Gui.windowSize.getX() - width, tabContentHeight,
-                    components
-            );
-            tabContents.add(tabContent);
+        this.tabs = tabs;
+        for(GuiComponentTabContent tab : this.tabs) {
+            tab.setParent(this);
         }
-        this.tabContents.get(defaultIndex).setVisible(true);
+        this.activeTab = this.values[defaultIndex];
+        this.tabs.get(defaultIndex).setVisible(true);
         this.changeTabBinding = new Keybinding(GUI_INTERACT, new KeyAction[]{DOWN}) {
             @Override
             public void onKeyAction(KeyAction action, KeyEvent event) {
                 if (hovered) {
                     activeTab = values[hoveredValueIndex];
-                    for(int i = 0; i < tabContents.size(); i++) {
-                        GuiTabContent tabContent = tabContents.get(i);
-                        tabContent.setVisible(i == hoveredValueIndex);
+                    for(int i = 0; i < tabs.size(); i++) {
+                        GuiComponentTabContent tab = tabs.get(i);
+                        tab.setVisible(i == hoveredValueIndex);
                     }
                 }
             }
@@ -75,7 +73,7 @@ public class GuiTabs extends GuiComponent {
         double pressedTextOffset = this.tabHeight / 16 * 3;
         for(int i = 0; i < this.values.length; i++) {
             String value = this.values[i];
-            Vector2 valuePos = new Vector2(this.pos).add(new Vector2(0, (this.tabHeight + 4) * i));
+            Vector2 valuePos = new Vector2(this.getAbsolutePos()).add(new Vector2(0, (this.tabHeight + 4) * i));
 
             String textureHandle = (this.activeTab.equals(value) ? "buttonpressed" : "button");
             // left side
@@ -88,7 +86,7 @@ public class GuiTabs extends GuiComponent {
 //            GLUtils.drawRect(valuePos.getX(), valuePos.getY(), this.width, this.tabHeight, (this.hoveredValueIndex == i || this.activeTab.equals(value) ? this.hoverColor : this.initialColor));
             TowerDefenceGame.theGame.getFontRenderer().drawString(value, new Vector2(valuePos).add(new Vector2(padding, padding + (this.activeTab.equals(value) ? pressedTextOffset / 2 : -pressedTextOffset / 2))), 2, new Color(Colors.TEXT));
         }
-        for(GuiTabContent tabContent : this.tabContents) {
+        for(GuiComponentTabContent tabContent : this.tabs) {
             tabContent.render();
         }
     }
@@ -97,7 +95,7 @@ public class GuiTabs extends GuiComponent {
     public void onEvent(Event event) {
         super.onEvent(event);
         this.changeTabBinding.onEvent(event);
-        for (GuiTabContent tabContent : tabContents) {
+        for (GuiComponentTabContent tabContent : this.tabs) {
             tabContent.onEvent(event);
         }
     }

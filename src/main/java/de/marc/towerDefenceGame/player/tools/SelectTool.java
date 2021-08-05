@@ -1,7 +1,7 @@
 package de.marc.towerDefenceGame.player.tools;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.gui.guis.GuiInGame;
+import de.marc.towerDefenceGame.gui.guis.GuiScreenInGame;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
@@ -12,18 +12,18 @@ public class SelectTool extends Tool {
     private double size = 50;
 
     public SelectTool() {
-        super("select");
+        super("select", "", "");
     }
 
     @Override
     public void build(Tile target) {
-        GuiInGame ingameGui = (GuiInGame)TowerDefenceGame.theGame.getGuiManager().getGuiFromName("ingame");
+        GuiScreenInGame ingameGui = (GuiScreenInGame)TowerDefenceGame.theGame.getGuiManager().getGuiFromName("ingame");
         if (target != null && (Tile.selectedTile == null || Tile.selectedTile != target)) {
             target.select();
-            ingameGui.makeDetailsPanel();
+            ingameGui.updateDetailsPanel();
         } else {
             Tile.selectedTile = null;
-            ingameGui.removeDetailsPanel();
+//            ingameGui.hideDetailsPanel();
         }
     }
 

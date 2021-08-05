@@ -85,14 +85,23 @@ public class Vector2 {
         return Math.toDegrees(this.getAngleRad());
     }
 
+    public double getAngleDeg360() {
+        double angle = Math.toDegrees(Math.acos(new Vector2(1, 0).dot(this) / (1 * this.getLength())));
+        if (this.y < 0) {
+            return angle;
+        } else {
+            return 180 + (180 - angle);
+        }
+    }
+
     public void setAngleDeg(double deg) {
-        this.setAngleRad(Math.toRadians(deg));
+        this.setAngleRad(Math.toRadians(deg%360));
     }
 
     public void setAngleRad(double rad) {
         double len = this.getLength();
-        this.y = Math.sin(rad) * len;
-        this.x = Math.cos(rad) * len;
+        this.y = Math.sin(rad%(2*Math.PI)) * len;
+        this.x = Math.cos(rad%(2*Math.PI)) * len;
     }
 
     public double getLength() {

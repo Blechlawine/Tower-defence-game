@@ -3,54 +3,54 @@ package de.marc.towerDefenceGame.gui;
 import de.marc.towerDefenceGame.gui.guis.*;
 import de.marc.towerDefenceGame.utils.ListManager;
 
-public class GuiManager extends ListManager<Gui> {
+public class GuiManager extends ListManager<GuiScreen> {
 
-    private Gui currentGui, previousGui;
+    private GuiScreen currentGuiScreen, previousGuiScreen;
 
     @Override
     public void setup() {
-        this.addGui(new GuiMainMenu());
-        this.addGui(new GuiSelectLevel());
-        this.addGui(new GuiDefeat());
-        this.addGui(new GuiInGame());
-        this.addGui(new GuiSettingsMain());
-        this.addGui(new GuiCredits());
+        this.addGui(new GuiScreenMainMenu());
+        this.addGui(new GuiScreenSelectLevel());
+        this.addGui(new GuiScreenDefeat());
+        this.addGui(new GuiScreenInGame());
+        this.addGui(new GuiScreenSettingsMain());
+        this.addGui(new GuiScreenCredits());
     }
 
-    public void addGui(Gui gui) {
-        if (!this.content.contains(gui)) {
-            this.content.add(gui);
+    public void addGui(GuiScreen guiScreen) {
+        if (!this.content.contains(guiScreen)) {
+            this.content.add(guiScreen);
         }
     }
 
-    public Gui getGuiFromName(String name) {
-        for (Gui gui : this.content) {
-            if (gui.getName().equalsIgnoreCase(name)) {
-                return gui;
+    public GuiScreen getGuiFromName(String name) {
+        for (GuiScreen guiScreen : this.content) {
+            if (guiScreen.getName().equalsIgnoreCase(name)) {
+                return guiScreen;
             }
         }
         return null;
     }
 
-    public void setActiveGui(Gui gui) {
-        this.previousGui = this.currentGui;
-        if (this.currentGui != null) {
-            this.currentGui.destroy();
+    public void setActiveGui(GuiScreen guiScreen) {
+        this.previousGuiScreen = this.currentGuiScreen;
+        if (this.currentGuiScreen != null) {
+            this.currentGuiScreen.destroy();
         }
-        this.currentGui = gui;
-        this.currentGui.enable();
+        this.currentGuiScreen = guiScreen;
+        this.currentGuiScreen.enable();
     }
 
     public void back() {
-        this.setActiveGui(this.previousGui);
+        this.setActiveGui(this.previousGuiScreen);
     }
 
     public void setActiveGui(String guiName) {
         this.setActiveGui(this.getGuiFromName(guiName));
     }
 
-    public Gui getCurrentGui() {
-        return this.currentGui;
+    public GuiScreen getCurrentGui() {
+        return this.currentGuiScreen;
     }
 
 }

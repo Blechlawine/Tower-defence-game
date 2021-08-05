@@ -1,21 +1,15 @@
 package de.marc.towerDefenceGame.player.tools;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
-import de.marc.towerDefenceGame.gui.components.GuiTower;
 import de.marc.towerDefenceGame.level.Tile;
 import de.marc.towerDefenceGame.gameObjects.tower.towers.SniperTower;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
-import de.marc.towerDefenceGame.utils.Vector2;
-import org.lwjgl.opengl.GL11;
 
 public class SniperTowerTool extends Tool {
 
-    private GuiTower guiTower;
-
     public SniperTowerTool() {
-        super("sniperTower");
-        this.guiTower = new GuiTower(new Vector2(0, 0), 50, "sniperTowerTurret", "sniperTowerBase");
+        super("sniperTower", "sniperTowerBase", "sniperTowerTurret");
     }
 
     @Override
@@ -30,14 +24,6 @@ public class SniperTowerTool extends Tool {
     @Override
     public void destroy(Tile target) {
         TowerDefenceGame.theGame.getPlayer().deactivateActiveTool();
-    }
-
-    @Override
-    public void renderInUI(Vector2 pos) {
-        GL11.glPushMatrix();
-        GL11.glTranslated(pos.getX(), pos.getY(), 0);
-        this.guiTower.render();
-        GL11.glPopMatrix();
     }
 
     @Override

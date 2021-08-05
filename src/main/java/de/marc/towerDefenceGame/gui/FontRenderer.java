@@ -49,6 +49,9 @@ public class FontRenderer {
 
     public double getRenderedStringWidth(String text, double sizeMultiplier) {
         int stringlength = text.toCharArray().length;
+        if (stringlength == 0) {
+            return 0;
+        }
         return (stringlength * this.charWidth + (stringlength - 1) * this.charGap) * sizeMultiplier;
     }
 

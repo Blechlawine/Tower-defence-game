@@ -1,22 +1,29 @@
 package de.marc.towerDefenceGame.gui.components;
 
 import de.marc.towerDefenceGame.TowerDefenceGame;
+import de.marc.towerDefenceGame.event.Event;
+import de.marc.towerDefenceGame.gui.GuiComponent;
 import de.marc.towerDefenceGame.texture.Texture;
 import de.marc.towerDefenceGame.utils.Color;
 import de.marc.towerDefenceGame.utils.GLUtils;
 import de.marc.towerDefenceGame.utils.Vector2;
 
-public class GuiImage extends GuiComponent {
+public class GuiComponentImage extends GuiComponent {
 
     private double imageWidth, imageHeight, finalWidth, finalHeight;
     private String imageTexHandle;
     private Color backgroundColor;
     private boolean transparentBackground;
 
-    public GuiImage(String imageTexHandle, Vector2 pos, double width, double height, Color backgroundColor, boolean transparentBackground) {
-        super(pos);
-        this.width = width;
-        this.height = height;
+    public GuiComponentImage(Vector2 relativePos,
+                             GuiComponent parent,
+                             double width,
+                             double height,
+                             String imageTexHandle,
+                             Color backgroundColor,
+                             boolean transparentBackground
+    ) {
+        super(relativePos, parent, width, height);
         this.imageTexHandle = imageTexHandle;
         this.backgroundColor = backgroundColor;
         this.transparentBackground = transparentBackground;
@@ -37,7 +44,19 @@ public class GuiImage extends GuiComponent {
 
     @Override
     public void render() {
-        if (!transparentBackground) GLUtils.drawRect(this.pos.getX(), this.pos.getY(), this.width, this.height, this.backgroundColor);
-        GLUtils.drawTexturedRect(this.pos.getX(), this.pos.getY(), this.finalWidth, this.finalHeight, 0, 0, 1, 1, this.imageTexHandle, new Color(1, 1, 1));
+        if (!transparentBackground) GLUtils.drawRect(this.getAbsolutePos().getX(), this.getAbsolutePos().getY(), this.width, this.height, this.backgroundColor);
+        GLUtils.drawTexturedRect(this.getAbsolutePos().getX(),
+                this.getAbsolutePos().getY(),
+                this.finalWidth,
+                this.finalHeight,
+                0,
+                0,
+                1,
+                1,
+                this.imageTexHandle,
+                new Color(1, 1, 1));
     }
+
+    @Override
+    public void onEvent(Event event) {}
 }

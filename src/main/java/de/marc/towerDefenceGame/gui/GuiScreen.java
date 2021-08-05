@@ -4,29 +4,39 @@ import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.Listener;
 import de.marc.towerDefenceGame.event.events.WindowResizeEvent;
-import de.marc.towerDefenceGame.gui.components.GuiComponent;
 import de.marc.towerDefenceGame.utils.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public abstract class Gui implements Renderable, Listener {
+public abstract class GuiScreen implements Renderable, Listener {
 
     protected final String name;
-    protected List<GuiComponent> components;
+    protected GuiLayoutComponent root;
 
     protected boolean hasBackground = false;
+    protected TowerDefenceGame game;
 
     public static Vector2 windowSize;
 
-    public Gui(String name) {
+    public GuiScreen(String name, boolean hasBackground) {
         this.name = name;
-        this.components = new ArrayList<GuiComponent>();
+        this.hasBackground = hasBackground;
+        this.game = TowerDefenceGame.theGame;
+        this.preInit();
+        this.initGui();
     }
 
     public void initGui() {
-        this.components = new ArrayList<GuiComponent>();
+        this.setRootComponent();
+        this.createComponents();
+        this.registerComponents();
     }
+
+    public void preInit() {}
+
+    public abstract void createComponents();
+    public abstract void setRootComponent();
+    public abstract void registerComponents();
 
     public void enable() {
         TowerDefenceGame.theGame.getEventManager().addUiListener(this);
@@ -46,9 +56,7 @@ public abstract class Gui implements Renderable, Listener {
 
     public void render() {
         if (this.hasBackground) this.drawBackground();
-        for (GuiComponent c : this.components) {
-            c.render();
-        }
+        this.root.render();
     }
 
     @Override
@@ -56,10 +64,7 @@ public abstract class Gui implements Renderable, Listener {
         if (event instanceof WindowResizeEvent) {
             this.initGui();
         }
-        List<GuiComponent> tempComponents = new ArrayList<GuiComponent>(this.components);
-        for (GuiComponent component : tempComponents) {
-            component.onEvent(event);
-        }
+        this.root.onEvent(event);
     }
 
     public String getName() {
