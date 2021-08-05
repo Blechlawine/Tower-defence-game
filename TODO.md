@@ -1,7 +1,6 @@
 # TODO:
 
 - Next Wave Button when previous wave finished spawning (also gives a little bit of money depending on how early you press it)
-- Ingame kill counter
 - Ingame money/kills/health panel background
 - Knockback
 - Tower shot animation
