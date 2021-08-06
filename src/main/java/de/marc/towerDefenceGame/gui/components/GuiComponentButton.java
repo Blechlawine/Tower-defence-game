@@ -41,6 +41,7 @@ public abstract class GuiComponentButton extends GuiInteractableComponent {
         this.color = new Color(primary ? Colors.BUTTONPRIMARY : Colors.BUTTONPRIMARY);
         this.hoverColor = new Color(primary ? Colors.BUTTONPRIMARYHOVER : Colors.BUTTONPRIMARYHOVER);
         this.soundSource = TowerDefenceGame.theGame.getSoundSourceManager().createSoundSource("click",false, SoundSource.SoundSourceCategory.SFX);
+        this.soundSource.setGain(TowerDefenceGame.theGame.getSettings().sfxVolume);
         this.pressBinding = new Keybinding(GUI_INTERACT, new KeyAction[] {DOWN, UP}) {
             @Override
             public void onKeyAction(KeyAction action, KeyEvent event) {

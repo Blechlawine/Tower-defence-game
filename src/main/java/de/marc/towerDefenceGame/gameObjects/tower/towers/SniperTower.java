@@ -30,6 +30,7 @@ public class SniperTower extends Tower {
                 TargetMode.FIRST);
         this.cost = 20;
         this.soundSource = TowerDefenceGame.theGame.getSoundSourceManager().createSoundSource("snipertowershot",false, SoundSource.SoundSourceCategory.SFX);
+        this.soundSource.setGain(TowerDefenceGame.theGame.getSettings().sfxVolume);
     }
 
     @Override

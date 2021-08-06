@@ -7,6 +7,7 @@ import de.marc.towerDefenceGame.gui.GuiScreen;
 import de.marc.towerDefenceGame.render.Camera;
 import de.marc.towerDefenceGame.sound.SoundSource;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Settings {
@@ -69,16 +70,16 @@ public class Settings {
 
     public void setMusicVolume(float volume) {
         this.musicVolume = volume;
-        HashMap<String, SoundSource> sources = TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourcesFromCategory(SoundSource.SoundSourceCategory.MUSIC);
-        for(SoundSource source : sources.values()) {
+        ArrayList<SoundSource> sources = TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourcesFromCategory(SoundSource.SoundSourceCategory.MUSIC);
+        for(SoundSource source : sources) {
             source.setGain(this.musicVolume);
         }
     }
 
     public void setSfxVolume(float volume) {
         this.sfxVolume = volume;
-        HashMap<String, SoundSource> sources = TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourcesFromCategory(SoundSource.SoundSourceCategory.SFX);
-        for (SoundSource source : sources.values()) {
+        ArrayList<SoundSource> sources = TowerDefenceGame.theGame.getSoundSourceManager().getSoundSourcesFromCategory(SoundSource.SoundSourceCategory.SFX);
+        for (SoundSource source : sources) {
             source.setGain(this.sfxVolume);
         }
     }

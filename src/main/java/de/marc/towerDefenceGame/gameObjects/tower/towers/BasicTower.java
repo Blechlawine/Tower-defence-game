@@ -28,6 +28,7 @@ public class BasicTower extends Tower {
                 TargetMode.FIRST);
         this.cost = 10;
         this.soundSource = TowerDefenceGame.theGame.getSoundSourceManager().createSoundSource("basictowershot",false, SoundSource.SoundSourceCategory.SFX);
+        this.soundSource.setGain(TowerDefenceGame.theGame.getSettings().sfxVolume);
     }
 
     public void render() {
