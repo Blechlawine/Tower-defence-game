@@ -3,6 +3,7 @@ package de.marc.towerDefenceGame.gui.guis;
 import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.event.Event;
 import de.marc.towerDefenceGame.event.events.KeyEvent;
+import de.marc.towerDefenceGame.event.events.UnPausedPostUpdateEvent;
 import de.marc.towerDefenceGame.event.events.UpdateEvent;
 import de.marc.towerDefenceGame.gameObjects.tower.Tower;
 import de.marc.towerDefenceGame.gui.GuiComponent;
@@ -112,14 +113,16 @@ public class GuiScreenInGame extends GuiScreen {
         ) {
             @Override
             public void onClick() {
-                int bonus = this.game.getGameManager().getCurrentGame().getLevel().spawner.calculateNextWaveBonus();
-                this.game.getPlayer().pay(bonus);
-                this.game.getGameManager().getCurrentGame().getLevel().spawner.nextWave();
+                if (this.game.getGameManager().getCurrentGame().getLevel().spawner.allowNextWave) {
+                    int bonus = this.game.getGameManager().getCurrentGame().getLevel().spawner.calculateNextWaveBonus();
+                    this.game.getPlayer().addMoney(bonus);
+                    this.game.getGameManager().getCurrentGame().getLevel().spawner.nextWave();
+                }
             }
         };
 
         this.nextWaveBonusIcon = new GuiComponentImage(
-                new Vector2(nextWaveButtonPos).add(0, -16),
+                new Vector2(nextWaveButtonPos).add(0, -10),
                 this.root,
                 16, 16,
                 "moneyicon",
@@ -351,7 +354,7 @@ public class GuiScreenInGame extends GuiScreen {
     @Override
     public void onEvent(Event event) {
         super.onEvent(event);
-        if (event instanceof UpdateEvent) {
+        if (event instanceof UnPausedPostUpdateEvent) {
             Player thePlayer = TowerDefenceGame.theGame.getPlayer();
             this.walletLabelText = thePlayer.getWallet() + " $";
             this.healthLabelText = thePlayer.getHealth() + "/" + thePlayer.getMaxHealth();
@@ -374,7 +377,7 @@ public class GuiScreenInGame extends GuiScreen {
             } else if (this.showDetailsPanel && Tile.selectedTile == null) {
                 this.hideDetailsPanel();
             }
-            if (this.game.getGameManager().getCurrentGame().getLevel().spawner.allowNextWave) {
+            if (this.game.getGameManager().getCurrentGame().getLevel().spawner.allowNextWave && !this.game.getSettings().isGamePaused) {
                 this.nextWaveButton.setVisible(true);
                 this.nextWaveBonusLabel.setVisible(true);
                 this.nextWaveBonusIcon.setVisible(true);

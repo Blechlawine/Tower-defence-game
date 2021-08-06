@@ -138,7 +138,7 @@ public class TowerDefenceGame {
         this.fontRenderer = new FontRenderer();
         this.guiManager.setup();
         this.guiManager.setActiveGui(this.guiManager.getGuiFromName("mainmenu"));
-        this.musicManager.startMenuMusic();
+//        this.musicManager.startMenuMusic();
     }
 
     private void loop() {

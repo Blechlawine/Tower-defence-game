@@ -25,7 +25,7 @@ public abstract class Enemy implements Listener, Renderable {
 
     public Enemy(PathNode positionNode, double pathOffsetX, double pathOffsetY, Path path, double level, double size, double maxHealth, String textureHandle) {
         TowerDefenceGame.theGame.getRenderer().getLayerByName("enemies").addElement(this);
-        TowerDefenceGame.theGame.getEventManager().addGameListener(this);
+//        TowerDefenceGame.theGame.getEventManager().addGameListener(this);
         this.positionNode = positionNode;
         this.pathOffset = new Vector2(pathOffsetX, pathOffsetY);
         this.path = path;
@@ -121,14 +121,14 @@ public abstract class Enemy implements Listener, Renderable {
     }
 
     public void onDeath() {
+        this.remove();
         TowerDefenceGame.theGame.getPlayer().addMoney(this.reward);
         TowerDefenceGame.theGame.getPlayer().addKill();
-        this.remove();
     }
 
     public void reachGoal() {
-        TowerDefenceGame.theGame.getPlayer().removeHealth(this.score);
         this.remove();
+        TowerDefenceGame.theGame.getPlayer().removeHealth(this.score);
     }
 
     public double getSize() {
@@ -136,9 +136,9 @@ public abstract class Enemy implements Listener, Renderable {
     }
 
     public void remove() {
-        TowerDefenceGame.theGame.getRenderer().getLayerByName("enemies").removeElement(this);
-        TowerDefenceGame.theGame.getEventManager().removeGameListener(this);
         TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().getEnemies().remove(this);
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("enemies").removeElement(this);
+//        TowerDefenceGame.theGame.getEventManager().removeGameListener(this);
     }
 
     public void damage(double value) {

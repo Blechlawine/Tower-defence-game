@@ -54,6 +54,10 @@ public class SoundSource {
         return AL10.alGetSourcei(this.sourceID, AL10.AL_SOURCE_STATE) == AL10.AL_PLAYING;
     }
 
+    public boolean isPaused() {
+        return AL10.alGetSourcei(this.sourceID, AL10.AL_SOURCE_STATE) == AL10.AL_PAUSED;
+    }
+
     public void cleanup() {
         this.stop();
         AL10.alDeleteSources(this.sourceID);

@@ -13,8 +13,16 @@ public class GameManager extends ListManager<Game> {
     }
 
     public void startNewGame(String levelName) {
-        if (this.currentGame == null)
+        if (this.currentGame != null && this.currentGame.hasEnded()) {
+            this.currentGame = null;
+        }
+        if (this.currentGame == null) {
             this.currentGame = new Game(TowerDefenceGame.theGame.getLevelFileManager().getLevelFileByName(levelName));
+        }
+    }
+
+    public void endCurrentGame() {
+        this.currentGame.end();
     }
 
     public Game getCurrentGame() {

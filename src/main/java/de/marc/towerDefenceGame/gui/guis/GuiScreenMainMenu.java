@@ -1,5 +1,6 @@
 package de.marc.towerDefenceGame.gui.guis;
 
+import de.marc.towerDefenceGame.TowerDefenceGame;
 import de.marc.towerDefenceGame.gui.GuiComponent;
 import de.marc.towerDefenceGame.gui.GuiScreen;
 import de.marc.towerDefenceGame.gui.components.GuiComponentButton;
@@ -42,12 +43,13 @@ public class GuiScreenMainMenu extends GuiScreen {
         content.add(this.settingsButton);
         content.add(this.creditsButton);
         this.root.setContent(content);
+        TowerDefenceGame.theGame.getMusicManager().startMenuMusic();
     }
 
     @Override
     public void createComponents() {
 //        Vector2 playBtnPos = new Vector2(getInPixels(50, "vw") - 100, getInPixels(50, "vh") - 20);
-        String playBtnText = (this.game.getGameManager().getCurrentGame() != null ? "Resume Game" : "Play");
+        String playBtnText = (this.game.getGameManager().getCurrentGame() != null && !this.game.getGameManager().getCurrentGame().hasEnded() ? "Resume Game" : "Play");
         this.playButton = new GuiComponentButton(
                 new Vector2(0, 0),
                 this.root,
@@ -59,7 +61,7 @@ public class GuiScreenMainMenu extends GuiScreen {
         ) {
             @Override
             public void onClick() {
-                if (this.game.getGameManager().getCurrentGame() != null) {
+                if (this.game.getGameManager().getCurrentGame() != null && !this.game.getGameManager().getCurrentGame().hasEnded()) {
                     // Resume current Game
                     this.game.getGameManager().getCurrentGame().resume();
                 } else {

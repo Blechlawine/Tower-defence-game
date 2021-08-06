@@ -18,13 +18,13 @@ import java.util.List;
 
 public class Level implements Renderable, Listener {
 
-    private final List<Chunk> chunks = new ArrayList<>();
+    private List<Chunk> chunks = new ArrayList<>();
 
     public Tile startPortalTile, endPortalTile;
     public EnemySpawner spawner;
     public double[] boundary = new double[4]; // left, top, right, bottom
 
-    private final ArrayList<Enemy> enemies;
+    private ArrayList<Enemy> enemies;
     private Path path;
     private Vector2 middle;
 
@@ -43,6 +43,10 @@ public class Level implements Renderable, Listener {
             chunk.onEvent(event);
         }
         this.spawner.onEvent(event);
+        Enemy[] tempEnemies = this.enemies.toArray(new Enemy[0]);
+        for (Enemy enemy : tempEnemies) {
+            enemy.onEvent(event);
+        }
     }
 
     public Level generateFromJsonFile(String fileName) {
@@ -83,6 +87,18 @@ public class Level implements Renderable, Listener {
         level.createBoundary();
         TowerDefenceGame.theGame.getLogger().info("Finished Level: " + fileName);
         return level;
+    }
+
+    public void destroy() {
+        this.spawner = null;
+        Enemy[] tempEnemies = this.enemies.toArray(new Enemy[0]);
+        for (Enemy enemy : tempEnemies) {
+            enemy.remove();
+        }
+        this.chunks = new ArrayList<>();
+        this.enemies = new ArrayList<>();
+        this.path = null;
+        this.middle = null;
     }
 
     private void setPath(Path path) {

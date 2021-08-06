@@ -10,12 +10,15 @@ import de.marc.towerDefenceGame.level.Level;
 
 public class Game implements Listener {
 
-    private final Level level;
+    private Level level;
 
     private boolean shouldAutoUnpause = true;
 
+    private boolean ended = false;
+
     public Game(String levelFileName) {
         this.level = new Level().generateFromJsonFile(levelFileName);
+        TowerDefenceGame.theGame.getPlayer().reset();
         TowerDefenceGame.theGame.getPlayer().setActiveTool(0);
         TowerDefenceGame.theGame.getMusicManager().startIngameMusic();
         this.resume();
@@ -33,7 +36,7 @@ public class Game implements Listener {
             this.shouldAutoUnpause = true;
         }  //            this.pausedTimeMS = 0L;
 
-        if (!TowerDefenceGame.theGame.getSettings().isGamePaused) {
+        if (!TowerDefenceGame.theGame.getSettings().isGamePaused && !this.hasEnded() && this.level != null) {
             TowerDefenceGame.theGame.getPlayer().onEvent(event);
             this.level.onEvent(event);
         }
@@ -42,26 +45,36 @@ public class Game implements Listener {
     public void end() {
         TowerDefenceGame.theGame.getGuiManager().setActiveGui("defeat");
         TowerDefenceGame.theGame.getSettings().isGamePaused = true;
-//        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").removeElement(this.level);
-//        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").removeElement(this.level.getPath());
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").removeElement(this.level);
+        TowerDefenceGame.theGame.getRenderer().getLayerByName("level").removeElement(this.level.getPath());
         TowerDefenceGame.theGame.getEventManager().removeGameListener(this);
+        this.ended = true;
+        this.level.destroy();
+        this.level = null;
     }
 
     public Level getLevel() {
         return this.level;
     }
 
+    public boolean hasEnded() {
+        return this.ended;
+    }
+
     public void unpause() {
         TowerDefenceGame.theGame.getSettings().isGamePaused = false;
+        TowerDefenceGame.theGame.getMusicManager().unpauseIngameMusic();
         this.shouldAutoUnpause = true;
     }
 
     public void pause() {
         TowerDefenceGame.theGame.getSettings().isGamePaused = true;
+        TowerDefenceGame.theGame.getMusicManager().pauseIngameMusic();
         this.shouldAutoUnpause = false;
     }
 
     public void resume() {
+        this.unpause();
         TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level);
         TowerDefenceGame.theGame.getRenderer().getLayerByName("level").addElement(this.level.getPath());
         TowerDefenceGame.theGame.getPlayer().setPos(this.level.getMiddlePos());

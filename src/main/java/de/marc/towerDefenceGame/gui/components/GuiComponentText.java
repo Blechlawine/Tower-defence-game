@@ -131,6 +131,10 @@ public class GuiComponentText extends GuiComponent {
         this.alignment = alignment;
     }
 
+    public void setFontSize(double size) {
+        this.fontSize = size;
+    }
+
     public enum TextAlignment {
         CENTER, LEFT, RIGHT
     }

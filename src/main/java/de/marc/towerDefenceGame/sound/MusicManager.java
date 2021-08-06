@@ -22,7 +22,7 @@ public class MusicManager {
         if (this.ingameMusicSoundSource.isPlaying()) {
             this.ingameMusicSoundSource.stop();
         }
-        if (!this.menuMusicSoundSource.isPlaying()) {
+        if (!this.menuMusicSoundSource.isPlaying() && !this.ingameMusicSoundSource.isPaused()) {
             this.menuMusicSoundSource.play();
         }
     }
@@ -36,4 +36,15 @@ public class MusicManager {
         }
     }
 
+    public void pauseIngameMusic() {
+        if (this.ingameMusicSoundSource.isPlaying()) {
+            this.ingameMusicSoundSource.pause();
+        }
+    }
+
+    public void unpauseIngameMusic() {
+        if (!this.ingameMusicSoundSource.isPlaying()) {
+            this.ingameMusicSoundSource.play();
+        }
+    }
 }
