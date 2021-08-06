@@ -36,7 +36,7 @@ public abstract class GuiComponentSlider extends GuiInteractableComponent {
         this.stepSize = stepSize;
         this.stepNumber = (this.value - this.min) / this.stepSize;
         this.visualStepSize = this.width / ((this.max - this.min) / this.stepSize);
-        this.handlePos = this.getAbsolutePos().getX() + this.stepNumber * this.visualStepSize;
+        this.handlePos = this.stepNumber * this.visualStepSize;
         this.interactBinding = new Keybinding(Settings.KeyBindings.GUI_INTERACT, new KeyAction[]{UP, DOWN}) {
             @Override
             public void onKeyAction(KeyAction action, KeyEvent event) {
@@ -57,7 +57,6 @@ public abstract class GuiComponentSlider extends GuiInteractableComponent {
     @Override
     public void setRelativePos(Vector2 pos) {
         super.setRelativePos(pos);
-        this.handlePos = this.getAbsolutePos().getX() + this.stepNumber * this.visualStepSize;
     }
 
     @Override
@@ -71,7 +70,7 @@ public abstract class GuiComponentSlider extends GuiInteractableComponent {
             double relMouseXPos = mouseXPos - this.getAbsolutePos().getX();
             double relMouseXPosLimited = Utils.limitD(relMouseXPos, 0, this.width);
             this.stepNumber = (int)Math.floor(relMouseXPosLimited / this.visualStepSize);
-            this.handlePos = this.getAbsolutePos().getX() + this.stepNumber * this.visualStepSize;
+            this.handlePos = this.stepNumber * this.visualStepSize;
             this.value = this.min + this.stepNumber * this.stepSize;
             this.onChange(this.value);
         }
@@ -88,7 +87,7 @@ public abstract class GuiComponentSlider extends GuiInteractableComponent {
         GLUtils.drawTexturedRect(this.getAbsolutePos().getX() + this.width - this.height, this.getAbsolutePos().getY(), this.height, this.height, 1, 0, -1, 1, "sliderbase", new Color(1, 1, 1));
         // middle part
         GLUtils.drawTexturedRect(this.getAbsolutePos().getX() + this.height, this.getAbsolutePos().getY(), this.width - (this.height*2), this.height, 0.5, 0, 0.5, 1, "sliderbase", new Color(1, 1, 1));
-
-        GLUtils.drawTexturedRect(this.handlePos - this.height / 2, this.getAbsolutePos().getY(), this.height, this.height, 0, 0, 1, 1, "sliderhandle", new Color(1, 1, 1));
+        // Handle
+        GLUtils.drawTexturedRect(this.getAbsolutePos().getX() + this.handlePos - this.height / 2, this.getAbsolutePos().getY(), this.height, this.height, 0, 0, 1, 1, "sliderhandle", new Color(1, 1, 1));
     }
 }
