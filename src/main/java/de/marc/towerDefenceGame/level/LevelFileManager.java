@@ -6,8 +6,9 @@ import de.marc.towerDefenceGame.utils.ListManager;
 public class LevelFileManager extends ListManager<String[]> {
     @Override
     public void setup() {
-        this.addLevelFile("assets/levels/test2.json", "test2", "test2Preview");
-        this.addLevelFile("assets/levels/testBig.json", "testbig", "testbigPreview");
+        this.addLevelFile("assets/levels/level1.json", "Level 1", "level1Preview");
+        this.addLevelFile("assets/levels/level2.json", "Level 2", "level2Preview");
+        this.addLevelFile("assets/levels/level3.json", "Level 3", "level3Preview");
     }
 
     private void addLevelFile(String path, String name, String previewTexture) {
