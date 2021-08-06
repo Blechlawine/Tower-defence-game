@@ -31,6 +31,7 @@ public class EnemySpawner implements Listener {
     private long firstWaveDelay = 14000;
     private long spawnDelayMs = 700;
     private boolean firstWave;
+    public boolean allowNextWave = false;
 
     public EnemySpawner(double x, double y, int size, Level level) {
         this.yPos = y;
@@ -63,7 +64,7 @@ public class EnemySpawner implements Listener {
         double offsetY = Math.random() * this.spawnWidth - this.spawnWidth / 2;
         if (this.enemiesToSpawn.empty()) {
             if(this.nextWaveTimer.hasReached(this.nextWaveDelay)) {
-                TowerDefenceGame.theGame.getLogger().debug("Next Wave");
+//                TowerDefenceGame.theGame.getLogger().debug("Next Wave");
                 this.nextWave();
             }
         } else {
@@ -80,6 +81,7 @@ public class EnemySpawner implements Listener {
                     break;
             }
             if (this.enemiesToSpawn.empty()) {
+                this.allowNextWave = true;
                 this.nextWaveTimer.reset();
             }
             this.level.getEnemies().add(tempEnemy);
@@ -90,7 +92,7 @@ public class EnemySpawner implements Listener {
         if (event instanceof UpdateEvent) {
             UpdateEvent e = (UpdateEvent) event;
             if (this.firstWave) {
-                TowerDefenceGame.theGame.getLogger().debug("first wave");
+//                TowerDefenceGame.theGame.getLogger().debug("first wave");
                 this.firstWaveTimer.start();
                 this.firstWaveTimer.reset();
                 this.firstWave = false;
@@ -111,6 +113,11 @@ public class EnemySpawner implements Listener {
         }
         this.waveNewEnemyProbability = this.currentWave / 10d - this.prevNewEnemyProbability;
         this.fillEnemySpawnStack();
+        this.allowNextWave = false;
+    }
+
+    public int calculateNextWaveBonus() {
+        return (int)this.nextWaveTimer.getCountdown(this.nextWaveDelay) / 1000;
     }
 
     private void fillEnemySpawnStack() {

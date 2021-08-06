@@ -44,17 +44,19 @@ public class GuiComponentImage extends GuiComponent {
 
     @Override
     public void render() {
-        if (!transparentBackground) GLUtils.drawRect(this.getAbsolutePos().getX(), this.getAbsolutePos().getY(), this.width, this.height, this.backgroundColor);
-        GLUtils.drawTexturedRect(this.getAbsolutePos().getX(),
-                this.getAbsolutePos().getY(),
-                this.finalWidth,
-                this.finalHeight,
-                0,
-                0,
-                1,
-                1,
-                this.imageTexHandle,
-                new Color(1, 1, 1));
+        if (this.visible) {
+            if (!transparentBackground) GLUtils.drawRect(this.getAbsolutePos().getX(), this.getAbsolutePos().getY(), this.width, this.height, this.backgroundColor);
+            GLUtils.drawTexturedRect(this.getAbsolutePos().getX(),
+                    this.getAbsolutePos().getY(),
+                    this.finalWidth,
+                    this.finalHeight,
+                    0,
+                    0,
+                    1,
+                    1,
+                    this.imageTexHandle,
+                    new Color(1, 1, 1));
+        }
     }
 
     @Override

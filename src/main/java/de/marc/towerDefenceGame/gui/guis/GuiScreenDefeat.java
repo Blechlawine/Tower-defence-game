@@ -28,6 +28,8 @@ public class GuiScreenDefeat extends GuiScreen {
                 this.root,
                 200, 40,
                 null,
+                true,
+                true,
                 true
         ) {
             @Override

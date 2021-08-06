@@ -20,6 +20,7 @@ public abstract class GuiComponentButton extends GuiInteractableComponent {
     private SoundSource soundSource;
 
     private Keybinding pressBinding;
+    private boolean hasBackground, centerContent;
 
     private byte state; // 0 == normal; 1 == hovered; 2 == pressed;
 
@@ -28,11 +29,15 @@ public abstract class GuiComponentButton extends GuiInteractableComponent {
                               double width,
                               double height,
                               GuiComponent content,
-                              boolean primary
+                              boolean primary,
+                              boolean hasBackground,
+                              boolean centerContent
     ) {
         super(relativePos, parent, width, height);
-
+        this.hasBackground = hasBackground;
         this.initialColor = color;
+        this.centerContent = centerContent;
+        this.setContent(content);
         this.color = new Color(primary ? Colors.BUTTONPRIMARY : Colors.BUTTONPRIMARY);
         this.hoverColor = new Color(primary ? Colors.BUTTONPRIMARYHOVER : Colors.BUTTONPRIMARYHOVER);
         this.soundSource = TowerDefenceGame.theGame.getSoundSourceManager().createSoundSource("click",false, SoundSource.SoundSourceCategory.SFX);
@@ -60,8 +65,10 @@ public abstract class GuiComponentButton extends GuiInteractableComponent {
 
     @Override
     public void onEvent(Event event) {
-        super.onEvent(event);
-        this.pressBinding.onEvent(event);
+        if (this.visible) {
+            super.onEvent(event);
+            this.pressBinding.onEvent(event);
+        }
     }
 
     protected void onMouseIn() {
@@ -75,24 +82,32 @@ public abstract class GuiComponentButton extends GuiInteractableComponent {
 
     @Override
     public void render() {
-        String textureHandle = (this.state == 2 ? "buttonpressed" : "button");
-        // left side
-        GLUtils.drawTexturedRect(this.getAbsolutePos().getX(), this.getAbsolutePos().getY(), this.height, this.height, 0, 0, 1, 1, textureHandle, new Color(1, 1, 1));
-        // right side
-        GLUtils.drawTexturedRect(this.getAbsolutePos().getX() + this.width - this.height, this.getAbsolutePos().getY(), this.height, this.height, 1, 0, -1, 1, textureHandle, new Color(1, 1, 1));
-        // middle part
-        GLUtils.drawTexturedRect(this.getAbsolutePos().getX() + this.height, this.getAbsolutePos().getY(), this.width - (this.height*2), this.height, 0.5, 0, 0.5, 1, textureHandle, new Color(1, 1, 1));
-        double pressedTextOffset = this.height / 16 * 3;
-        GL11.glPushMatrix();
-        GL11.glTranslated((this.width / 2),
-                (this.state == 2 ? pressedTextOffset / 2 : -pressedTextOffset / 2) + (this.height / 3),
-                0);
-        this.content.render();
-        GL11.glPopMatrix();
+        if (this.visible) {
+            if (this.hasBackground) {
+                String textureHandle = (this.state == 2 ? "buttonpressed" : "button");
+                // left side
+                GLUtils.drawTexturedRect(this.getAbsolutePos().getX(), this.getAbsolutePos().getY(), this.height, this.height, 0, 0, 1, 1, textureHandle, new Color(1, 1, 1));
+                // right side
+                GLUtils.drawTexturedRect(this.getAbsolutePos().getX() + this.width - this.height, this.getAbsolutePos().getY(), this.height, this.height, 1, 0, -1, 1, textureHandle, new Color(1, 1, 1));
+                // middle part
+                GLUtils.drawTexturedRect(this.getAbsolutePos().getX() + this.height, this.getAbsolutePos().getY(), this.width - (this.height*2), this.height, 0.5, 0, 0.5, 1, textureHandle, new Color(1, 1, 1));
+            }
+            double pressedTextOffset = this.height / 16 * 3;
+            GL11.glPushMatrix();
+            if (this.centerContent) {
+                GL11.glTranslated((this.width / 2),
+                        (this.state == 2 ? pressedTextOffset / 2 : -pressedTextOffset / 2) + (this.height / 3),
+                        0);
+            }
+            this.content.render();
+            GL11.glPopMatrix();
+        }
     }
 
     public void setContent(GuiComponent content) {
         this.content = content;
-        this.content.setParent(this);
+        if (this.content != null) {
+            this.content.setParent(this);
+        }
     }
 }

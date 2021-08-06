@@ -20,9 +20,10 @@ import static de.marc.towerDefenceGame.utils.Settings.KeyBindings.GUI_BACK;
 
 public class GuiScreenInGame extends GuiScreen {
 
-    private GuiComponentText walletLabel, healthLabel, killCountLabel, firstWaveCountdownLabel;
-    private GuiComponentImage walletIcon, healthIcon, killCountIcon;
+    private GuiComponentText walletLabel, healthLabel, killCountLabel, firstWaveCountdownLabel, nextWaveBonusLabel;
+    private GuiComponentImage walletIcon, healthIcon, killCountIcon, nextWaveBonusIcon;
     private GuiComponentToolbar towerToolbar;
+    private GuiComponentButton nextWaveButton;
     private boolean showDetailsPanel = false, showEscMenu = false;
 
     private GuiComponentFlexLayout escMenu;
@@ -90,6 +91,50 @@ public class GuiScreenInGame extends GuiScreen {
         this.towerToolbar = new GuiComponentToolbar(
                 new Vector2(getInPixels(50, "vw") - 75, getInPixels(100, "vh") - 50),
                 this.root
+        );
+
+        GuiComponentImage nextWaveIcon = new GuiComponentImage(
+                new Vector2(0, 0),
+                null,
+                60, 60,
+                "nextwaveicon",
+                null, true
+        );
+        Vector2 nextWaveButtonPos = new Vector2(getInPixels(100, "vw") - 80, getInPixels(100, "vh") - 80);
+        this.nextWaveButton = new GuiComponentButton(
+                nextWaveButtonPos,
+                this.root,
+                60, 60,
+                nextWaveIcon,
+                false,
+                false,
+                false
+        ) {
+            @Override
+            public void onClick() {
+                int bonus = this.game.getGameManager().getCurrentGame().getLevel().spawner.calculateNextWaveBonus();
+                this.game.getPlayer().pay(bonus);
+                this.game.getGameManager().getCurrentGame().getLevel().spawner.nextWave();
+            }
+        };
+
+        this.nextWaveBonusIcon = new GuiComponentImage(
+                new Vector2(nextWaveButtonPos).add(0, -16),
+                this.root,
+                16, 16,
+                "moneyicon",
+                null,
+                true
+        );
+        this.nextWaveBonusLabel = new GuiComponentText(
+                new Vector2(nextWaveButtonPos).add(16, -10),
+                this.root,
+                10,
+                this.game.getFontRenderer().getCharHeight(2),
+                "",
+                2,
+                1.3,
+                GuiComponentText.TextAlignment.LEFT
         );
 
         // DetailsPanel
@@ -193,6 +238,8 @@ public class GuiScreenInGame extends GuiScreen {
                 this.escMenu,
                 200, 40,
                 null,
+                true,
+                true,
                 true
         ) {
             @Override
@@ -207,6 +254,8 @@ public class GuiScreenInGame extends GuiScreen {
                 this.escMenu,
                 200, 40,
                 null,
+                true,
+                true,
                 true
         ) {
             @Override
@@ -242,6 +291,9 @@ public class GuiScreenInGame extends GuiScreen {
         content.add(this.killCountLabel);
         content.add(this.towerToolbar);
         content.add(this.firstWaveCountdownLabel);
+        content.add(this.nextWaveButton);
+        content.add(this.nextWaveBonusIcon);
+        content.add(this.nextWaveBonusLabel);
         content.add(this.detailsPanel);
         content.add(this.escMenu);
         this.root.setContent(content);
@@ -310,14 +362,26 @@ public class GuiScreenInGame extends GuiScreen {
             this.walletLabel.setText(this.walletLabelText);
             this.healthLabel.setText(this.healthLabelText);
             this.killCountLabel.setText(this.killCountLabelText);
-            String firstWaveCountDownText = TowerDefenceGame.theGame.getGameManager().getCurrentGame().getLevel().spawner.getFirstWaveCountdown();
+            String firstWaveCountDownText = this.game.getGameManager().getCurrentGame().getLevel().spawner.getFirstWaveCountdown();
             this.firstWaveCountdownLabel.setWidth(this.game.getFontRenderer().getRenderedStringWidth(firstWaveCountDownText, 4));
             this.firstWaveCountdownLabel.setText(firstWaveCountDownText);
+            String nextWaveBonusText = "+"+this.game.getGameManager().getCurrentGame().getLevel().spawner.calculateNextWaveBonus();
+            this.nextWaveBonusLabel.setWidth(this.game.getFontRenderer().getRenderedStringWidth(nextWaveBonusText, 2));
+            this.nextWaveBonusLabel.setText(nextWaveBonusText);
             if (!this.showDetailsPanel && Tile.selectedTile != null) {
                 this.updateDetailsPanel();
                 this.showDetailsPanel();
             } else if (this.showDetailsPanel && Tile.selectedTile == null) {
                 this.hideDetailsPanel();
+            }
+            if (this.game.getGameManager().getCurrentGame().getLevel().spawner.allowNextWave) {
+                this.nextWaveButton.setVisible(true);
+                this.nextWaveBonusLabel.setVisible(true);
+                this.nextWaveBonusIcon.setVisible(true);
+            } else {
+                this.nextWaveButton.setVisible(false);
+                this.nextWaveBonusLabel.setVisible(false);
+                this.nextWaveBonusIcon.setVisible(false);
             }
         } else if (event instanceof KeyEvent) {
             KeyEvent e = (KeyEvent) event;

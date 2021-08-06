@@ -53,6 +53,8 @@ public class GuiScreenMainMenu extends GuiScreen {
                 this.root,
                 200, 40,
                 null,
+                true,
+                true,
                 true
         ) {
             @Override
@@ -73,6 +75,8 @@ public class GuiScreenMainMenu extends GuiScreen {
                 this.root,
                 200, 40,
                 null,
+                true,
+                true,
                 true
         ) {
             @Override
@@ -88,6 +92,8 @@ public class GuiScreenMainMenu extends GuiScreen {
                 this.root,
                 200, 40,
                 null,
+                true,
+                true,
                 true
         ) {
             @Override

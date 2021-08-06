@@ -104,21 +104,23 @@ public class GuiComponentText extends GuiComponent {
 
     @Override
     public void render() {
-        double yPos = this.getAbsolutePos().getY();
-        for (String line : this.lines) {
-            double xPos = this.getAbsolutePos().getX();
-            double lineWidth = this.game.getFontRenderer().getRenderedStringWidth(line, this.fontSize);
-            if (this.alignment == TextAlignment.CENTER) {
-                if (this.width != lineWidth) {
-                    xPos += this.width / 2 - lineWidth / 2;
-                } else {
-                    xPos -= lineWidth / 2;
+        if (this.visible) {
+            double yPos = this.getAbsolutePos().getY();
+            for (String line : this.lines) {
+                double xPos = this.getAbsolutePos().getX();
+                double lineWidth = this.game.getFontRenderer().getRenderedStringWidth(line, this.fontSize);
+                if (this.alignment == TextAlignment.CENTER) {
+                    if (this.width != lineWidth) {
+                        xPos += this.width / 2 - lineWidth / 2;
+                    } else {
+                        xPos -= lineWidth / 2;
+                    }
+                } else if (this.alignment == TextAlignment.RIGHT) {
+                    xPos -= lineWidth;
                 }
-            } else if (this.alignment == TextAlignment.RIGHT) {
-                xPos -= lineWidth;
+                this.game.getFontRenderer().drawString(line, new Vector2(xPos, yPos), this.fontSize, this.color);
+                yPos += this.game.getFontRenderer().getCharHeight(this.fontSize) * this.lineHeight;
             }
-            this.game.getFontRenderer().drawString(line, new Vector2(xPos, yPos), this.fontSize, this.color);
-            yPos += this.game.getFontRenderer().getCharHeight(this.fontSize) * this.lineHeight;
         }
     }
 

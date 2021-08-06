@@ -46,6 +46,8 @@ public class GuiScreenSelectLevel extends GuiScreen {
                 this.buttonLayout,
                 200, 40,
                 null,
+                true,
+                true,
                 true
         ) {
             @Override
@@ -61,6 +63,8 @@ public class GuiScreenSelectLevel extends GuiScreen {
 //                new Vector2(getInPixels(50, "vw") - 10 - 200, getInPixels(100, "vh") - 20 - 40),
                 200, 40,
                 null,
+                true,
+                true,
                 true
         ) {
             @Override
