@@ -18,6 +18,7 @@ public class SoundBufferManager extends MapManager<String, SoundBuffer> {
     public void setup() {
         // Music
         this.loadSound("assets/sound/ingame1.ogg", "ingame1music");
+        this.loadSound("assets/sound/end1.ogg", "end1music");
         this.loadSound("assets/sound/menu1.ogg", "menu1music");
         // Soundeffects
         this.loadSound("assets/sound/ui/click.ogg", "click");

@@ -64,7 +64,7 @@ public class GuiScreenCredits extends GuiScreen {
         this.root = new GuiComponentFlexLayout(new Vector2(0, 0),
                 null,
                 getInPixels(100, "vw"),
-                getInPixels(100, "vh"),
+                getInPixels(80, "vh"),
                 false,
                 GuiComponentFlexLayout.FlexDirection.VERTICAL,
                 GuiComponentFlexLayout.FlexAlignment.CENTER,

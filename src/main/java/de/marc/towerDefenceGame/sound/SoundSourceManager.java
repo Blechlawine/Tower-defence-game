@@ -16,6 +16,7 @@ public class SoundSourceManager extends MapManager<String, SoundSource> {
     public void setup() {
         this.addSoundSource("menu1music", "menu1music", false, SoundSource.SoundSourceCategory.MUSIC);
         this.addSoundSource("ingame1music", "ingame1music", false, SoundSource.SoundSourceCategory.MUSIC);
+        this.addSoundSource("end1music", "end1music", false, SoundSource.SoundSourceCategory.MUSIC);
         this.addSoundSource("coin", "coin",false, SoundSource.SoundSourceCategory.SFX);
     }
 

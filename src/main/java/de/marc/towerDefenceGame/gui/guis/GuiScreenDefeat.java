@@ -104,7 +104,7 @@ public class GuiScreenDefeat extends GuiScreen {
         this.root = new GuiComponentFlexLayout(new Vector2(0, 0),
                 null,
                 getInPixels(100, "vw"),
-                getInPixels(100, "vh"),
+                getInPixels(80, "vh"),
                 false,
                 GuiComponentFlexLayout.FlexDirection.VERTICAL,
                 GuiComponentFlexLayout.FlexAlignment.CENTER,
@@ -121,5 +121,6 @@ public class GuiScreenDefeat extends GuiScreen {
         content.add(this.moneyLayout);
         content.add(this.mainMenuBtn);
         this.root.setContent(content);
+        this.game.getMusicManager().startEndMusic();
     }
 }
