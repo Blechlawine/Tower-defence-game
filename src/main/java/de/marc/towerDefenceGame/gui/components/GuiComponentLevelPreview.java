@@ -70,8 +70,14 @@ public abstract class GuiComponentLevelPreview extends GuiInteractableComponent 
 
     @Override
     public void render() {
-        GLUtils.drawRect(this.getAbsolutePos().getX(), this.getAbsolutePos().getY(), this.width, this.height, new Color(Colors.BACKGROUND));
-        GLUtils.drawTexturedRect(this.getAbsolutePos().getX(),
+        GLUtils.drawRect(
+                this.getAbsolutePos().getX(),
+                this.getAbsolutePos().getY(),
+                this.width,
+                this.height,
+                new Color(Colors.BACKGROUND));
+        GLUtils.drawTexturedRect(
+                this.getAbsolutePos().getX(),
                 this.getAbsolutePos().getY(),
                 this.finalImageWidth,
                 this.finalImageHeight,
@@ -83,7 +89,7 @@ public abstract class GuiComponentLevelPreview extends GuiInteractableComponent 
                 new Color(1, 1, 1));
 
         this.game.getFontRenderer().drawString(this.levelName,
-                new Vector2(this.getAbsolutePos()).add(this.height, 0),
+                new Vector2(this.getAbsolutePos()).add(this.height + 10, 10),
                 2,
                 new Color(Colors.TEXT)
                 );
